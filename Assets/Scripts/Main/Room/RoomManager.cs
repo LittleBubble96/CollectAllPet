@@ -1,7 +1,29 @@
 ﻿public class RoomManager : Singleton<RoomManager>
 {
     private int enterRoomId = -1;
-    
+    private ERoomState roomState = ERoomState.None;
+
+    public ERoomState RoomState
+    {
+        get { return roomState; }
+        set
+        {
+            if (roomState == value) return;
+            roomState = value;
+            switch (roomState)
+            {
+                case ERoomState.None:
+                    break;
+                case ERoomState.Waiting:
+                    break;
+                case ERoomState.Playing:
+                    break;
+                case ERoomState.End:
+                    break;
+            }
+        }
+    }
+
     public void Init()
     {
         // Init RoomManager
@@ -30,4 +52,18 @@
         // Refresh Room List
         ClientRequestFunc.RefreshRoomListRequest();
     }
+
+    #region 房间世界
+    public void OnWaitRoom()
+    {
+        // Wait Room
+        //开启协程
+    }
+    
+    public void SpawnRoomWorld()
+    {
+        // Spawn Room World
+    }
+
+    #endregion
 }

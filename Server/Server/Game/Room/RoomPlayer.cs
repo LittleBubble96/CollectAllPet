@@ -7,8 +7,6 @@ public class RoomPlayer
     public int RoomId { get; private set; }
     public Vector3 SpawnPos { get; private set; }
     public Vector3 SpawnRot { get; private set; }
-    public Vector3 Position { get; private set; }
-    public Vector3 Rotation { get; private set; }
 
     public void Init(string playerId, int roomId , Vector3 spawnPos, Vector3 spawnRot)
     {
@@ -16,8 +14,6 @@ public class RoomPlayer
         RoomId = roomId;
         SpawnPos = spawnPos;
         SpawnRot = spawnRot;
-        Position = spawnPos;
-        Rotation = spawnRot;
     }
 
     public SimplePlayerInfo GetSimplePlayerInfo()

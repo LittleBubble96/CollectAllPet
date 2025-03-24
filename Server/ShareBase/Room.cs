@@ -62,4 +62,25 @@ namespace ShareProtobuf
     {
         [ProtoMember(1)] public List<SimpleRoomInfo> RoomInfos { get; set; }
     }
+
+    //游戏玩家信息
+    [ProtoContract]
+     public class  GamePlayerInfo
+     {
+        [ProtoMember(1)] public string PlayerId { get; set; }
+        [ProtoMember(2)] public string PlayerName { get; set; }
+        [ProtoMember(3)] public int RefActorId { get; set; }
+     }
+
+    //详细房间信息
+    [ProtoContract]
+    public class  RoomDetailInfo
+    {
+        [ProtoMember(1)] public int RoomId { get; set; }
+        [ProtoMember(2)] public string RoomName { get; set; }
+        [ProtoMember(3)] public int PlayerCount { get; set; }
+        [ProtoMember(4)] public int MaxPlayerCount { get; set; }
+        //SimplePlayerInfo 列表
+        [ProtoMember(5)] public List<GamePlayerInfo> Players { get; set; }
+    }
 }

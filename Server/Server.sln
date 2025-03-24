@@ -1,0 +1,34 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.10.35013.160
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Server", "Server\Server.csproj", "{0F20309B-8EBE-4647-8560-8F5DB5CCBDB7}"
+	ProjectSection(ProjectDependencies) = postProject
+		{4C0F16C2-256C-43AD-8FB9-155FD1ECD5DE} = {4C0F16C2-256C-43AD-8FB9-155FD1ECD5DE}
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShareBase", "ShareBase\ShareBase.csproj", "{4C0F16C2-256C-43AD-8FB9-155FD1ECD5DE}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{0F20309B-8EBE-4647-8560-8F5DB5CCBDB7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0F20309B-8EBE-4647-8560-8F5DB5CCBDB7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0F20309B-8EBE-4647-8560-8F5DB5CCBDB7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0F20309B-8EBE-4647-8560-8F5DB5CCBDB7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4C0F16C2-256C-43AD-8FB9-155FD1ECD5DE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4C0F16C2-256C-43AD-8FB9-155FD1ECD5DE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4C0F16C2-256C-43AD-8FB9-155FD1ECD5DE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4C0F16C2-256C-43AD-8FB9-155FD1ECD5DE}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {D9C80D9B-F1B0-4DE4-BEFB-947BA8EDB290}
+	EndGlobalSection
+EndGlobal

@@ -1,11 +1,7 @@
 *.meta
-*.sln
-*.csproj
 *.userprefs
 *.pidb
 *.suo
-*.sln.docstates
-*.csproj.user
 *.unityproj
 *.booproj
 *.orig

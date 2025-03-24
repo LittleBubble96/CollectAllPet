@@ -17,11 +17,20 @@ public class GameServe : Singleton<GameServe>
     //客户端
     private ConcurrentDictionary<string,ClientHandle> _clients = new ConcurrentDictionary<string,ClientHandle>();
     
+    //开始时间
+    private Thread updateThread;
 
     public void Init(string ip, int port)
     {
         this.iPAddress = IPAddress.Parse(ip);
         this.port = port;
+
+        //开启更新线程
+        updateThread = new Thread(Update)
+        {
+            IsBackground = true, // 设为后台线程（主线程退出时自动终止）
+            Priority = ThreadPriority.AboveNormal // 提高线程优先级
+        };
     }
 
     public void Start()
@@ -41,6 +50,26 @@ public class GameServe : Singleton<GameServe>
         catch (Exception ex)
         {
             Console.WriteLine("服务器启动失败: {0}", ex.Message);
+        }
+    }
+
+    //update
+    private void Update()
+    {
+        double lag = 0;
+        long startTime = TimeHelper.GetTimeStamp();
+        while (isRunning)
+        {
+            long currentTime = TimeHelper.GetTimeStamp();
+            long elapsedTime = currentTime - startTime;
+            startTime = currentTime;
+            lag += elapsedTime;
+            while (lag >= GameConst.FrameInterval)
+            {
+                GameRoomManager.Instance.Update();
+                lag -= GameConst.FrameInterval;
+            }
+            Thread.Sleep(1);
         }
     }
 

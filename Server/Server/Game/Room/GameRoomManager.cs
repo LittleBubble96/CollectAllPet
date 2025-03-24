@@ -11,6 +11,14 @@ public class GameRoomManager : Singleton<GameRoomManager>
     
     }
 
+    public void Update()
+    {
+        //foreach (var gameRoom in _gameRooms)
+        //{
+        //    gameRoom.Value.Update();
+        //}
+    }
+
     public CreateRoomResultCallBack CreateRoom(string playerId , string roomName , int maxPlayerCount)
     { 
         GameRoom gameRoom = new GameRoom();
