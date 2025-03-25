@@ -1,7 +1,8 @@
 ﻿public enum GameStateEnum
 {
     Login,
-    Main
+    Main,
+    RoomGame,
 }
 
 public class GameStateMachine : StateMachineBase

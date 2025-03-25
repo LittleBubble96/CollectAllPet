@@ -131,4 +131,14 @@ public class GameServe : Singleton<GameServe>
         }
     }
 
+    public ClientHandle GetClientHandle(string clientId)
+    {
+        if (_clients.TryGetValue(clientId, out var client))
+        {
+            return client;
+        }
+
+        return null;
+    }
+
 }

@@ -16,6 +16,7 @@ public class JoinRoomResponseHandle : ClientMessageRequestBase
         {
             Debug.Log("Join room success");
             RoomManager.Instance.EnterRoom(response.RoomId);
+            GameManager.GetGameStateMachine().ChangeGameState(GameStateEnum.RoomGame);
         }
         GameManager.GetAppEventDispatcher().BroadcastListener(EventName.Event_JoinRoomSuccess,response.RoomId, response.IsSuccess);
 

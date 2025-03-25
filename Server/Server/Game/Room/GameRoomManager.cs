@@ -19,7 +19,7 @@ public class GameRoomManager : Singleton<GameRoomManager>
         //}
     }
 
-    public CreateRoomResultCallBack CreateRoom(string playerId , string roomName , int maxPlayerCount)
+    public CreateRoomResultCallBack CreateRoom(string playerId ,string clientIPAndPort, string roomName , int maxPlayerCount)
     { 
         GameRoom gameRoom = new GameRoom();
         int roomId = GenerateRoomId();
@@ -27,18 +27,27 @@ public class GameRoomManager : Singleton<GameRoomManager>
         {
             return new CreateRoomResultCallBack() { IsSuccess = false, Message = "创建房间失败" };
         }
-        gameRoom.Init(playerId,roomId, roomName, maxPlayerCount);
+        gameRoom.Init(playerId,clientIPAndPort,roomId, roomName, maxPlayerCount);
         _gameRooms.TryAdd(gameRoom.RoomId, gameRoom);
         return new CreateRoomResultCallBack() { IsSuccess = true, Message = "创建房间成功", RoomId = roomId };
     }
 
-    public ResultCallBack JoinRoom(string playerId, int roomId)
+    public GameRoom GetGameRoom(int roomId)
+    {
+        if (_gameRooms.TryGetValue(roomId, out GameRoom gameRoom))
+        {
+            return gameRoom;
+        }
+        return null;
+    }
+
+    public ResultCallBack JoinRoom(string playerId ,string clientIPAndPort, int roomId)
     {
         if (!_gameRooms.TryGetValue(roomId, out GameRoom gameRoom))
         {
             return new ResultCallBack() { IsSuccess = false, Message = "房间不存在" };
         }
-        return gameRoom.AddPlayer(playerId);
+        return gameRoom.AddPlayer(playerId,clientIPAndPort);
     }
 
     private int GenerateRoomId()

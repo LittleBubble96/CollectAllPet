@@ -12,6 +12,7 @@ public class RoomGameState : GameStateBase
     {
         //更新房间详细信息
         GameManager.GetUIManager().ShowLockUI();
+        RoomManager.Instance.RoomState = ERoomState.Waiting;
         
         yield return null;
     }

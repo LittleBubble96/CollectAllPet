@@ -2,6 +2,7 @@
 {
     None,
     Waiting,
+    Loading,
     Playing,
     End
 }

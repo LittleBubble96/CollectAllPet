@@ -33,4 +33,12 @@ public class ClientRequestFunc
         joinRoom.PlayerId = CharacterManager.Instance.PlayerInfo.PlayerId;
         await GameManager.GetNetworkManager().SendRequest(MessageRequestType.JoinRoomRequest, joinRoom);
     }
+    
+    public static async void GetRoomDetailRequest(int roomId, string playerId)
+    {
+        GetRoomDetailRequest getRoomDetail = new GetRoomDetailRequest();
+        getRoomDetail.RoomId = roomId;
+        getRoomDetail.PlayerId = playerId;
+        await GameManager.GetNetworkManager().SendRequest(MessageRequestType.GetRoomDetailRequest, getRoomDetail);
+    }
 }

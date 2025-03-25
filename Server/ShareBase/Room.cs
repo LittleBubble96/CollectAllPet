@@ -1,6 +1,7 @@
 ﻿using ProtoBuf;
 using System;
 using System.Collections.Generic;
+using System.Numerics;
 using System.Text;
 
 
@@ -65,10 +66,10 @@ namespace ShareProtobuf
 
     //游戏玩家信息
     [ProtoContract]
-     public class  GamePlayerInfo
+     public class  GameActorInfo
      {
-        [ProtoMember(1)] public string PlayerId { get; set; }
-        [ProtoMember(2)] public string PlayerName { get; set; }
+        [ProtoMember(1)] public string OwnerPlayerId { get; set; }
+        [ProtoMember(2)] public string ActorRes { get; set; }
         [ProtoMember(3)] public int RefActorId { get; set; }
      }
 
@@ -80,7 +81,24 @@ namespace ShareProtobuf
         [ProtoMember(2)] public string RoomName { get; set; }
         [ProtoMember(3)] public int PlayerCount { get; set; }
         [ProtoMember(4)] public int MaxPlayerCount { get; set; }
-        //SimplePlayerInfo 列表
-        [ProtoMember(5)] public List<GamePlayerInfo> Players { get; set; }
+        //世界Actor 列表
+        [ProtoMember(5)] public List<GameActorInfo> WorldActors { get; set; }
+    }
+    
+    //客户端请求 详细房间信息
+    [ProtoContract]
+    public class  GetRoomDetailRequest
+    {
+        [ProtoMember(1)] public string PlayerId { get; set; }
+        [ProtoMember(2)] public int RoomId { get; set; }
+    }
+    
+    [ProtoContract]
+    public class  GetRoomDetailResponse
+    {
+        [ProtoMember(1)] public bool IsSuccess { get; set; }
+        [ProtoMember(2)] public string Message { get; set; }
+        [ProtoMember(3)] public RoomDetailInfo RoomDetailInfo { get; set; }
+        [ProtoMember(4)] public int RefActorId { get; set; } //客户端对应的ActorId
     }
 }

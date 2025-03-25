@@ -10,3 +10,11 @@ public struct CreateRoomResultCallBack
     public string Message { get; set; }
     public int RoomId { get; set; }
 }
+
+
+public struct CreateActorResultCallBack
+{
+    public bool IsSuccess { get; set; }
+    public string Message { get; set; }
+    public int ActorId { get; set; }
+}

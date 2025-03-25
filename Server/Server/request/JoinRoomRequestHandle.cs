@@ -8,7 +8,7 @@ public class JoinRoomRequestHandle : MessageRquestBase
     {
         JoinRoomRequest joinRoomRequest = await GetClientHandle().ReceiveMessage<JoinRoomRequest>(messageBuffer);
         Console.WriteLine("JoinRoomRequest RoomName: {0}", joinRoomRequest.RoomId);
-        ResultCallBack result = GameRoomManager.Instance.JoinRoom(joinRoomRequest.PlayerId, joinRoomRequest.RoomId);
+        ResultCallBack result = GameRoomManager.Instance.JoinRoom(joinRoomRequest.PlayerId , GetClientHandle().ClientRemoteEndPoint, joinRoomRequest.RoomId);
 
         JoinRoomResponse joinRoomResponse = new JoinRoomResponse
         {

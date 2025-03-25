@@ -15,6 +15,10 @@
                 case ERoomState.None:
                     break;
                 case ERoomState.Waiting:
+                    //发送消息
+                    ClientRequestFunc.GetRoomDetailRequest(enterRoomId,CharacterManager.Instance.PlayerInfo.PlayerId);
+                    break;
+                case ERoomState.Loading:
                     break;
                 case ERoomState.Playing:
                     break;

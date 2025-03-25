@@ -18,6 +18,15 @@ namespace ShareProtobuf
 
         JoinRoomRequest,
         JoinRoomResponse,
+        
+        GetRoomDetailRequest,
+        GetRoomDetailResponse,
+        
+        CreateActorRequest,
+        CreateActorResponse,
+        
+        SyncActorDetailRequest,
+        SyncActorDetailResponse,
     }
 
 

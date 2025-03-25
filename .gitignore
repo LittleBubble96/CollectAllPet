@@ -16,9 +16,10 @@
 /obj/
 /Builds/
 
+Assets/Mirror/
 Server/.vs/
 Server/Server/obj/
 Server/ShareBase/obj/
 Export/
 .idea/
-/Assets/Mirror/
+

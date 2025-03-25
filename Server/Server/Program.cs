@@ -2,11 +2,11 @@ public class Program
 {
     public static void Main()
     {
-        // ÅäÖÃ·şÎñÆ÷IPºÍ¶Ë¿Ú
-        GameServe.Instance.Init("0.0.0.0", 8888); // 0.0.0.0±íÊ¾¼àÌıËùÓĞIP
+        // é…ç½®æœåŠ¡å™¨IPå’Œç«¯å£
+        GameServe.Instance.Init("0.0.0.0", 8888); // 0.0.0.0è¡¨ç¤ºç›‘å¬æ‰€æœ‰IP
         GameServe.Instance.Start();
 
-        // ±£³ÖÖ÷Ïß³ÌÔËĞĞ
+        // ä¿æŒä¸»çº¿ç¨‹è¿è¡Œ
         Console.WriteLine("Press any key to stop the server...");
         Console.ReadKey();
         GameServe.Instance.Stop();

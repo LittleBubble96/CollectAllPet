@@ -4,5 +4,6 @@
     {
         ClientFactory.Instance.GetGameStateFactory().RegisterType<LoginGameState>(GameStateEnum.Login);
         ClientFactory.Instance.GetGameStateFactory().RegisterType<MainGameState>(GameStateEnum.Main);
+        ClientFactory.Instance.GetGameStateFactory().RegisterType<RoomGameState>(GameStateEnum.RoomGame);
     }
 }
