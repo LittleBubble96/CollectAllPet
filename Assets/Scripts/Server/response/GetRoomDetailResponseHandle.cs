@@ -17,8 +17,9 @@ public class GetRoomDetailResponseHandle : ClientMessageRequestBase
         if (response.IsSuccess)
         {
             Debug.Log("Create room success");
+            RoomManager.Instance.UpdateDetailRoom(response.RoomDetailInfo,response.RefActorId);
+            RoomManager.Instance.RoomState = ERoomState.Loading;
         }
-        GameManager.GetAppEventDispatcher().BroadcastListener(EventName.Event_CreateRoomSuccess,response.IsSuccess, response.Message);
 
     }
 

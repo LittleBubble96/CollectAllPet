@@ -4,9 +4,9 @@ using UnityEngine.SceneManagement;
 
 public class CAP_SceneManager : Singleton<CAP_SceneManager>
 {
-    public void LoadScene(string sceneName, System.Action callback = null, System.Action<float> progressCallback = null)
+    public Coroutine LoadScene(string sceneName, System.Action callback = null, System.Action<float> progressCallback = null)
     {
-        GameManager.Instance.StartCoroutine(LoadSceneAsync(sceneName, callback, progressCallback));
+        return GameManager.Instance.StartCoroutine(LoadSceneAsync(sceneName, callback, progressCallback));
     }
 
     

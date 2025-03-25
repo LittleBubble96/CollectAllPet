@@ -1,7 +1,11 @@
-﻿public class RoomManager : Singleton<RoomManager>
+﻿using ShareProtobuf;
+
+public class RoomManager : Singleton<RoomManager>
 {
     private int enterRoomId = -1;
     private ERoomState roomState = ERoomState.None;
+    private RoomDetailInfo roomDetailInfo;
+    private int refActorId;
 
     public ERoomState RoomState
     {
@@ -16,7 +20,7 @@
                     break;
                 case ERoomState.Waiting:
                     //发送消息
-                    ClientRequestFunc.GetRoomDetailRequest(enterRoomId,CharacterManager.Instance.PlayerInfo.PlayerId);
+                    OnWaitRoom();
                     break;
                 case ERoomState.Loading:
                     break;
@@ -31,6 +35,23 @@
     public void Init()
     {
         // Init RoomManager
+    }
+    
+    // Update Room Detail refActorId is Host
+    public void UpdateDetailRoom(RoomDetailInfo roomDetail,int inRefActorId)
+    {
+        this.roomDetailInfo = roomDetail;
+        this.refActorId = inRefActorId;
+    }
+    
+    public RoomDetailInfo GetRoomDetailInfo()
+    {
+        return roomDetailInfo;
+    }
+    
+    public int GetRefActorId()
+    {
+        return refActorId;
     }
     
     public void EnterRoom(int roomId)
@@ -62,6 +83,7 @@
     {
         // Wait Room
         //开启协程
+        ClientRequestFunc.GetRoomDetailRequest(enterRoomId,CharacterManager.Instance.PlayerInfo.PlayerId);
     }
     
     public void SpawnRoomWorld()
