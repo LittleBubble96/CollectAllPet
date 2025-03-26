@@ -71,6 +71,8 @@ namespace ShareProtobuf
         [ProtoMember(1)] public string OwnerPlayerId { get; set; }
         [ProtoMember(2)] public string ActorRes { get; set; }
         [ProtoMember(3)] public int RefActorId { get; set; }
+        [ProtoMember(4)] public string ActorName { get; set; }
+        [ProtoMember(5)] public int ActorRoleType { get; set; }
      }
 
     //详细房间信息

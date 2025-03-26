@@ -1,17 +1,19 @@
 
 using ShareProtobuf;
+using ShareProtobuf.ShareData;
 
 public class CreateActorRequestHandle : MessageRquestBase
 {
     public override async Task ReadFromStream(byte[] messageBuffer)
     {
-        CreateActorRequest createActorRequest = await GetClientHandle().ReceiveMessage<CreateActorRequest>(messageBuffer);
-        Console.WriteLine("CreateActorRequest PlayerId: " + createActorRequest.PlayerId + " RoomId: " + createActorRequest.RoomId);
+        CreatePlayerActorRequest createActorRequest = await GetClientHandle().ReceiveMessage<CreatePlayerActorRequest>(messageBuffer);
+        Console.WriteLine("CreatePlayerActorRequest PlayerId: " + createActorRequest.PlayerId + " RoomId: " + createActorRequest.RoomId);
         
         GameRoom gameRoom = GameRoomManager.Instance.GetGameRoom(createActorRequest.RoomId);
-        if (gameRoom == null)
+        PlayerProxy playerProxy = PlayerManager.Instance.GetPlayer(createActorRequest.PlayerId);
+        if (gameRoom == null || playerProxy == null)
         {
-            CreateActorResponse createActorResponse = new CreateActorResponse
+            CreatePlayerActorResponse createActorResponse = new CreatePlayerActorResponse
             {
                 IsSuccess = false,
                 Message = "Room not exist",
@@ -19,11 +21,12 @@ public class CreateActorRequestHandle : MessageRquestBase
             await GetClientHandle().SendMessage(MessageRequestType.CreateActorResponse, createActorResponse);
             return;
         }
-        CreateActorResultCallBack actorIdResult = gameRoom.RoomWorld.AddActor(createActorRequest.PlayerId,createActorRequest.ResName,createActorRequest.SpawnPos, createActorRequest.SpawnRot);
+        PlayerConfigItem playerConfigItem = PlayerConfig.GetPlayerConfigItem(playerProxy.PlayerData.playerConfigId);
+        CreateActorResultCallBack actorIdResult = gameRoom.RoomWorld.AddActor(createActorRequest.PlayerId,EActorRoleType.Player,playerConfigItem.Prefab,createActorRequest.SpawnPos, createActorRequest.SpawnRot);
 
         if (!actorIdResult.IsSuccess)
         {
-            CreateActorResponse createActorResponse = new CreateActorResponse
+            CreatePlayerActorResponse createActorResponse = new CreatePlayerActorResponse
             {
                 IsSuccess = false,
                 Message = actorIdResult.Message,
@@ -31,11 +34,10 @@ public class CreateActorRequestHandle : MessageRquestBase
             await GetClientHandle().SendMessage(MessageRequestType.CreateActorResponse, createActorResponse);
             return;
         }
-        CreateActorResponse createActorResponseSuc = new CreateActorResponse
+        CreatePlayerActorResponse createActorResponseSuc = new CreatePlayerActorResponse
         {
-            OwnerPlayerId= createActorRequest.PlayerId,
-            ActorId = actorIdResult.ActorId,
-            ResName = createActorRequest.ResName,
+            RoomDetailInfo = gameRoom.GetRoomDetailInfo(),
+            RefActorId = gameRoom.GetRoomActorByPlayerId(createActorRequest.PlayerId).ActorId,
             IsSuccess = actorIdResult.IsSuccess,
             Message = actorIdResult.Message,
         };

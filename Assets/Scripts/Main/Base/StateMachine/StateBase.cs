@@ -1,12 +1,14 @@
-﻿public class StateBase
+﻿using System.Collections;
+
+public class StateBase
 {
-    public virtual void OnEnter()
+    public virtual IEnumerator OnEnterAsync()
     {
-        
+        yield break;
     }
-    public virtual void OnExit()
+    public virtual IEnumerator OnExitAsync()
     {
-        
+        yield break;
     }
     public virtual void DoUpdate(float dt)
     {

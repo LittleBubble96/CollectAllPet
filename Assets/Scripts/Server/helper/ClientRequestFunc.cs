@@ -1,4 +1,5 @@
-﻿using ShareProtobuf;
+﻿using System.Collections.Generic;
+using ShareProtobuf;
 using ProtoBuf;
 using System.Numerics;
 public class ClientRequestFunc
@@ -40,5 +41,23 @@ public class ClientRequestFunc
         getRoomDetail.RoomId = roomId;
         getRoomDetail.PlayerId = playerId;
         await GameManager.GetNetworkManager().SendRequest(MessageRequestType.GetRoomDetailRequest, getRoomDetail);
+    }
+    
+    public static async void SendCreatePlayerActorRequest()
+    {
+        CreatePlayerActorRequest createPlayer = new CreatePlayerActorRequest();
+        createPlayer.PlayerId = CharacterManager.Instance.PlayerInfo.PlayerId;
+        createPlayer.RoomId = RoomManager.Instance.GetEnterRoomId();
+        await GameManager.GetNetworkManager().SendRequest(MessageRequestType.CreateActorRequest, createPlayer);
+    }
+
+    public static async void SyncActorDeltaRequest(List<DeltaActorSyncData> actors, List<int> inViewActorIds)
+    {
+        DeltaActorSyncRequest syncActorDelta = new DeltaActorSyncRequest();
+        syncActorDelta.PlayerId = CharacterManager.Instance.PlayerInfo.PlayerId;
+        syncActorDelta.RoomId = RoomManager.Instance.GetEnterRoomId();
+        syncActorDelta.Actors = actors;
+        syncActorDelta.InViewActorIds.AddRange(inViewActorIds);
+        await GameManager.GetNetworkManager().SendRequest(MessageRequestType.SyncActorDetailRequest, syncActorDelta);
     }
 }

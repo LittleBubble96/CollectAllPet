@@ -2,23 +2,43 @@
 using System.Numerics;
 using ShareProtobuf;
 
+public enum EActorRoleType
+{
+    None,
+    Player,
+    NPC,
+    Monster,
+    Interactive,
+}
+
 public class RoomActor
 { 
     public int ActorId { get; private set; }
+    
+    public EActorRoleType Role { get; private set; }
     public Vector3 Pos { get; private set; }
     public Vector3 Rot { get; private set; }
+    
+    public Vector3 Speed { get; private set; }
+    
+    public long SyncTime { get; set; }
+
     
     public string OwnerPlayerId { get; private set; }
     
     public string ActorRes { get; private set; }
+    
+    public string ActorName { get; private set; }
 
-    public void Init(string playerId, string actorRes ,int actorId, Vector3 pos, Vector3 rot)
+    public void Init(string playerId , EActorRoleType roleType, string actorRes ,int actorId, Vector3 pos, Vector3 rot)
     {
         ActorId = actorId;
+        Role = roleType;
         Pos = pos;
         Rot = rot;
         OwnerPlayerId = playerId;
         ActorRes = actorRes;
+        ActorName = ActorRes + "_" + ActorId + "_" + OwnerPlayerId;
     }
     
     
@@ -30,6 +50,16 @@ public class RoomActor
     public void SyncRot(Vector3 rot)
     {
         Rot = rot;
+    }
+    
+    public void SyncSpeed(Vector3 speed)
+    {
+        Speed = speed;
+    }
+    
+    public void SyncServeTime()
+    {
+        SyncTime = DateTime.UtcNow.Ticks;
     }
 }
 public class RoomWorld
@@ -45,7 +75,7 @@ public class RoomWorld
         RoomId = roomId;
     }
 
-    public CreateActorResultCallBack AddActor(string playerId , string actorRes , Vector3 pos, Vector3 rot)
+    public CreateActorResultCallBack AddActor(string playerId ,EActorRoleType roleType, string actorRes , Vector3 pos, Vector3 rot)
     {
         RoomActor actor = new RoomActor();
         CreateActorResultCallBack result = GenerateActorId();
@@ -53,7 +83,7 @@ public class RoomWorld
         {
             return result;
         }
-        actor.Init(playerId,actorRes,result.ActorId, pos, rot);
+        actor.Init(playerId,roleType,actorRes,result.ActorId, pos, rot);
         Actors.TryAdd(result.ActorId, actor);
         return result;
     }
@@ -84,7 +114,14 @@ public class RoomWorld
         List<GameActorInfo> gameActorInfos = new List<GameActorInfo>();
         foreach (var actor in Actors)
         {
-            gameActorInfos.Add(new GameActorInfo() { OwnerPlayerId = actor.Value.OwnerPlayerId, ActorRes = actor.Value.ActorRes, RefActorId = actor.Value.ActorId });
+            gameActorInfos.Add(new GameActorInfo()
+            {
+                OwnerPlayerId = actor.Value.OwnerPlayerId, 
+                ActorRes = actor.Value.ActorRes, 
+                RefActorId = actor.Value.ActorId , 
+                ActorName = actor.Value.ActorName,
+                ActorRoleType = (int)actor.Value.Role,
+            });
         }
         return gameActorInfos;
     }
@@ -109,6 +146,8 @@ public class RoomWorld
             {
                 roomActor.SyncPos(actor.Pos);
                 roomActor.SyncRot(actor.Rot);
+                roomActor.SyncSpeed(actor.Speed);
+                roomActor.SyncServeTime();
             }
         }
     }

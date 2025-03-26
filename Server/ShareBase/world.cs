@@ -4,27 +4,25 @@ using ProtoBuf;
 
 namespace ShareProtobuf
 {
-//创建Actor请求
+    //创建Actor请求
     [ProtoContract]
-    public class CreateActorRequest
+    public class CreatePlayerActorRequest
     {
         [ProtoMember(1)] public string PlayerId { get; set; }
         [ProtoMember(2)] public int RoomId { get; set; }
-        [ProtoMember(2)] public string ResName { get; set; }
         [ProtoMember(3)] public Vector3 SpawnPos { get; set; }
         [ProtoMember(4)] public Vector3 SpawnRot { get; set; }
     }
 
     //创建Actor响应
     [ProtoContract]
-    public class CreateActorResponse
+    public class CreatePlayerActorResponse
     {
         [ProtoMember(1)] public bool IsSuccess { get; set; }
         [ProtoMember(2)] public string Message { get; set; }
 
-        [ProtoMember(3)] public int ActorId { get; set; }
-        [ProtoMember(4)] public string OwnerPlayerId { get; set; }
-        [ProtoMember(4)] public string ResName { get; set; }
+        [ProtoMember(3)] public RoomDetailInfo RoomDetailInfo { get; set; }
+        [ProtoMember(4)] public int RefActorId { get; set; } //客户端对应的ActorId
     }
     
     //更新 位置旋转信息
@@ -34,6 +32,10 @@ namespace ShareProtobuf
         [ProtoMember(1)] public int ActorId { get; set; }
         [ProtoMember(2)] public Vector3 Pos { get; set; }
         [ProtoMember(3)] public Vector3 Rot { get; set; }
+        [ProtoMember(4)] public Vector3 Speed { get; set; }
+        
+        [ProtoMember(4)] public long SyncTime { get; set; }
+
     }
 
     [ProtoContract]

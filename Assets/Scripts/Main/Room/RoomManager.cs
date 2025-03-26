@@ -1,4 +1,9 @@
-﻿using ShareProtobuf;
+﻿using System;
+using System.Collections;
+using System.Collections.Concurrent;
+using System.Collections.Generic;
+using ShareProtobuf;
+using UnityEngine;
 
 public class RoomManager : Singleton<RoomManager>
 {
@@ -6,6 +11,8 @@ public class RoomManager : Singleton<RoomManager>
     private ERoomState roomState = ERoomState.None;
     private RoomDetailInfo roomDetailInfo;
     private int refActorId;
+    private ConcurrentDictionary<int, Actor> actorDict = new ConcurrentDictionary<int, Actor>();
+    private ConcurrentDictionary<int,Actor> ownerActorDict = new ConcurrentDictionary<int, Actor>();
 
     public ERoomState RoomState
     {
@@ -60,6 +67,11 @@ public class RoomManager : Singleton<RoomManager>
         enterRoomId = roomId;
     }
     
+    public int GetEnterRoomId()
+    {
+        return enterRoomId;
+    }
+    
     public void CreateRoom(string roomName ,int maxPlayerCount)
     {
         // Create Room
@@ -77,6 +89,18 @@ public class RoomManager : Singleton<RoomManager>
         // Refresh Room List
         ClientRequestFunc.RefreshRoomListRequest();
     }
+    
+    public ConcurrentDictionary<int,Actor> GetActorDict()
+    {
+        return actorDict;
+    }
+    
+    //获取属于自己的Actor 集合
+    public ConcurrentDictionary<int,Actor> GetOwnerActorDict()
+    {
+        return ownerActorDict;
+    }
+    
 
     #region 房间世界
     public void OnWaitRoom()
@@ -89,6 +113,58 @@ public class RoomManager : Singleton<RoomManager>
     public void SpawnRoomWorld()
     {
         // Spawn Room World
+    }
+    
+    public void DestroyRoomWorld()
+    {
+        // Destroy Room World
+        foreach (var actor in actorDict)
+        {
+            GameObject.Destroy(actor.Value.gameObject);
+        }
+        actorDict.Clear();
+        ownerActorDict.Clear();
+    }
+    
+    public IEnumerator LoadSceneActor(Action<float> progressCallback)
+    {
+        RoomDetailInfo roomDetailInfo = RoomManager.Instance.GetRoomDetailInfo();
+        if (roomDetailInfo != null)
+        {
+            int actorCount = roomDetailInfo.WorldActors.Count;
+            int curActorIndex = 0;
+            //加载玩家
+            foreach (var actorInfo in roomDetailInfo.WorldActors)
+            {
+                curActorIndex++;
+                progressCallback?.Invoke(curActorIndex / (float)actorCount);
+                if (actorDict.ContainsKey(actorInfo.RefActorId))
+                {
+                    continue;
+                }
+                //加载Actor
+                GameObject go = Resources.Load<GameObject>(actorInfo.ActorRes);
+                if (go != null)
+                {
+                    GameObject actor = GameObject.Instantiate(go);
+                    Actor actorCmpt = actor.GetComponent<Actor>();
+                    if (actorCmpt != null)
+                    {
+                        actorCmpt.InitActor(actorInfo);
+                        actorDict.TryAdd(actorInfo.RefActorId, actorCmpt);
+                        if (actorCmpt.IsOwnerPlayer())
+                        {
+                            ownerActorDict.TryAdd(actorInfo.RefActorId, actorCmpt);
+                        }
+                    }
+
+                    actor.transform.position = GameConst.DefaultActorPosition;
+                    actor.transform.rotation = GameConst.DefaultActorRotation;
+                }
+                yield return null;
+            }
+        }
+        yield return null;
     }
 
     #endregion

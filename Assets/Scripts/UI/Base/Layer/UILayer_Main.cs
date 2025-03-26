@@ -24,5 +24,9 @@ public class MainUILayer : UILayerBase
         
     }
     
+    public UIBase GetCurrentUI()
+    {
+        return _currentUI;
+    }
     
 }

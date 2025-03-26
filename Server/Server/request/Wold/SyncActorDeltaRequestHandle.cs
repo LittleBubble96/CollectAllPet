@@ -18,7 +18,7 @@ public class SyncActorDeltaRequestHandle : MessageRquestBase
             await GetClientHandle().SendMessage(MessageRequestType.SyncActorDetailResponse, deltaActorSyncResponse);
             return;
         }
-        gameRoom.RoomWorld.SyncActors(deltaActorSync.PlayerId,deltaActorSync.Actors);
+        gameRoom.SyncActors(deltaActorSync.PlayerId,deltaActorSync.Actors);
         DeltaActorSyncResponse deltaActorSyncResponseSuc = new DeltaActorSyncResponse
         {
             IsSuccess = false,
@@ -33,6 +33,8 @@ public class SyncActorDeltaRequestHandle : MessageRquestBase
                     ActorId = actor.ActorId,
                     Pos = actor.Pos,
                     Rot = actor.Rot,
+                    Speed = actor.Speed,
+                    SyncTime = actor.SyncTime,
                 };
                 deltaActorSyncResponseSuc.Actors.Add(deltaActorSyncData);
             }

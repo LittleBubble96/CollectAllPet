@@ -16,6 +16,7 @@ public class PlayerLoginRequest : MessageRquestBase
         {
             userId = playerLogin.Account,
             userName = playerLogin.Account,
+            playerConfigId = 1,
         };
 
         PlayerLoginResponse playerLoginResponse = new PlayerLoginResponse

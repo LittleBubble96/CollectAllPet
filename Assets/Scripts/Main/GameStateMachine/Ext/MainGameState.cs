@@ -1,8 +1,16 @@
-﻿public class MainGameState : GameStateBase
+﻿using System.Collections;
+
+public class MainGameState : GameStateBase
 {
-    public override void OnEnter()
+    public override IEnumerator OnEnterAsync()
     {
-        base.OnEnter();
         GameManager.GetUIManager().ShowUI<RoomMain_UI>();
+        yield return null;
+    }
+    
+    public override IEnumerator OnExitAsync()
+    {
+        GameManager.GetUIManager().HideMainUI();
+        yield return null;
     }
 }

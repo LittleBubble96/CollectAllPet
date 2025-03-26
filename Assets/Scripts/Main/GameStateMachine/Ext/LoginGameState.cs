@@ -1,13 +1,10 @@
-﻿public class LoginGameState : GameStateBase
+﻿using System.Collections;
+
+public class LoginGameState : GameStateBase
 {
-    public override void OnEnter()
+    public override IEnumerator OnEnterAsync()
     {
-        base.OnEnter();
         GameManager.GetUIManager().ShowUI<Login_UI>();
-    }
-    
-    public override void OnExit()
-    {
-        base.OnExit();
+        yield return null;
     }
 }

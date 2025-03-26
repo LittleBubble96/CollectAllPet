@@ -67,6 +67,18 @@ public class UIManager
         HideUI_Internal(ui);
     }
     
+    public void HideMainUI()
+    {
+        UILayerBase layer = _layerManager.GetLayer(UILayerType.Main);
+        if (layer is MainUILayer mainLayer)
+        {
+            if (mainLayer.GetCurrentUI())
+            {
+                HideUI(mainLayer.GetCurrentUI());
+            }
+        }
+    }
+    
     //后续可以考虑优化 namespace
     public void HideUI_UseLayer(UIBase ui)
     {

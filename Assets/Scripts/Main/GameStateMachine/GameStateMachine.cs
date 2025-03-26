@@ -1,4 +1,6 @@
-﻿public enum GameStateEnum
+﻿using System.Collections;
+
+public enum GameStateEnum
 {
     Login,
     Main,
@@ -37,10 +39,15 @@ public class GameStateMachine : StateMachineBase
     
     public void ChangeGameState(GameStateEnum state)
     {
+        GameManager.Instance.StartCoroutine(ChangeGameStateEnumerator(state));
+    }
+    
+    private IEnumerator ChangeGameStateEnumerator(GameStateEnum state)
+    {
         if (CurrentState != null)
         {
             IsLoading = true;
-            CurrentState.OnExit();
+            yield return CurrentState.OnExitAsync();
             if (PreviousState != null)
             {
                 PutState(PreviousState as GameStateBase);
@@ -50,7 +57,7 @@ public class GameStateMachine : StateMachineBase
         //规定卸载之前状态进度为 0.2
         GameManager.GetAppEventDispatcher().BroadcastListener(EventName.EVENT_LoadingUIProcess, 0.2f);
         CurrentState = GenerateState(state);
-        CurrentState.OnEnter();
+        yield return CurrentState.OnEnterAsync();
         GameManager.GetAppEventDispatcher().BroadcastListener(EventName.EVENT_LoadingUIProcess, 1f);
         if (IsLoading)
         {

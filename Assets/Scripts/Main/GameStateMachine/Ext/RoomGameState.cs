@@ -4,13 +4,13 @@ using UnityEngine;
 
 public class RoomGameState : GameStateBase
 {
-    public override void OnEnter()
+    public override IEnumerator OnEnterAsync()
     {
-        base.OnEnter();
         GameManager.GetUIManager().ShowUI<RoomGame_UI>();
+        yield return OnEnterAsync_Internal();
     }
     
-    private IEnumerator OnEnterAsync()
+    private IEnumerator OnEnterAsync_Internal()
     {
         //更新房间详细信息
         GameManager.GetUIManager().ShowLockUI();
@@ -23,36 +23,12 @@ public class RoomGameState : GameStateBase
             GameManager.GetAppEventDispatcher().BroadcastListener(EventName.EVENT_LoadingUIProcess, 0.3f + progress * 0.3f);
         });
         //加载场景物体
-        yield return null;
+        yield return RoomManager.Instance.LoadSceneActor((process) =>
+        {
+            GameManager.GetAppEventDispatcher().BroadcastListener(EventName.EVENT_LoadingUIProcess, 0.6f + 0.3f * process);
+        });
+        //通知创建 当前角色
+        ClientRequestFunc.SendCreatePlayerActorRequest();
     }
     
-    private IEnumerator LoadSceneActor()
-    {
-        RoomDetailInfo roomDetailInfo = RoomManager.Instance.GetRoomDetailInfo();
-        if (roomDetailInfo != null)
-        {
-            int actorCount = roomDetailInfo.WorldActors.Count;
-            int curActorIndex = 0;
-            //加载玩家
-            foreach (var actorInfo in roomDetailInfo.WorldActors)
-            {
-                curActorIndex++;
-                GameManager.GetAppEventDispatcher().BroadcastListener(EventName.EVENT_LoadingUIProcess, 0.6f + 0.3f * curActorIndex / actorCount);
-                //加载Actor
-                GameObject go = Resources.Load<GameObject>(actorInfo.ActorRes);
-                if (go != null)
-                {
-                    GameObject actor = GameObject.Instantiate(go);
-                    // actor.transform.position = actorInfo.;
-                    // actor.transform.rotation = actorInfo.ActorRot;
-                    // actor.transform.localScale = actorInfo.ActorScale;
-                    // actor.name = actorInfo.ActorName;
-                    //加载Actor
-                    yield return null;
-                }
-                yield return null;
-            }
-        }
-        yield return null;
-    }
 }
