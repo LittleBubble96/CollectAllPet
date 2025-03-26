@@ -25,7 +25,7 @@ namespace Supercyan.FreeSample
         //[SerializeField] private Rigidbody m_rigidBody = null;
         [SerializeField] private CharacterController m_characterController = null;
         [SerializeField] private ControlMode m_controlMode = ControlMode.Direct;
-
+        [SerializeField] private Actor _actor;
         private float m_currentV = 0;
         private float m_currentH = 0;
 
@@ -68,7 +68,6 @@ namespace Supercyan.FreeSample
                     break;
 
                 case ControlMode.Tank:
-                    TankUpdate();
                     break;
 
                 default:
@@ -78,36 +77,7 @@ namespace Supercyan.FreeSample
 
             m_jumpInput = false;
         }
-
-        private void TankUpdate()
-        {
-            float v = Input.GetAxis("Vertical");
-            float h = Input.GetAxis("Horizontal");
-
-            bool walk = Input.GetKey(KeyCode.LeftShift);
-
-            if (v < 0)
-            {
-                if (walk) { v *= m_backwardsWalkScale; }
-                else { v *= m_backwardRunScale; }
-            }
-            else if (walk)
-            {
-                v *= m_walkScale;
-            }
-
-            m_currentV = Mathf.Lerp(m_currentV, v, Time.deltaTime * m_interpolation);
-            m_currentH = Mathf.Lerp(m_currentH, h, Time.deltaTime * m_interpolation);
-
-            //transform.position += transform.forward * m_currentV * m_moveSpeed * Time.deltaTime;
-            m_characterController.SimpleMove(transform.forward * m_currentV * m_moveSpeed);
-            transform.Rotate(0, m_currentH * m_turnSpeed * Time.deltaTime, 0);
-
-            m_animator.SetFloat("MoveSpeed", m_currentV);
-
-            JumpingAndLanding(Time.deltaTime);
-        }
-
+        
         private void DirectUpdate()
         {
             float v = Input.GetAxis("Vertical");
@@ -154,9 +124,10 @@ namespace Supercyan.FreeSample
                 m_isJumping = true;
             }
             // m_characterController.SimpleMove(m_currentDirection * m_moveSpeed + Vector3.up * m_curJumpSpeed);
-
             m_characterController.Move((m_currentDirection * m_moveSpeed + Vector3.up * m_curJumpSpeed) * dt);
-
+            _actor.SetPosition(transform.position);
+            _actor.SetRotation(transform.eulerAngles);
+            _actor.SetSpeed(m_currentDirection * m_moveSpeed + Vector3.up * m_curJumpSpeed);
             if (!m_characterController.isGrounded)
             {
                 m_curJumpSpeed -= 9.8f * dt;
