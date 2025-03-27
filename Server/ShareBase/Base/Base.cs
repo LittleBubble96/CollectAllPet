@@ -27,6 +27,9 @@ namespace ShareProtobuf
         
         SyncActorDetailRequest,
         SyncActorDetailResponse,
+        
+        //Server to Client
+        CreateActorRequestToClient,
     }
 
 

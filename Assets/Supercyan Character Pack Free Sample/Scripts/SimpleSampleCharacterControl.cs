@@ -1,22 +1,11 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
-namespace Supercyan.FreeSample
-{
-    public class SimpleSampleCharacterControl : MonoBehaviour
-    {
-        private enum ControlMode
-        {
-            /// <summary>
-            /// Up moves the character forward, left and right turn the character gradually and down moves the character backwards
-            /// </summary>
-            Tank,
-            /// <summary>
-            /// Character freely moves in the chosen direction from the perspective of the camera
-            /// </summary>
-            Direct
-        }
 
+
+public class SimpleSampleCharacterControl : MonoBehaviour
+    {
+       
         [SerializeField] private float m_moveSpeed = 2;
         [SerializeField] private float m_turnSpeed = 200;
         [SerializeField] private float m_jumpForce = 4;
@@ -24,7 +13,6 @@ namespace Supercyan.FreeSample
         [SerializeField] private Animator m_animator = null;
         //[SerializeField] private Rigidbody m_rigidBody = null;
         [SerializeField] private CharacterController m_characterController = null;
-        [SerializeField] private ControlMode m_controlMode = ControlMode.Direct;
         [SerializeField] private Actor _actor;
         private float m_currentV = 0;
         private float m_currentH = 0;
@@ -61,13 +49,14 @@ namespace Supercyan.FreeSample
         {
             m_animator.SetBool("Grounded", m_characterController.isGrounded);
 
-            switch (m_controlMode)
+            switch (_actor.GetControlMode())
             {
-                case ControlMode.Direct:
+                case CAP_ControlMode.Player:
                     DirectUpdate();
                     break;
 
-                case ControlMode.Tank:
+                case CAP_ControlMode.Server:
+                    UpdateServerPosition();
                     break;
 
                 default:
@@ -78,8 +67,15 @@ namespace Supercyan.FreeSample
             m_jumpInput = false;
         }
         
+
+        #region Player
+
         private void DirectUpdate()
         {
+            if (_actor.GetActorState() != EActorState.Ready)
+            {
+                return;
+            }
             float v = Input.GetAxis("Vertical");
             float h = Input.GetAxis("Horizontal");
 
@@ -125,9 +121,9 @@ namespace Supercyan.FreeSample
             }
             // m_characterController.SimpleMove(m_currentDirection * m_moveSpeed + Vector3.up * m_curJumpSpeed);
             m_characterController.Move((m_currentDirection * m_moveSpeed + Vector3.up * m_curJumpSpeed) * dt);
+            _actor.SetSpeed(transform.position - _actor.GetPosition() / dt);
             _actor.SetPosition(transform.position);
             _actor.SetRotation(transform.eulerAngles);
-            _actor.SetSpeed(m_currentDirection * m_moveSpeed + Vector3.up * m_curJumpSpeed);
             if (!m_characterController.isGrounded)
             {
                 m_curJumpSpeed -= 9.8f * dt;
@@ -141,5 +137,19 @@ namespace Supercyan.FreeSample
                 m_isJumping = false;
             }
         }
+
+        #endregion
+
+        #region Server
+
+        private float serverPositionLerpTime = 0.1f;
+        private float serverRotationLerpTime = 0.1f;
+
+        private void UpdateServerPosition()
+        {
+            transform.position = Vector3.Lerp(transform.position, _actor.GetServerPosition(), serverPositionLerpTime);
+            transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.Euler(_actor.GetServerRotation()), serverRotationLerpTime);
+        }
+
+        #endregion
     }
-}

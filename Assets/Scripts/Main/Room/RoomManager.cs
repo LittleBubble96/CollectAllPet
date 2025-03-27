@@ -155,6 +155,7 @@ public class RoomManager : Singleton<RoomManager>
                         if (actorCmpt.IsOwnerPlayer())
                         {
                             ownerActorDict.TryAdd(actorInfo.RefActorId, actorCmpt);
+                            actorCmpt.SetControlMode(CAP_ControlMode.Player);
                         }
                     }
 
@@ -165,6 +166,21 @@ public class RoomManager : Singleton<RoomManager>
             }
         }
         yield return null;
+    }
+    
+    //同步服务器Actor信息
+    public void SyncServerActorInfo(List<DeltaActorSyncData> deltaActorSyncData)
+    {
+        foreach (var syncData in deltaActorSyncData)
+        {
+            if (actorDict.TryGetValue(syncData.ActorId, out Actor actor))
+            {
+                actor.SetServerPosition(ConfigHelper.ConvertVector3ToUnityVector3(syncData.Pos));
+                actor.SetServerRotation(ConfigHelper.ConvertVector3ToUnityVector3(syncData.Rot));
+                actor.SetSpeed(ConfigHelper.ConvertVector3ToUnityVector3(syncData.Speed));
+                actor.SetActorState(EActorState.Ready);
+            }
+        }
     }
 
     #endregion

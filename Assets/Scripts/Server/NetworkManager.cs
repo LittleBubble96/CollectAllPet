@@ -122,6 +122,12 @@ public class NetworkManager
                 Debug.Log("Handle response: " + type);
                 await response.HandleResponse(type, messageBuffer);
             }
+            //查看是否有对应的request
+            else
+            {
+                Debug.Log("Handle request: " + type);
+                await ClientFactory.Instance.GetMessageRequestFactory().GetObject(type).ReadFromStream(messageBuffer);
+            }
             Debug.Log("last Received message: " + type);
             // try
             // { 

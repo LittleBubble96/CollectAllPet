@@ -21,8 +21,9 @@ public class CreateActorRequestHandle : MessageRquestBase
             await GetClientHandle().SendMessage(MessageRequestType.CreateActorResponse, createActorResponse);
             return;
         }
-        PlayerConfigItem playerConfigItem = PlayerConfig.GetPlayerConfigItem(playerProxy.PlayerData.playerConfigId);
-        CreateActorResultCallBack actorIdResult = gameRoom.RoomWorld.AddActor(createActorRequest.PlayerId,EActorRoleType.Player,playerConfigItem.Prefab,createActorRequest.SpawnPos, createActorRequest.SpawnRot);
+
+        List<int> actorIds = new List<int>();
+        CreateActorResultCallBack actorIdResult = gameRoom.RoomWorld.AddActor(createActorRequest.PlayerId,EActorRoleType.Player,playerProxy.PlayerData.playerConfigId,createActorRequest.SpawnPos, createActorRequest.SpawnRot);
 
         if (!actorIdResult.IsSuccess)
         {
@@ -34,17 +35,46 @@ public class CreateActorRequestHandle : MessageRquestBase
             await GetClientHandle().SendMessage(MessageRequestType.CreateActorResponse, createActorResponse);
             return;
         }
+        actorIds.Add(actorIdResult.ActorId);
+        //添加宠物actor
+        foreach (var petData in playerProxy.PlayerData.playerPetDatas)
+        {
+            CreateActorResultCallBack petaActorIdResult = gameRoom.RoomWorld.AddActor(createActorRequest.PlayerId,EActorRoleType.Monster,petData.petConfigId,createActorRequest.SpawnPos, createActorRequest.SpawnRot);
+            if (!petaActorIdResult.IsSuccess)
+            {
+                CreatePlayerActorResponse createActorResponse = new CreatePlayerActorResponse
+                {
+                    IsSuccess = false,
+                    Message = petaActorIdResult.Message,
+                };
+                await GetClientHandle().SendMessage(MessageRequestType.CreateActorResponse, createActorResponse);
+                actorIds.Add(actorIdResult.ActorId);
+                return;
+            }
+        }
         CreatePlayerActorResponse createActorResponseSuc = new CreatePlayerActorResponse
         {
-            RoomDetailInfo = gameRoom.GetRoomDetailInfo(),
             RefActorId = gameRoom.GetRoomActorByPlayerId(createActorRequest.PlayerId).ActorId,
             IsSuccess = actorIdResult.IsSuccess,
             Message = actorIdResult.Message,
         };
+        await GetClientHandle().SendMessage(MessageRequestType.CreateActorResponse, createActorResponseSuc);
+        //发送给所有客户端
+        List<GameActorInfo> gameActorInfos = new List<GameActorInfo>();
+        foreach (var actorId in actorIds)
+        {
+            gameActorInfos.Add(gameRoom.RoomWorld.GetActorInfo(actorId));
+        }
+        CreateRoomActorToClientRequest createRoomActorToClientRequest = new CreateRoomActorToClientRequest
+        {
+            RoomId = createActorRequest.RoomId,
+            Actors = gameActorInfos,
+        };
+        
         List<ClientHandle> clientHandles = gameRoom.GetClientHandles();
         foreach (var clientHandle in clientHandles)
         {
-            await clientHandle.SendMessage(MessageRequestType.CreateActorResponse, createActorResponseSuc);
+            await clientHandle.SendMessage(MessageRequestType.CreateActorRequestToClient, createRoomActorToClientRequest);
         }
     }
 }

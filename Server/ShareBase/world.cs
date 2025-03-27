@@ -20,11 +20,16 @@ namespace ShareProtobuf
     {
         [ProtoMember(1)] public bool IsSuccess { get; set; }
         [ProtoMember(2)] public string Message { get; set; }
-
-        [ProtoMember(3)] public RoomDetailInfo RoomDetailInfo { get; set; }
         [ProtoMember(4)] public int RefActorId { get; set; } //客户端对应的ActorId
     }
-    
+
+    [ProtoContract]
+    public class CreateRoomActorToClientRequest
+    {
+        [ProtoMember(1)] public int RoomId { get; set; }
+        [ProtoMember(2)] public List<GameActorInfo> Actors { get; set; }
+    }
+
     //更新 位置旋转信息
     [ProtoContract]
     public class DeltaActorSyncData

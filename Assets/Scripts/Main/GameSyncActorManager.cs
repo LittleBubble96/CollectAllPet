@@ -125,7 +125,11 @@ public class GameSyncActorManager : MonoBehaviour
         ConcurrentDictionary<int,Actor> actorDic = RoomManager.Instance.GetActorDict();
         foreach (var actor in actorDic)
         {
-            if (onCondition.Invoke(cameraPosition,actor.Value))
+            if (actor.Value.GetControlMode() == CAP_ControlMode.Player)
+            {
+                continue;
+            }
+            if (actor.Value.GetActorState() == EActorState.WaitSync || onCondition.Invoke(cameraPosition,actor.Value))
             {
                 SyncActor(actor.Value);
             }

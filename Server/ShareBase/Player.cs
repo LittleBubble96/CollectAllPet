@@ -25,6 +25,17 @@ namespace ShareProtobuf
         [ProtoMember(1)] public string userId { get; set; }
         [ProtoMember(2)] public string userName { get; set; }
         [ProtoMember(3)] public int playerConfigId { get; set; }
+        
+        //宠物 列表
+        [ProtoMember(4)] public PlayerPetData[] playerPetDatas { get; set; }
+    }
+    
+    [ProtoContract]
+    public class PlayerPetData
+    {
+        [ProtoMember(1)] public string petId { get; set; }
+        [ProtoMember(2)] public string petName { get; set; }
+        [ProtoMember(3)] public int petConfigId { get; set; }
     }
 
     [ProtoContract]

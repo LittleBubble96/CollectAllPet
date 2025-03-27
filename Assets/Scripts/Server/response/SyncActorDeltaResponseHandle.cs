@@ -19,7 +19,8 @@ public class SyncActorDeltaResponseHandle : ClientMessageRequestBase
             Debug.Log("SyncActorDeltaResponseHandle HandleResponse: " + response.Message);
             return;
         }
-        
+        //设置actor信息
+        RoomManager.Instance.SyncServerActorInfo(response.Actors);
     }
 
     public override MessageRequestType GetRequestMessageType()
