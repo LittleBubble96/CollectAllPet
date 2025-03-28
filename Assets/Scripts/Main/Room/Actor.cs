@@ -1,4 +1,5 @@
-﻿using ShareProtobuf;
+﻿using System;
+using ShareProtobuf;
 using UnityEngine;
 using Vector3 = UnityEngine.Vector3;
 
@@ -49,6 +50,8 @@ public class Actor : MonoBehaviour
     private bool bDirty = false;
     
     private CAP_ControlMode m_controlMode = CAP_ControlMode.Player;
+    
+    private float _lastSyncTime = 0;
 
     public void InitActor(GameActorInfo inActorInfo)
     {
@@ -59,6 +62,15 @@ public class Actor : MonoBehaviour
         clientPosition = transform.position;
         clientRotation = transform.eulerAngles;
         clientSpeed = Vector3.zero;
+        _lastSyncTime = Time.time;
+    }
+
+    public void Update()
+    {
+        // 位置和旋转插值
+        float t = (Time.time - _lastSyncTime) / 0.1f;//GameManager.GetGameSyncActorManager().GetSyncInterval();
+        // transform.position = Vector3.Lerp(transform.position, serverPosition, t);
+        // transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.Euler(serverRotation), t);
     }
 
     public CAP_ControlMode GetControlMode()
@@ -68,11 +80,7 @@ public class Actor : MonoBehaviour
     
     public void SetControlMode(CAP_ControlMode controlMode)
     {
-        // m_controlMode = controlMode;
-        // if (m_controlMode == CAP_ControlMode.Player)
-        // {
-        //     SetActorState(EActorState.Ready);
-        // }
+       
     }
 
     public int GetActorId()
@@ -88,6 +96,12 @@ public class Actor : MonoBehaviour
     public void SetActorState(EActorState state)
     {
         actorState = state;
+        OnChangeState(state);
+    }
+    
+    protected virtual void OnChangeState(EActorState state)
+    {
+        
     }
 
     public EActorRoleType GetActorRoleType()
@@ -134,10 +148,11 @@ public class Actor : MonoBehaviour
     }
     
     //Server
-    public void SetServerPosition(Vector3 position)
+    public virtual void SetServerPosition(Vector3 position)
     {
         serverPosition = position;
         transform.position = serverPosition;
+        _lastSyncTime = Time.time;
     }
     
     public Vector3 GetServerPosition()

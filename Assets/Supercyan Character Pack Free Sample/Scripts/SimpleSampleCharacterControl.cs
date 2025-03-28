@@ -3,7 +3,7 @@ using UnityEngine;
 
 
 
-public class SimpleSampleCharacterControl : MonoBehaviour
+public class SimpleSampleCharacterControl : Actor
     {
        
         [SerializeField] private float m_moveSpeed = 2;
@@ -13,7 +13,6 @@ public class SimpleSampleCharacterControl : MonoBehaviour
         [SerializeField] private Animator m_animator = null;
         //[SerializeField] private Rigidbody m_rigidBody = null;
         [SerializeField] private CharacterController m_characterController = null;
-        [SerializeField] private Actor _actor;
         private float m_currentV = 0;
         private float m_currentH = 0;
 
@@ -31,6 +30,9 @@ public class SimpleSampleCharacterControl : MonoBehaviour
         private float m_curJumpSpeed = 0;
         private bool m_isJumping;
         
+        // 输入历史队列（用于回溯）
+        private Queue<PlayerInput> _inputQueue = new Queue<PlayerInput>();
+        
         private void Awake()
         {
             if (!m_animator) { gameObject.GetComponentInChildren<Animator>(); }
@@ -45,11 +47,11 @@ public class SimpleSampleCharacterControl : MonoBehaviour
             }
         }
 
-        private void FixedUpdate()
+        public void FixedUpdate()
         {
             m_animator.SetBool("Grounded", m_characterController.isGrounded);
 
-            switch (_actor.GetControlMode())
+            switch (GetControlMode())
             {
                 case CAP_ControlMode.Player:
                     DirectUpdate();
@@ -72,7 +74,12 @@ public class SimpleSampleCharacterControl : MonoBehaviour
 
         private void DirectUpdate()
         {
-            if (_actor.GetActorState() != EActorState.Ready)
+            // if (_actor.GetActorState() != EActorState.Ready)
+            // {
+            //     return;
+            // }
+
+            if (GetActorId() != RoomManager.Instance.GetRefActorId())
             {
                 return;
             }
@@ -121,9 +128,18 @@ public class SimpleSampleCharacterControl : MonoBehaviour
             }
             // m_characterController.SimpleMove(m_currentDirection * m_moveSpeed + Vector3.up * m_curJumpSpeed);
             m_characterController.Move((m_currentDirection * m_moveSpeed + Vector3.up * m_curJumpSpeed) * dt);
-            _actor.SetSpeed(transform.position - _actor.GetPosition() / dt);
-            _actor.SetPosition(transform.position);
-            _actor.SetRotation(transform.eulerAngles);
+            if (GetActorState() == EActorState.Syncing)
+            {
+                _inputQueue.Enqueue(new PlayerInput
+                {
+                    deltaTime = dt,
+                    MoveDirection = (m_currentDirection * m_moveSpeed + Vector3.up * m_curJumpSpeed)
+                });
+            }
+            
+            SetSpeed(transform.position - GetPosition() / dt);
+            SetPosition(transform.position);
+            SetRotation(transform.eulerAngles);
             if (!m_characterController.isGrounded)
             {
                 m_curJumpSpeed -= 9.8f * dt;
@@ -138,6 +154,25 @@ public class SimpleSampleCharacterControl : MonoBehaviour
             }
         }
 
+        protected override void OnChangeState(EActorState state)
+        {
+            base.OnChangeState(state);
+            if (state == EActorState.Syncing)
+            {
+                _inputQueue.Clear();
+            }
+        }
+
+        public override void SetServerPosition(Vector3 position)
+        {
+            base.SetServerPosition(position);
+            while (_inputQueue.Count > 0)
+            {
+                PlayerInput input = _inputQueue.Dequeue();
+                m_characterController.Move(input.MoveDirection * input.deltaTime);
+            }
+        }
+
         #endregion
 
         #region Server
@@ -147,9 +182,16 @@ public class SimpleSampleCharacterControl : MonoBehaviour
 
         private void UpdateServerPosition()
         {
-            transform.position = Vector3.Lerp(transform.position, _actor.GetServerPosition(), serverPositionLerpTime);
-            transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.Euler(_actor.GetServerRotation()), serverRotationLerpTime);
+            transform.position = Vector3.Lerp(transform.position, GetServerPosition(), serverPositionLerpTime);
+            transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.Euler(GetServerRotation()), serverRotationLerpTime);
         }
-
+        
         #endregion
     }
+    
+// 输入数据结构
+public struct PlayerInput
+{
+    public float deltaTime;
+    public Vector3 MoveDirection;
+}

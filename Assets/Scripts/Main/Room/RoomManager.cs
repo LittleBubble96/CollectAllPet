@@ -230,7 +230,7 @@ public class RoomManager : Singleton<RoomManager>
             {
                 actor.SetServerPosition(ConfigHelper.ConvertVector3ToUnityVector3(syncData.Pos));
                 actor.SetServerRotation(ConfigHelper.ConvertVector3ToUnityVector3(syncData.Rot));
-                actor.SetSpeed(ConfigHelper.ConvertVector3ToUnityVector3(syncData.Speed));
+                actor.SetServerSpeed(ConfigHelper.ConvertVector3ToUnityVector3(syncData.Speed));
                 actor.SetActorState(EActorState.Ready);
             }
         }
