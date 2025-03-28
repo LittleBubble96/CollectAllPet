@@ -45,6 +45,8 @@ public class GameManager : MonoBehaviour
         
         gameSyncActorManager = GetComponent<GameSyncActorManager>();
         gameSyncActorManager.Init();
+        
+        RoomManager.Instance.Init();
     }
     
     public static NetworkManager GetNetworkManager()

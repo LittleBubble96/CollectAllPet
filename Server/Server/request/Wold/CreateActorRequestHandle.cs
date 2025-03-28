@@ -52,13 +52,7 @@ public class CreateActorRequestHandle : MessageRquestBase
             }
             actorIds.Add(actorIdResult.ActorId);
         }
-        CreatePlayerActorResponse createActorResponseSuc = new CreatePlayerActorResponse
-        {
-            RefActorId = gameRoom.GetRoomActorByPlayerId(createActorRequest.PlayerId).ActorId,
-            IsSuccess = actorIdResult.IsSuccess,
-            Message = actorIdResult.Message,
-        };
-        await GetClientHandle().SendMessage(MessageRequestType.CreateActorResponse, createActorResponseSuc);
+        
         //发送给所有客户端
         List<GameActorInfo> gameActorInfos = new List<GameActorInfo>();
         foreach (var actorId in actorIds)
@@ -80,5 +74,13 @@ public class CreateActorRequestHandle : MessageRquestBase
             }
             await clientHandle.SendMessage(MessageRequestType.CreateActorRequestToClient, createRoomActorToClientRequest);
         }
+
+        CreatePlayerActorResponse createActorResponseSuc = new CreatePlayerActorResponse
+        {
+            RefActorId = gameRoom.GetRoomActorByPlayerId(createActorRequest.PlayerId).ActorId,
+            IsSuccess = actorIdResult.IsSuccess,
+            Message = actorIdResult.Message,
+        };
+        await GetClientHandle().SendMessage(MessageRequestType.CreateActorResponse, createActorResponseSuc);
     }
 }

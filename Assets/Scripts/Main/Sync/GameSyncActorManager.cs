@@ -187,6 +187,11 @@ public class GameSyncActorManager : MonoBehaviour
         _isReceiveSyncActorDeltaResponse = true;
     }
     
+    public void ReceiveSyncActorAnimationResponse()
+    {
+        _gameSyncAnimationController.ReceiveSyncActorAnimationResponse();
+    }
+    
     public void SyncActor(Actor actor)
     {
         if (!_syncActors.Contains(actor))

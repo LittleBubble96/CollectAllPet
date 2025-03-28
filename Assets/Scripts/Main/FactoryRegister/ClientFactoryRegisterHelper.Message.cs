@@ -12,5 +12,6 @@ public partial class ClientFactoryRegisterHelper
         ClientFactory.Instance.GetMessageResponseFactory().RegisterType<GetRoomDetailResponseHandle>(MessageRequestType.GetRoomDetailRequest);
         ClientFactory.Instance.GetMessageResponseFactory().RegisterType<CreatePlayerResponseHandle>(MessageRequestType.CreateActorRequest);
         ClientFactory.Instance.GetMessageResponseFactory().RegisterType<SyncActorDeltaResponseHandle>(MessageRequestType.SyncActorDetailRequest);
+        ClientFactory.Instance.GetMessageResponseFactory().RegisterType<SyncActorAnimationDeltaResponseHandle>(MessageRequestType.SyncActorAnimationDeltaRequest);
     }
 }

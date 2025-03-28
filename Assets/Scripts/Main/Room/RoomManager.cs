@@ -22,7 +22,7 @@ public class RoomManager : Singleton<RoomManager>
     private int refActorId;
     private ConcurrentDictionary<int, Actor> actorDict = new ConcurrentDictionary<int, Actor>();
     private ConcurrentDictionary<int,Actor> ownerActorDict = new ConcurrentDictionary<int, Actor>();
-
+    private RoomSceneController roomSceneController;
     public ERoomState RoomState
     {
         get { return roomState; }
@@ -43,6 +43,7 @@ public class RoomManager : Singleton<RoomManager>
                 case ERoomState.Playing:
                     //开始同步
                     GameManager.GetGameSyncActorManager().StartSync();
+                    roomSceneController.Init();
                     break;
                 case ERoomState.End:
                     //结束同步
@@ -55,6 +56,7 @@ public class RoomManager : Singleton<RoomManager>
     public void Init()
     {
         // Init RoomManager
+        roomSceneController = new RoomSceneController();
     }
 
     public void DoFixedUpdate()
@@ -75,6 +77,10 @@ public class RoomManager : Singleton<RoomManager>
     public void UpdateHostActorId(int inRefActorId)
     {
         this.refActorId = inRefActorId;
+        if (actorDict.TryGetValue(refActorId, out Actor actor))
+        {
+            roomSceneController.SetCameraLookAt(actor);
+        }
     }
     
     public RoomDetailInfo GetRoomDetailInfo()
@@ -241,6 +247,18 @@ public class RoomManager : Singleton<RoomManager>
                 actor.SetServerRotation(ConfigHelper.ConvertVector3ToUnityVector3(syncData.Rot));
                 actor.SetServerSpeed(ConfigHelper.ConvertVector3ToUnityVector3(syncData.Speed));
                 actor.SetActorState(EActorState.Ready);
+            }
+        }
+    }
+    
+    //同步服务器Actor动画信息
+    public void SyncServerActorAnimationInfo(List<DeltaActorAnimationSyncData> deltaActorAnimationSyncData)
+    {
+        foreach (var syncData in deltaActorAnimationSyncData)
+        {
+            if (actorDict.TryGetValue(syncData.ActorId, out Actor actor))
+            {
+                actor.SetServerAnimationParams(syncData);
             }
         }
     }

@@ -52,6 +52,10 @@ public class Actor : MonoBehaviour
     private CAP_ControlMode m_controlMode = CAP_ControlMode.Player;
 
     private float _lastSyncTime = 0;
+    //动画参数
+    protected ActorAnimationController _animationController;
+    [SerializeField] protected Animator m_animator = null;
+    [SerializeField] protected Transform lookAtTarget = null;
 
     public void InitActor(GameActorInfo inActorInfo)
     {
@@ -63,8 +67,19 @@ public class Actor : MonoBehaviour
         clientRotation = transform.eulerAngles;
         clientSpeed = Vector3.zero;
         _lastSyncTime = Time.time;
+        
+        // Init Animation
+        //初始化动画信息
+        _animationController = new ActorAnimationController();
+        _animationController.Init(m_animator);
+        _animationController.OnSetFloat += OnAnimatorFloatParamChanged;
+        _animationController.OnSetInt += OnAnimatorIntParamChanged;
+        _animationController.OnSetBool += OnAnimatorBoolParamChanged;
     }
-
+    public Transform GetLookAtTarget()
+    {
+        return lookAtTarget;
+    }
     public bool IsHost()
     {
         return actorInfo.RefActorId == RoomManager.Instance.GetRefActorId();
@@ -201,6 +216,29 @@ public class Actor : MonoBehaviour
     public void ClearDirty()
     {
         bDirty = false;
+    }
+    
+    //动画参数
+    
+    public void SetServerAnimationParams(DeltaActorAnimationSyncData syncData)
+    {
+        _animationController.SetServerAnimationParam(syncData.AnimationParamName, syncData.AnimationParamValue);
+    }
+    private void OnAnimatorFloatParamChanged(string name, float value)
+    {
+        // Debug.Log($"[ParamChanged] OnAnimatorFloatParamChanged: {name} -> {value}");
+        GameManager.GetGameSyncActorManager().SetAnimationFloatParams(this, name, value);
+    }
+    private void OnAnimatorIntParamChanged(string name, int value)
+    {
+        // Debug.Log($"[ParamChanged] OnAnimatorIntParamChanged: {name} -> {value}");
+        GameManager.GetGameSyncActorManager().SetAnimationIntParams(this, name, value);
+    }
+        
+    private void OnAnimatorBoolParamChanged(string name, bool value)
+    {
+        // Debug.Log($"[ParamChanged] OnAnimatorBoolParamChanged: {name} -> {value}");
+        GameManager.GetGameSyncActorManager().SetAnimationBoolParams(this, name, value);
     }
     
 }

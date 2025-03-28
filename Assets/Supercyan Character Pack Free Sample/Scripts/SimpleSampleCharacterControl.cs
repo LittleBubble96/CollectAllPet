@@ -10,7 +10,6 @@ public class SimpleSampleCharacterControl : Actor
         [SerializeField] private float m_turnSpeed = 200;
         [SerializeField] private float m_jumpForce = 4;
 
-        [SerializeField] private Animator m_animator = null;
         //[SerializeField] private Rigidbody m_rigidBody = null;
         [SerializeField] private CharacterController m_characterController = null;
         private float m_currentV = 0;
@@ -33,6 +32,8 @@ public class SimpleSampleCharacterControl : Actor
         // 输入历史队列（用于回溯）
         private Queue<PlayerInput> _inputQueue = new Queue<PlayerInput>();
         
+       
+        
         private void Awake()
         {
             if (!m_animator) { gameObject.GetComponentInChildren<Animator>(); }
@@ -49,8 +50,8 @@ public class SimpleSampleCharacterControl : Actor
 
         public override void DoFixedUpdate()
         {
-            m_animator.SetBool("Grounded", m_characterController.isGrounded);
             base.DoFixedUpdate();
+            _animationController.DoFixedUpdate();
             m_jumpInput = false;
         }
         
@@ -59,6 +60,8 @@ public class SimpleSampleCharacterControl : Actor
 
         protected override void DirectUpdate()
         {
+            _animationController.SetBool("Grounded", m_characterController.isGrounded);
+
             float v = Input.GetAxis("Vertical");
             float h = Input.GetAxis("Horizontal");
 
@@ -86,7 +89,8 @@ public class SimpleSampleCharacterControl : Actor
                 transform.rotation = Quaternion.LookRotation(m_currentDirection);
                 //transform.position += m_currentDirection * m_moveSpeed * Time.deltaTime;
 
-                m_animator.SetFloat("MoveSpeed", direction.magnitude);
+                // m_animator.SetFloat("MoveSpeed", direction.magnitude);
+                _animationController.SetFloat("MoveSpeed", direction.magnitude);
             }
 
             JumpingAndLanding(Time.fixedDeltaTime);
@@ -158,19 +162,8 @@ public class SimpleSampleCharacterControl : Actor
         }
 
         #endregion
-
-        #region Server
-
-        private float serverPositionLerpTime = 0.1f;
-        private float serverRotationLerpTime = 0.1f;
-
-        private void UpdateServerPosition()
-        {
-            transform.position = Vector3.Lerp(transform.position, GetServerPosition(), serverPositionLerpTime);
-            transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.Euler(GetServerRotation()), serverRotationLerpTime);
-        }
         
-        #endregion
+       
     }
     
 // 输入数据结构
