@@ -56,7 +56,16 @@ public class RoomManager : Singleton<RoomManager>
     {
         // Init RoomManager
     }
-    
+
+    public void DoFixedUpdate()
+    {
+        // Do FixedUpdate
+        foreach (var actor in actorDict)
+        {
+            actor.Value.DoFixedUpdate();
+        }
+    }
+
     // Update Room Detail refActorId is Host
     public void UpdateDetailRoom(RoomDetailInfo roomDetail)
     {

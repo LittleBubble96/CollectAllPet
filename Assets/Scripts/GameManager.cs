@@ -78,6 +78,11 @@ public class GameManager : MonoBehaviour
         {
             gameSyncActorManager.DoFixedUpdate();
         }
+
+        if (RoomManager.Instance != null)
+        {
+            RoomManager.Instance.DoFixedUpdate();
+        }
     }
     
     private void Update()

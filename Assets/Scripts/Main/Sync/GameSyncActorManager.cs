@@ -20,6 +20,9 @@ public class GameSyncActorManager : MonoBehaviour
     [SerializeField] private float _middlePriorityInterval = 0.2f;
     [SerializeField] private float _lowPriorityInterval = 0.5f;
     
+    //同步动画信息频率
+    [SerializeField] private float _syncAnimationInterval = 0.1f;
+    
     private float _highTimeCount = 0;
     private float _middleTimeCount = 0;
     private float _lowTimeCount = 0;
@@ -31,9 +34,13 @@ public class GameSyncActorManager : MonoBehaviour
     
     private List<Actor> _syncActors = new List<Actor>();
     
+    GameSyncAnimationController _gameSyncAnimationController;
+    
     public void Init()
     {
         _isSyncing = false;
+        _gameSyncAnimationController = new GameSyncAnimationController();
+        _gameSyncAnimationController.Init(_syncAnimationInterval);
     }
     public void StartSync()
     {
@@ -50,6 +57,9 @@ public class GameSyncActorManager : MonoBehaviour
         {
             return;
         }
+        
+        //同步动画
+        _gameSyncAnimationController.DoFixedUpdate();
         
         float deltaTime = Time.fixedDeltaTime;
         _highTimeCount += deltaTime;
@@ -165,6 +175,7 @@ public class GameSyncActorManager : MonoBehaviour
         foreach (var actor in _syncActors)
         {
             inViewActorIds.Add(actor.GetActorId());
+            actor.SetActorState(EActorState.Syncing);
         }
 
         _isReceiveSyncActorDeltaResponse = false;
@@ -183,4 +194,24 @@ public class GameSyncActorManager : MonoBehaviour
             _syncActors.Add(actor);
         }
     }
+
+    #region 动画
+    
+    public void SetAnimationFloatParams(Actor actor, string name, float value)
+    {
+        _gameSyncAnimationController.SetAnimationFloatParams(actor.GetActorId(),name,value);
+    }
+    
+    public void SetAnimationIntParams(Actor actor, string name, int value)
+    {
+        _gameSyncAnimationController.SetAnimationIntParams(actor.GetActorId(),name,value);
+    }
+    
+    public void SetAnimationBoolParams(Actor actor, string name, bool value)
+    {
+        _gameSyncAnimationController.SetAnimationBoolParams(actor.GetActorId(),name,value);
+    }
+    
+
+    #endregion
 }

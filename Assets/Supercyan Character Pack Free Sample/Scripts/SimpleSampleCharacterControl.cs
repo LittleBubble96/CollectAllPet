@@ -47,42 +47,18 @@ public class SimpleSampleCharacterControl : Actor
             }
         }
 
-        public void FixedUpdate()
+        public override void DoFixedUpdate()
         {
             m_animator.SetBool("Grounded", m_characterController.isGrounded);
-
-            switch (GetControlMode())
-            {
-                case CAP_ControlMode.Player:
-                    DirectUpdate();
-                    break;
-
-                case CAP_ControlMode.Server:
-                    UpdateServerPosition();
-                    break;
-
-                default:
-                    Debug.LogError("Unsupported state");
-                    break;
-            }
-
+            base.DoFixedUpdate();
             m_jumpInput = false;
         }
         
 
         #region Player
 
-        private void DirectUpdate()
+        protected override void DirectUpdate()
         {
-            // if (_actor.GetActorState() != EActorState.Ready)
-            // {
-            //     return;
-            // }
-
-            if (GetActorId() != RoomManager.Instance.GetRefActorId())
-            {
-                return;
-            }
             float v = Input.GetAxis("Vertical");
             float h = Input.GetAxis("Horizontal");
 
@@ -166,10 +142,18 @@ public class SimpleSampleCharacterControl : Actor
         public override void SetServerPosition(Vector3 position)
         {
             base.SetServerPosition(position);
-            while (_inputQueue.Count > 0)
+            if (IsHost())
             {
-                PlayerInput input = _inputQueue.Dequeue();
-                m_characterController.Move(input.MoveDirection * input.deltaTime);
+                //做一个误差校正
+                transform.position = position;
+                Vector3 serverPos = transform.position;
+                int count = _inputQueue.Count;
+                while (_inputQueue.Count > 0)
+                {
+                    PlayerInput input = _inputQueue.Dequeue();
+                    m_characterController.Move(input.MoveDirection * input.deltaTime);
+                }
+                // Debug.Log( $"SetServerPosition: {tfPos} -> {serverPos} count: {count}");
             }
         }
 

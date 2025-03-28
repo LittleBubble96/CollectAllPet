@@ -66,4 +66,13 @@ public class ClientRequestFunc
         Debug.Log("SyncActorDeltaRequest: " + syncActorDelta.PlayerId + " " + syncActorDelta.RoomId + " " + syncActorDelta.Actors.Count + " " + syncActorDelta.InViewActorIds.Count);
         await GameManager.GetNetworkManager().SendRequest(MessageRequestType.SyncActorDetailRequest, syncActorDelta);
     }
+    
+    //同步动画信息
+    public static async void SyncActorAnimationRequest( List<DeltaActorAnimationSyncData> anims)
+    {
+        SyncActorAnimationToServerRequest syncActorAnimation = new SyncActorAnimationToServerRequest();
+        syncActorAnimation.RoomId = RoomManager.Instance.GetEnterRoomId();
+        syncActorAnimation.Actors = anims;
+        await GameManager.GetNetworkManager().SendRequest(MessageRequestType.SyncActorAnimationDeltaRequest, syncActorAnimation);
+    }
 }

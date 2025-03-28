@@ -36,21 +36,21 @@ public class Actor : MonoBehaviour
 {
     private GameActorInfo actorInfo;
     private EActorState actorState = EActorState.None;
-    
+
     private Vector3 clientPosition;
-    
+
     private Vector3 clientRotation;
-    
+
     private Vector3 clientSpeed;
-    
+
     private Vector3 serverPosition;
     private Vector3 serverRotation;
     private Vector3 serverSpeed;
-    
+
     private bool bDirty = false;
-    
+
     private CAP_ControlMode m_controlMode = CAP_ControlMode.Player;
-    
+
     private float _lastSyncTime = 0;
 
     public void InitActor(GameActorInfo inActorInfo)
@@ -65,22 +65,34 @@ public class Actor : MonoBehaviour
         _lastSyncTime = Time.time;
     }
 
-    public void Update()
+    public bool IsHost()
     {
-        // 位置和旋转插值
-        float t = (Time.time - _lastSyncTime) / 0.1f;//GameManager.GetGameSyncActorManager().GetSyncInterval();
-        // transform.position = Vector3.Lerp(transform.position, serverPosition, t);
-        // transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.Euler(serverRotation), t);
+        return actorInfo.RefActorId == RoomManager.Instance.GetRefActorId();
+    }
+    public virtual void DoFixedUpdate()
+    {
+        if (IsHost())
+        {
+            DirectUpdate();
+        }
+        else 
+        {
+            UpdateServer();
+        }
     }
 
-    public CAP_ControlMode GetControlMode()
+    //客户端控制
+    protected virtual void DirectUpdate()
     {
-        return m_controlMode;
     }
-    
-    public void SetControlMode(CAP_ControlMode controlMode)
+
+    //服务器更新
+    protected virtual void UpdateServer()
     {
-       
+        // 位置和旋转插值
+        float t = (Time.time - _lastSyncTime) / 0.1f;
+        transform.position = Vector3.Lerp(transform.position, serverPosition, t);
+        transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.Euler(serverRotation), t);
     }
 
     public int GetActorId()
@@ -151,7 +163,6 @@ public class Actor : MonoBehaviour
     public virtual void SetServerPosition(Vector3 position)
     {
         serverPosition = position;
-        transform.position = serverPosition;
         _lastSyncTime = Time.time;
     }
     

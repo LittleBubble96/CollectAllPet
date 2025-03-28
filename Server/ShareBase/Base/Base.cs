@@ -28,8 +28,12 @@ namespace ShareProtobuf
         SyncActorDetailRequest,
         SyncActorDetailResponse,
         
+        SyncActorAnimationDeltaRequest,
+        SyncActorAnimationDeltaResponse,
+        
         //Server to Client
         CreateActorRequestToClient,
+        SyncActorAnimationDetailRequestToClient,
     }
 
 

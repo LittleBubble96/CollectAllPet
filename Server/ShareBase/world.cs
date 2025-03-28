@@ -66,5 +66,35 @@ namespace ShareProtobuf
         [ProtoMember(2)] public string Message { get; set; }
         [ProtoMember(3)] public List<DeltaActorSyncData> Actors { get; set; }
     }
-
+    
+    //同步动画信息
+    [ProtoContract]
+    public class DeltaActorAnimationSyncData
+    {
+        [ProtoMember(1)] public int ActorId { get; set; }
+        [ProtoMember(2)] public string AnimationParamName { get; set; }
+        [ProtoMember(3)] public string AnimationParamValue { get; set; } //float:1.0f,int:1,bool:true,string:xxx
+    }
+    
+    //同步动画信息 c 2 s
+    [ProtoContract]
+    public class SyncActorAnimationToServerRequest
+    {
+        [ProtoMember(1)] public int RoomId { get; set; }
+        [ProtoMember(2)] public List<DeltaActorAnimationSyncData> Actors { get; set; }
+    }
+    
+    [ProtoContract]
+    public class SyncActorAnimationToServerResponse
+    {
+        [ProtoMember(1)] public bool IsSuccess { get; set; }
+        [ProtoMember(2)] public string Message { get; set; }
+    }
+    
+    //同步动画信息 s 2 all c
+    [ProtoContract]
+    public class SyncActorAnimationToClientRequest
+    {
+        [ProtoMember(3)] public List<DeltaActorAnimationSyncData> Actors { get; set; }
+    }
 }
