@@ -347,9 +347,6 @@
      <Reference Include="Unity.VisualScripting.YamlDotNet">
      <HintPath>D:\Work\Project1\CollectAllPet\Library\PackageCache\com.unity.visualscripting@1.9.1\Editor\VisualScripting.Core\Dependencies\YamlDotNet\Unity.VisualScripting.YamlDotNet.dll</HintPath>
      </Reference>
-     <Reference Include="LiteDB">
-     <HintPath>D:\Work\Project1\CollectAllPet\Library\PackageCache\com.unity.muse.common@2.0.3\ThirdParty\litedb.5.0.16\lib\netstandard1.3\LiteDB.dll</HintPath>
-     </Reference>
      <Reference Include="ReportGeneratorMerged">
      <HintPath>D:\Work\Project1\CollectAllPet\Library\PackageCache\com.unity.testtools.codecoverage@1.2.4\lib\ReportGenerator\ReportGeneratorMerged.dll</HintPath>
      </Reference>
@@ -385,9 +382,6 @@
      </Reference>
      <Reference Include="Unity.VisualScripting.TextureAssets">
      <HintPath>D:\Work\Project1\CollectAllPet\Library\PackageCache\com.unity.visualscripting@1.9.1\Editor\VisualScripting.Core\EditorAssetResources\Unity.VisualScripting.TextureAssets.dll</HintPath>
-     </Reference>
-     <Reference Include="UltraLiteDB">
-     <HintPath>D:\Work\Project1\CollectAllPet\Library\PackageCache\com.unity.muse.common@2.0.3\ThirdParty\Plugins\UltraLiteDB.dll</HintPath>
      </Reference>
      <Reference Include="ShareBase">
      <HintPath>D:\Work\Project1\CollectAllPet\Assets\Plugins\ShareBase.dll</HintPath>
