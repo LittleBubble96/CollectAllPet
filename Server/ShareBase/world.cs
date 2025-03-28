@@ -1,9 +1,16 @@
 using System.Collections.Generic;
-using System.Numerics;
 using ProtoBuf;
 
 namespace ShareProtobuf
 {
+    //Vector3
+    [ProtoContract]
+    public class Vector3
+    {
+        [ProtoMember(1)] public float X { get; set; }
+        [ProtoMember(2)] public float Y { get; set; }
+        [ProtoMember(3)] public float Z { get; set; }
+    }
     //创建Actor请求
     [ProtoContract]
     public class CreatePlayerActorRequest
@@ -39,7 +46,7 @@ namespace ShareProtobuf
         [ProtoMember(3)] public Vector3 Rot { get; set; }
         [ProtoMember(4)] public Vector3 Speed { get; set; }
         
-        [ProtoMember(4)] public long SyncTime { get; set; }
+        [ProtoMember(5)] public long SyncTime { get; set; }
 
     }
 

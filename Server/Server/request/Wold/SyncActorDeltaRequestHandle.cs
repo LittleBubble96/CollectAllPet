@@ -21,8 +21,8 @@ public class SyncActorDeltaRequestHandle : MessageRquestBase
         gameRoom.SyncActors(deltaActorSync.PlayerId,deltaActorSync.Actors);
         DeltaActorSyncResponse deltaActorSyncResponseSuc = new DeltaActorSyncResponse
         {
-            IsSuccess = false,
-            Message = "Room not exist",
+            IsSuccess = true,
+            Actors = new List<DeltaActorSyncData>(),
         };
         gameRoom.RoomWorld.OptionRoomActor((actor) =>
         {

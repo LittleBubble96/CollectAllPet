@@ -1,7 +1,6 @@
 ﻿using ProtoBuf;
 using System;
 using System.Collections.Generic;
-using System.Numerics;
 using System.Text;
 
 
@@ -101,6 +100,5 @@ namespace ShareProtobuf
         [ProtoMember(1)] public bool IsSuccess { get; set; }
         [ProtoMember(2)] public string Message { get; set; }
         [ProtoMember(3)] public RoomDetailInfo RoomDetailInfo { get; set; }
-        [ProtoMember(4)] public int RefActorId { get; set; } //客户端对应的ActorId
     }
 }

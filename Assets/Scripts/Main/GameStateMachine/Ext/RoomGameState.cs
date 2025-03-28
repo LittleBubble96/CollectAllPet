@@ -29,6 +29,7 @@ public class RoomGameState : GameStateBase
         });
         //通知创建 当前角色
         ClientRequestFunc.SendCreatePlayerActorRequest();
+        RoomManager.Instance.RoomState = ERoomState.Playing;
     }
     
 }

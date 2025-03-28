@@ -1,6 +1,6 @@
+﻿
 
 using ShareProtobuf;
-using ShareProtobuf.ShareData;
 
 public class CreateActorRequestHandle : MessageRquestBase
 {
@@ -8,7 +8,7 @@ public class CreateActorRequestHandle : MessageRquestBase
     {
         CreatePlayerActorRequest createActorRequest = await GetClientHandle().ReceiveMessage<CreatePlayerActorRequest>(messageBuffer);
         Console.WriteLine("CreatePlayerActorRequest PlayerId: " + createActorRequest.PlayerId + " RoomId: " + createActorRequest.RoomId);
-        
+
         GameRoom gameRoom = GameRoomManager.Instance.GetGameRoom(createActorRequest.RoomId);
         PlayerProxy playerProxy = PlayerManager.Instance.GetPlayer(createActorRequest.PlayerId);
         if (gameRoom == null || playerProxy == null)
@@ -23,7 +23,7 @@ public class CreateActorRequestHandle : MessageRquestBase
         }
 
         List<int> actorIds = new List<int>();
-        CreateActorResultCallBack actorIdResult = gameRoom.RoomWorld.AddActor(createActorRequest.PlayerId,EActorRoleType.Player,playerProxy.PlayerData.playerConfigId,createActorRequest.SpawnPos, createActorRequest.SpawnRot);
+        CreateActorResultCallBack actorIdResult = gameRoom.RoomWorld.AddActor(createActorRequest.PlayerId, EActorRoleType.Player, playerProxy.PlayerData.playerConfigId, createActorRequest.SpawnPos, createActorRequest.SpawnRot);
 
         if (!actorIdResult.IsSuccess)
         {
@@ -39,7 +39,7 @@ public class CreateActorRequestHandle : MessageRquestBase
         //添加宠物actor
         foreach (var petData in playerProxy.PlayerData.playerPetDatas)
         {
-            CreateActorResultCallBack petaActorIdResult = gameRoom.RoomWorld.AddActor(createActorRequest.PlayerId,EActorRoleType.Monster,petData.petConfigId,createActorRequest.SpawnPos, createActorRequest.SpawnRot);
+            CreateActorResultCallBack petaActorIdResult = gameRoom.RoomWorld.AddActor(createActorRequest.PlayerId, EActorRoleType.Monster, petData.petConfigId, createActorRequest.SpawnPos, createActorRequest.SpawnRot);
             if (!petaActorIdResult.IsSuccess)
             {
                 CreatePlayerActorResponse createActorResponse = new CreatePlayerActorResponse
@@ -48,9 +48,9 @@ public class CreateActorRequestHandle : MessageRquestBase
                     Message = petaActorIdResult.Message,
                 };
                 await GetClientHandle().SendMessage(MessageRequestType.CreateActorResponse, createActorResponse);
-                actorIds.Add(actorIdResult.ActorId);
                 return;
             }
+            actorIds.Add(actorIdResult.ActorId);
         }
         CreatePlayerActorResponse createActorResponseSuc = new CreatePlayerActorResponse
         {
@@ -70,10 +70,14 @@ public class CreateActorRequestHandle : MessageRquestBase
             RoomId = createActorRequest.RoomId,
             Actors = gameActorInfos,
         };
-        
+
         List<ClientHandle> clientHandles = gameRoom.GetClientHandles();
         foreach (var clientHandle in clientHandles)
         {
+            if (clientHandle == null)
+            {
+                continue;
+            }
             await clientHandle.SendMessage(MessageRequestType.CreateActorRequestToClient, createRoomActorToClientRequest);
         }
     }

@@ -19,19 +19,18 @@ public class CreatePlayerResponseHandle : ClientMessageRequestBase
         {
             Debug.Log("Create room success");
             //创建刷新
-            RoomManager.Instance.UpdateDetailRoom(response.RoomDetailInfo,response.RefActorId);
-            GameManager.Instance.StartCoroutine(RoomManager.Instance.LoadSceneActor(null));
+            RoomManager.Instance.UpdateHostActorId(response.RefActorId);
         }
 
     }
 
     public override MessageRequestType GetRequestMessageType()
     {
-        return MessageRequestType.CreateRoomRequest;
+        return MessageRequestType.CreateActorRequest;
     }
 
     public override MessageRequestType GetResponseMessageType()
     {
-        return MessageRequestType.CreateRoomResponse;
+        return MessageRequestType.CreateActorResponse;
     }
 }

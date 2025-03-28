@@ -9,5 +9,8 @@ public partial class ClientFactoryRegisterHelper
         ClientFactory.Instance.GetMessageResponseFactory().RegisterType<RefreshRoomListResponseHandle>(MessageRequestType.RefreshRoomList);
         ClientFactory.Instance.GetMessageResponseFactory().RegisterType<CreateRoomResponseHandle>(MessageRequestType.CreateRoomRequest);
         ClientFactory.Instance.GetMessageResponseFactory().RegisterType<JoinRoomResponseHandle>(MessageRequestType.JoinRoomRequest);
+        ClientFactory.Instance.GetMessageResponseFactory().RegisterType<GetRoomDetailResponseHandle>(MessageRequestType.GetRoomDetailRequest);
+        ClientFactory.Instance.GetMessageResponseFactory().RegisterType<CreatePlayerResponseHandle>(MessageRequestType.CreateActorRequest);
+        ClientFactory.Instance.GetMessageResponseFactory().RegisterType<SyncActorDeltaResponseHandle>(MessageRequestType.SyncActorDetailRequest);
     }
 }

@@ -14,8 +14,4 @@
     <ProjectReference Include="..\ShareBase\ShareBase.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Compile Include="request\Wold\CreateActorRequestHandle.cs" />
-  </ItemGroup>
-
 </Project>

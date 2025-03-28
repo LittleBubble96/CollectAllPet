@@ -1,5 +1,4 @@
 ﻿using System.Collections.Concurrent;
-using System.Numerics;
 using ShareProtobuf;
 
 public enum EActorRoleType
@@ -38,7 +37,28 @@ public class RoomActor
         Rot = rot;
         OwnerPlayerId = playerId;
         ActorCfgId = actorCfgId;
-        ActorName = actorCfgId + "_" + ActorId + "_" + OwnerPlayerId;
+        ActorName = GetActorName();
+    }
+
+    private string GetActorName()
+    {
+        string preName = "";
+        switch (Role)
+        {
+            case EActorRoleType.Player:
+                preName = "Player";
+                break;
+            case EActorRoleType.NPC:
+                preName = "NPC";
+                break;
+            case EActorRoleType.Monster:
+                preName = "Monster";
+                break;
+            case EActorRoleType.Interactive:
+                preName = "Interactive";
+                break;
+        }
+        return preName + "_" + ActorCfgId + "_" + ActorId + "_" + OwnerPlayerId;
     }
     
     
@@ -106,7 +126,7 @@ public class RoomWorld
                 }
             }
         }
-        return new CreateActorResultCallBack() { IsSuccess = true };
+        return new CreateActorResultCallBack() { IsSuccess = true, ActorId = generateActorId };
     }
 
     public List<GameActorInfo> GetActors()

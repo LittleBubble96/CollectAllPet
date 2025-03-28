@@ -1,5 +1,4 @@
 ﻿using ShareProtobuf;
-using System.Numerics;
 
 public class GameRoom
 {
@@ -40,7 +39,7 @@ public class GameRoom
                 return new ResultCallBack() { IsSuccess = false, Message = "房间已满" };
             }
             RoomPlayer roomPlayer = new RoomPlayer();
-            roomPlayer.Init(playerId ,clientIPAndPort, RoomId, new Vector3(0, 0, 0), new Vector3(0, 0, 0));
+            roomPlayer.Init(playerId ,clientIPAndPort, RoomId, GameConst.ZeroVector3, GameConst.ZeroVector3);
             Players.Add(playerId, roomPlayer);
             return new ResultCallBack() { IsSuccess = true, Message = "加入房间成功" };
         }
@@ -91,6 +90,10 @@ public class GameRoom
 
     public void SyncActors(string playerId, List<DeltaActorSyncData> actors)
     {
+        if (actors == null)
+        {
+            return;
+        }
         RoomWorld.SyncActors(playerId, actors);
     }
 }

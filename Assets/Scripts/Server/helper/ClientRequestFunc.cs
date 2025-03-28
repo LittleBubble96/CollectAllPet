@@ -2,6 +2,9 @@
 using ShareProtobuf;
 using ProtoBuf;
 using System.Numerics;
+using UnityEngine;
+using Vector3 = ShareProtobuf.Vector3;
+
 public class ClientRequestFunc
 {
     public static async void SendLoginRequest(string username, string password)
@@ -48,6 +51,8 @@ public class ClientRequestFunc
         CreatePlayerActorRequest createPlayer = new CreatePlayerActorRequest();
         createPlayer.PlayerId = CharacterManager.Instance.PlayerInfo.PlayerId;
         createPlayer.RoomId = RoomManager.Instance.GetEnterRoomId();
+        createPlayer.SpawnPos = ConfigHelper.ZeroVector3;
+        createPlayer.SpawnRot = ConfigHelper.ZeroVector3;
         await GameManager.GetNetworkManager().SendRequest(MessageRequestType.CreateActorRequest, createPlayer);
     }
 
@@ -57,7 +62,8 @@ public class ClientRequestFunc
         syncActorDelta.PlayerId = CharacterManager.Instance.PlayerInfo.PlayerId;
         syncActorDelta.RoomId = RoomManager.Instance.GetEnterRoomId();
         syncActorDelta.Actors = actors;
-        syncActorDelta.InViewActorIds.AddRange(inViewActorIds);
+        syncActorDelta.InViewActorIds = inViewActorIds;
+        Debug.Log("SyncActorDeltaRequest: " + syncActorDelta.PlayerId + " " + syncActorDelta.RoomId + " " + syncActorDelta.Actors.Count + " " + syncActorDelta.InViewActorIds.Count);
         await GameManager.GetNetworkManager().SendRequest(MessageRequestType.SyncActorDetailRequest, syncActorDelta);
     }
 }

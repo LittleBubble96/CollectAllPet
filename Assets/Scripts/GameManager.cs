@@ -10,6 +10,7 @@ public class GameManager : MonoBehaviour
     private UIManager uiManager;
     private AppEventDispatcher appEventDispatcher;
     private GameStateMachine gameStateMachine;
+    private GameSyncActorManager gameSyncActorManager;
 
     private void Awake()
     {
@@ -41,6 +42,9 @@ public class GameManager : MonoBehaviour
         
         gameStateMachine = new GameStateMachine();
         gameStateMachine.Init();
+        
+        gameSyncActorManager = GetComponent<GameSyncActorManager>();
+        gameSyncActorManager.Init();
     }
     
     public static NetworkManager GetNetworkManager()
@@ -61,6 +65,19 @@ public class GameManager : MonoBehaviour
     public static GameStateMachine GetGameStateMachine()
     {
         return _instance.gameStateMachine;
+    }
+    
+    public static GameSyncActorManager GetGameSyncActorManager()
+    {
+        return _instance.gameSyncActorManager;
+    }
+    
+    private void FixedUpdate()
+    {
+        if (gameSyncActorManager != null)
+        {
+            gameSyncActorManager.DoFixedUpdate();
+        }
     }
     
     private void Update()

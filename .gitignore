@@ -1,4 +1,3 @@
-*.meta
 *.userprefs
 *.pidb
 *.suo
@@ -16,7 +15,6 @@
 /obj/
 /Builds/
 
-Assets/Mirror/
 Server/.vs/
 Server/Server/obj/
 Server/ShareBase/obj/

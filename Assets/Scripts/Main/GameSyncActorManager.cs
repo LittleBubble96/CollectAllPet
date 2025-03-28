@@ -3,6 +3,7 @@ using System.Collections.Concurrent;
 using System.Collections.Generic;
 using ShareProtobuf;
 using UnityEngine;
+using Vector3 = UnityEngine.Vector3;
 
 public class GameSyncActorManager : MonoBehaviour
 {
@@ -30,6 +31,10 @@ public class GameSyncActorManager : MonoBehaviour
     
     private List<Actor> _syncActors = new List<Actor>();
     
+    public void Init()
+    {
+        _isSyncing = false;
+    }
     public void StartSync()
     {
         _isSyncing = true;
@@ -39,7 +44,7 @@ public class GameSyncActorManager : MonoBehaviour
     {
         _isSyncing = false;
     }
-    private void FixedUpdate()
+    public void DoFixedUpdate()
     {
         if (!_isSyncing)
         {
@@ -125,10 +130,6 @@ public class GameSyncActorManager : MonoBehaviour
         ConcurrentDictionary<int,Actor> actorDic = RoomManager.Instance.GetActorDict();
         foreach (var actor in actorDic)
         {
-            if (actor.Value.GetControlMode() == CAP_ControlMode.Player)
-            {
-                continue;
-            }
             if (actor.Value.GetActorState() == EActorState.WaitSync || onCondition.Invoke(cameraPosition,actor.Value))
             {
                 SyncActor(actor.Value);
@@ -151,11 +152,11 @@ public class GameSyncActorManager : MonoBehaviour
             DeltaActorSyncData deltaActorSyncData = new DeltaActorSyncData();
             deltaActorSyncData.ActorId = actor.Value.GetActorId();
             Vector3 pos = actor.Value.GetPosition();
-            deltaActorSyncData.Pos = new System.Numerics.Vector3(pos.x, pos.y, pos.z);
+            deltaActorSyncData.Pos = ConfigHelper.ConvertUnityVector3ToVector3(pos);
             Vector3 rot = actor.Value.GetRotation();
-            deltaActorSyncData.Rot = new System.Numerics.Vector3(rot.x, rot.y, rot.z);
+            deltaActorSyncData.Rot = ConfigHelper.ConvertUnityVector3ToVector3(rot);
             Vector3 speed = actor.Value.GetSpeed();
-            deltaActorSyncData.Speed = new System.Numerics.Vector3(speed.x, speed.y, speed.z);
+            deltaActorSyncData.Speed = ConfigHelper.ConvertUnityVector3ToVector3(speed);
             deltaActorSyncData.SyncTime = DateTime.UtcNow.Ticks;//后续都应该用服务器时间
             deltaActorSyncDatas.Add(deltaActorSyncData);
             actor.Value.ClearDirty();

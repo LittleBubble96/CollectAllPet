@@ -3,10 +3,19 @@ using System.Collections;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using ShareProtobuf;
+using ShareProtobuf.ShareData;
 using UnityEngine;
+
 
 public class RoomManager : Singleton<RoomManager>
 {
+    private struct RoomActorTempInfo
+    {
+        public string ResName;
+        public string Name;
+    }
+
+    
     private int enterRoomId = -1;
     private ERoomState roomState = ERoomState.None;
     private RoomDetailInfo roomDetailInfo;
@@ -32,8 +41,12 @@ public class RoomManager : Singleton<RoomManager>
                 case ERoomState.Loading:
                     break;
                 case ERoomState.Playing:
+                    //开始同步
+                    GameManager.GetGameSyncActorManager().StartSync();
                     break;
                 case ERoomState.End:
+                    //结束同步
+                    GameManager.GetGameSyncActorManager().StopSync();
                     break;
             }
         }
@@ -45,9 +58,13 @@ public class RoomManager : Singleton<RoomManager>
     }
     
     // Update Room Detail refActorId is Host
-    public void UpdateDetailRoom(RoomDetailInfo roomDetail,int inRefActorId)
+    public void UpdateDetailRoom(RoomDetailInfo roomDetail)
     {
         this.roomDetailInfo = roomDetail;
+    }
+    
+    public void UpdateHostActorId(int inRefActorId)
+    {
         this.refActorId = inRefActorId;
     }
     
@@ -129,7 +146,7 @@ public class RoomManager : Singleton<RoomManager>
     public IEnumerator LoadSceneActor(Action<float> progressCallback)
     {
         RoomDetailInfo roomDetailInfo = RoomManager.Instance.GetRoomDetailInfo();
-        if (roomDetailInfo != null)
+        if (roomDetailInfo != null && roomDetailInfo.WorldActors != null)
         {
             int actorCount = roomDetailInfo.WorldActors.Count;
             int curActorIndex = 0;
@@ -138,36 +155,72 @@ public class RoomManager : Singleton<RoomManager>
             {
                 curActorIndex++;
                 progressCallback?.Invoke(curActorIndex / (float)actorCount);
-                if (actorDict.ContainsKey(actorInfo.RefActorId))
-                {
-                    continue;
-                }
-                //加载Actor
-                GameObject go = Resources.Load<GameObject>(actorInfo.ActorRes);
-                if (go != null)
-                {
-                    GameObject actor = GameObject.Instantiate(go);
-                    Actor actorCmpt = actor.GetComponent<Actor>();
-                    if (actorCmpt != null)
-                    {
-                        actorCmpt.InitActor(actorInfo);
-                        actorDict.TryAdd(actorInfo.RefActorId, actorCmpt);
-                        if (actorCmpt.IsOwnerPlayer())
-                        {
-                            ownerActorDict.TryAdd(actorInfo.RefActorId, actorCmpt);
-                            actorCmpt.SetControlMode(CAP_ControlMode.Player);
-                        }
-                    }
-
-                    actor.transform.position = GameConst.DefaultActorPosition;
-                    actor.transform.rotation = GameConst.DefaultActorRotation;
-                }
+                CreateRoomActor(actorInfo);
                 yield return null;
             }
         }
         yield return null;
     }
+
+    public void CreateRoomActor(GameActorInfo actorInfo)
+    {
+        if (actorDict.ContainsKey(actorInfo.RefActorId))
+        {
+            return;
+        }
+        //加载Actor
+        RoomActorTempInfo tempInfo = GetRoomActorTempInfo(actorInfo);
+        if (tempInfo.ResName == null || tempInfo.ResName == "")
+        {
+            return;
+        }
+        GameObject go = Resources.Load<GameObject>(tempInfo.ResName);
+        if (go != null)
+        {
+            GameObject actor = GameObject.Instantiate(go);
+            actor.name = actorInfo.ActorName;
+            Actor actorCmpt = actor.GetComponent<Actor>();
+            if (actorCmpt != null)
+            {
+                actorCmpt.InitActor(actorInfo);
+                actorDict.TryAdd(actorInfo.RefActorId, actorCmpt);
+                if (actorCmpt.IsOwnerPlayer())
+                {
+                    ownerActorDict.TryAdd(actorInfo.RefActorId, actorCmpt);
+                }
+            }
+
+            actor.transform.position = GameConst.DefaultActorPosition;
+            actor.transform.rotation = GameConst.DefaultActorRotation;
+        }
+    }
     
+    private RoomActorTempInfo GetRoomActorTempInfo(GameActorInfo actorInfo)
+    {
+        RoomActorTempInfo tempInfo = new RoomActorTempInfo();
+        if (actorInfo.ActorRoleType == (int)EActorRoleType.Player)
+        {
+            PlayerConfigItem playerConfigItem = PlayerConfig.GetPlayerConfigItem(actorInfo.ActorConfigId);
+            if (playerConfigItem != null)
+            {
+                tempInfo.ResName = playerConfigItem.Prefab;
+                tempInfo.Name = playerConfigItem.Name;
+            }
+        }
+        else if (actorInfo.ActorRoleType == (int)EActorRoleType.Monster)
+        {
+            MonsterConfigItem monsterConfigItem = MonsterConfig.GetConfigItem(actorInfo.ActorConfigId);
+            if (monsterConfigItem != null)
+            {
+                tempInfo.ResName = monsterConfigItem.Prefab;
+                tempInfo.Name = monsterConfigItem.Name;
+            }
+        }
+      
+        return tempInfo;
+    }
+ 
+
     //同步服务器Actor信息
     public void SyncServerActorInfo(List<DeltaActorSyncData> deltaActorSyncData)
     {

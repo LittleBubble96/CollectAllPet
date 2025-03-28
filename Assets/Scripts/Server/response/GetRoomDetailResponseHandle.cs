@@ -17,7 +17,7 @@ public class GetRoomDetailResponseHandle : ClientMessageRequestBase
         if (response.IsSuccess)
         {
             Debug.Log("Create room success");
-            RoomManager.Instance.UpdateDetailRoom(response.RoomDetailInfo,response.RefActorId);
+            RoomManager.Instance.UpdateDetailRoom(response.RoomDetailInfo);
             RoomManager.Instance.RoomState = ERoomState.Loading;
         }
 
@@ -25,11 +25,11 @@ public class GetRoomDetailResponseHandle : ClientMessageRequestBase
 
     public override MessageRequestType GetRequestMessageType()
     {
-        return MessageRequestType.CreateRoomRequest;
+        return MessageRequestType.GetRoomDetailRequest;
     }
 
     public override MessageRequestType GetResponseMessageType()
     {
-        return MessageRequestType.CreateRoomResponse;
+        return MessageRequestType.GetRoomDetailResponse;
     }
 }

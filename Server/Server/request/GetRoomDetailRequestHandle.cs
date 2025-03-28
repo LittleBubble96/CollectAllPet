@@ -24,7 +24,6 @@ public class GetRoomDetailRequestHandle : MessageRquestBase
             IsSuccess = true,
             Message = "获取房间信息成功",
             RoomDetailInfo = gameRoom.GetRoomDetailInfo(),
-            RefActorId = gameRoom.GetRoomActorByPlayerId(getRoomRequest.PlayerId).ActorId,
         };
         await GetClientHandle().SendMessage(MessageRequestType.GetRoomDetailResponse, getRoomDetailResponseSuc);
     }

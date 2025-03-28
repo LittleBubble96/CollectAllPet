@@ -57,7 +57,7 @@ public class NetworkManager
                 await Task.Delay(1000);
                 Heartbeat heartbeat = new Heartbeat();
                 heartbeat.Timestamp = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
-                Debug.Log("Send heartbeat to master server!");
+                //Debug.Log("Send heartbeat to master server!");
                 await SendRequest(MessageRequestType.Heratbeat, heartbeat);
             }
             catch (Exception e)
@@ -92,7 +92,7 @@ public class NetworkManager
         while (_client.Connected)
         {
             // 1. 读取消息类型（1字节）
-            Debug.Log("[AcceptClientAsync] Read message type");
+            // Debug.Log("[AcceptClientAsync] Read message type");
             int byteRead = await _stream.ReadAsync(typeBuffer,0,1);
             if (byteRead == 0)
             {
@@ -101,11 +101,11 @@ public class NetworkManager
             }
                
             MessageRequestType type = (MessageRequestType)typeBuffer[0];
-            Debug.Log("Received message type: " + type);
+            DebugLog(type, "Received message type: " + type);
             // 2. 读取长度（4字节，大端序转int）
             await _stream.ReadAsync(lengthBuffer, 0, 4);
             int length = IPAddress.NetworkToHostOrder(BitConverter.ToInt32(lengthBuffer, 0));
-            Debug.Log("Received message length: " + length);
+            DebugLog(type, "Received message length: " + length);
             // 3. 读取消息体
             messageBuffer = new byte[length];
             await _stream.ReadAsync(messageBuffer, 0, length);
@@ -119,16 +119,15 @@ public class NetworkManager
             var response = GetResponseCache(type);
             if (response != null)
             {
-                Debug.Log("Handle response: " + type);
+                DebugLog(type, "Handle response: " + type);
                 await response.HandleResponse(type, messageBuffer);
             }
             //查看是否有对应的request
             else
             {
-                Debug.Log("Handle request: " + type);
+                DebugLog(type, "Handle request: " + type);
                 await ClientFactory.Instance.GetMessageRequestFactory().GetObject(type).ReadFromStream(messageBuffer);
             }
-            Debug.Log("last Received message: " + type);
             // try
             // { 
             //     
@@ -176,7 +175,7 @@ public class NetworkManager
     {
         if (_stream == null || !_stream.CanWrite)
         {
-            Console.WriteLine("流不可用，无法发送消息");
+            Debug.LogError("Failed to send message to master server: stream is null or cannot write");
             return;
         }
 
@@ -211,7 +210,7 @@ public class NetworkManager
         }
         catch (Exception ex)
         {
-            Console.WriteLine("SendMessage error: {0}", ex.Message);
+            Debug.LogError("Failed to send message to master server: " + ex.Message);
         }
        
         //response 加入缓存
@@ -241,5 +240,14 @@ public class NetworkManager
         _client.Dispose();
         _client.Close();
         _stream.Close();
+    }
+    
+    private void DebugLog(MessageRequestType type, string message)
+    {
+        if (type == MessageRequestType.Heratbeat || type == MessageRequestType.HeartbeatAck)
+        {
+            return;
+        }
+        Debug.Log("Received message: " + type + " - " + message);
     }
 }
