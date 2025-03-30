@@ -106,8 +106,8 @@
      <Compile Include="Assets\Mirror\Hosting\Edgegap\Models\SDK\SessionDelete.cs" />
      <Compile Include="Assets\Mirror\Hosting\Edgegap\Models\SDK\SessionUser.cs" />
      <Compile Include="Assets\Mirror\Hosting\Edgegap\Models\SDK\MatchmakerComponentResponse.cs" />
-     <Compile Include="Assets\Mirror\Hosting\Edgegap\Models\SDK\SelectorModel.cs" />
      <Compile Include="Assets\Mirror\Hosting\Edgegap\Enums\ApiEnvironment.cs" />
+     <Compile Include="Assets\Mirror\Hosting\Edgegap\Models\SDK\SelectorModel.cs" />
      <Compile Include="Assets\Mirror\Hosting\Edgegap\Models\SDK\LocationModel.cs" />
      <Compile Include="Assets\Mirror\Hosting\Edgegap\Models\SDK\MatchmakerManagedReleaseUpdate.cs" />
      <Compile Include="Assets\Mirror\Hosting\Edgegap\Editor\Api\EdgegapDeploymentsApi.cs" />

@@ -180,6 +180,8 @@ public class GameSyncActorManager : MonoBehaviour
 
         _isReceiveSyncActorDeltaResponse = false;
         ClientRequestFunc.SyncActorDeltaRequest(deltaActorSyncDatas,inViewActorIds);
+        Debug.Log( $"SetServerPosition:  开始同步位置信息");
+
     }
     
     public void ReceiveSyncActorDeltaResponse()

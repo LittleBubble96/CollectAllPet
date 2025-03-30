@@ -72,8 +72,8 @@
      <Compile Include="Assets\Mirror\Examples\Billiards\Ball\WhiteBall.cs" />
      <Compile Include="Assets\Mirror\Examples\Basic\Scripts\PlayerUI.cs" />
      <Compile Include="Assets\Mirror\Examples\BenchmarkIdle\BenchmarkIdleNetworkManager.cs" />
-     <Compile Include="Assets\Mirror\Examples\BenchmarkStinkySteak\Scripts\SineMoveRandomBehaviour.cs" />
      <Compile Include="Assets\Mirror\Examples\Room\Scripts\Reward.cs" />
+     <Compile Include="Assets\Mirror\Examples\BenchmarkStinkySteak\Scripts\SineMoveRandomBehaviour.cs" />
      <Compile Include="Assets\Mirror\Examples\StackedPrediction\PlayerForce.cs" />
      <Compile Include="Assets\Mirror\Examples\AdditiveLevels\Scripts\AdditiveLevelsNetworkManager.cs" />
      <Compile Include="Assets\Mirror\Examples\AutoLANClientController\Scripts\AutoLANNetworkManager.cs" />

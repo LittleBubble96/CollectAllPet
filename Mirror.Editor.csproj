@@ -51,8 +51,8 @@
      <Compile Include="Assets\Mirror\Editor\NetworkInformationPreview.cs" />
      <Compile Include="Assets\Mirror\Editor\AndroidManifestHelper.cs" />
      <Compile Include="Assets\Mirror\Editor\SyncVarAttributeDrawer.cs" />
-     <Compile Include="Assets\Mirror\Editor\SyncObjectCollectionsDrawer.cs" />
      <Compile Include="Assets\Mirror\Editor\EditorHelper.cs" />
+     <Compile Include="Assets\Mirror\Editor\SyncObjectCollectionsDrawer.cs" />
      <Compile Include="Assets\Mirror\Editor\NetworkManagerEditor.cs" />
      <Compile Include="Assets\Mirror\Editor\SceneDrawer.cs" />
      <Compile Include="Assets\Mirror\Editor\LagCompensatorInspector.cs" />

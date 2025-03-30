@@ -43,8 +43,8 @@ public class Actor : MonoBehaviour
 
     private Vector3 clientSpeed;
 
-    private Vector3 serverPosition;
-    private Vector3 serverRotation;
+    protected Vector3 serverPosition;
+    protected Vector3 serverRotation;
     private Vector3 serverSpeed;
 
     private bool bDirty = false;
@@ -186,7 +186,7 @@ public class Actor : MonoBehaviour
         return serverPosition;
     }
     
-    public void SetServerRotation(Vector3 rotation)
+    public virtual void SetServerRotation(Vector3 rotation)
     {
         serverRotation = rotation;
         transform.eulerAngles = serverRotation;

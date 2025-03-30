@@ -149,8 +149,9 @@ public class SimpleSampleCharacterControl : Actor
             if (IsHost())
             {
                 //做一个误差校正
-                transform.position = position;
-                Vector3 serverPos = transform.position;
+                // transform.position = position;
+                Vector3 serverPos = GetServerPosition();
+                m_characterController.Move(serverPos - transform.position);
                 int count = _inputQueue.Count;
                 while (_inputQueue.Count > 0)
                 {
@@ -158,6 +159,18 @@ public class SimpleSampleCharacterControl : Actor
                     m_characterController.Move(input.MoveDirection * input.deltaTime);
                 }
                 // Debug.Log( $"SetServerPosition: {tfPos} -> {serverPos} count: {count}");
+            }
+        }
+
+        public override void SetServerRotation(Vector3 rotation)
+        {
+            if (IsHost())
+            {
+                serverRotation = rotation;
+            }
+            else
+            {
+                base.SetServerRotation(rotation);
             }
         }
 

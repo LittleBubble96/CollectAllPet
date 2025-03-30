@@ -55,9 +55,9 @@
      <Compile Include="Assets\Scripts\Server\helper\ClientRequestFunc.cs" />
      <Compile Include="Assets\Scripts\Server\response\SyncActorAnimationDeltaResponseHandle.cs" />
      <Compile Include="Assets\Supercyan Character Pack Free Sample\Scripts\AccessoryLogic.cs" />
+     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_ExampleScript_01.cs" />
      <Compile Include="Assets\Scripts\Server\response\GetRoomDetailResponseHandle.cs" />
      <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMPro_InstructionOverlay.cs" />
-     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_ExampleScript_01.cs" />
      <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\VertexShakeB.cs" />
      <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\DropdownSample.cs" />
      <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\VertexColorCycler.cs" />
@@ -106,8 +106,8 @@
      <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\VertexZoom.cs" />
      <Compile Include="Assets\Scripts\GameManager.cs" />
      <Compile Include="Assets\Scripts\UI\Base\RegisterUIHelper.cs" />
-     <Compile Include="Assets\Scripts\Server\response\SyncActorDeltaResponseHandle.cs" />
      <Compile Include="Assets\Scripts\Main\Room\RoomDefine.cs" />
+     <Compile Include="Assets\Scripts\Server\response\SyncActorDeltaResponseHandle.cs" />
      <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark02.cs" />
      <Compile Include="Assets\Scripts\Main\FactoryRegister\ClientFactoryRegisterHelper.cs" />
      <Compile Include="Assets\Scripts\Main\Room\RoomManager.cs" />
@@ -958,14 +958,14 @@
      <Reference Include="Unity.VisualScripting.Core">
      <HintPath>D:\Work\Project1\CollectAllPet\Library\ScriptAssemblies\Unity.VisualScripting.Core.dll</HintPath>
      </Reference>
+     <Reference Include="UnityEngine.UI">
+     <HintPath>D:\Work\Project1\CollectAllPet\Library\ScriptAssemblies\UnityEngine.UI.dll</HintPath>
+     </Reference>
      <Reference Include="Unity.VisualScripting.Core.Editor">
      <HintPath>D:\Work\Project1\CollectAllPet\Library\ScriptAssemblies\Unity.VisualScripting.Core.Editor.dll</HintPath>
      </Reference>
      <Reference Include="Unity.Rider.Editor">
      <HintPath>D:\Work\Project1\CollectAllPet\Library\ScriptAssemblies\Unity.Rider.Editor.dll</HintPath>
-     </Reference>
-     <Reference Include="UnityEngine.UI">
-     <HintPath>D:\Work\Project1\CollectAllPet\Library\ScriptAssemblies\UnityEngine.UI.dll</HintPath>
      </Reference>
      <Reference Include="Unity.2D.Sprite.Editor">
      <HintPath>D:\Work\Project1\CollectAllPet\Library\ScriptAssemblies\Unity.2D.Sprite.Editor.dll</HintPath>
