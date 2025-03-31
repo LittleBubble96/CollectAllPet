@@ -66,7 +66,7 @@ public class GameRoomSpawnController
                 // Do something with the point
                 //发送创建事件
                 CreateActorResultCallBack callBack = room.RoomWorld.AddActor("SceneInstance", EActorRoleType.BreakInteractive, point.GetSpawnInteractivePointId(), point.GetSpawnInteractivePointPos(), point.ScenePointConfigItem.Rotation);
-                point.SpawnInteractiveState = SpawnInteractiveState.Spawn;
+                point.OnSpawnEnd(callBack.ActorId);
                 actorIds.Add(callBack.ActorId);
             }
             //发送创建事件

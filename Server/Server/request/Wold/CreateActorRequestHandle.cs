@@ -50,7 +50,7 @@ public class CreateActorRequestHandle : MessageRquestBase
                 await GetClientHandle().SendMessage(MessageRequestType.CreateActorResponse, createActorResponse);
                 return;
             }
-            actorIds.Add(actorIdResult.ActorId);
+            actorIds.Add(petaActorIdResult.ActorId);
         }
         
         //发送给所有客户端

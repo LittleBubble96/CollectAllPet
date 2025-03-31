@@ -83,5 +83,16 @@ public class GameRoomSpawnInteractivePoint
     }
 
     #endregion
+
+    #region 生成结束
+
+    private int spawnActorId;
     
+    public void OnSpawnEnd(int spawnActorId)
+    {
+        this.spawnActorId = spawnActorId;
+        SpawnInteractiveState = SpawnInteractiveState.Spawn;
+    }
+
+    #endregion
 }
