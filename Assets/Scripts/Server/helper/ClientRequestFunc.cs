@@ -51,8 +51,8 @@ public class ClientRequestFunc
         CreatePlayerActorRequest createPlayer = new CreatePlayerActorRequest();
         createPlayer.PlayerId = CharacterManager.Instance.PlayerInfo.PlayerId;
         createPlayer.RoomId = RoomManager.Instance.GetEnterRoomId();
-        createPlayer.SpawnPos = ConfigHelper.ZeroVector3;
-        createPlayer.SpawnRot = ConfigHelper.ZeroVector3;
+        createPlayer.SpawnPos = ConfigHelper.ConvertUnityVector3ToVector3(GameConst.CharacterSpawnPosition);
+        createPlayer.SpawnRot =  ConfigHelper.ConvertUnityVector3ToVector3(GameConst.CharacterSpawnRotation);
         await GameManager.GetNetworkManager().SendRequest(MessageRequestType.CreateActorRequest, createPlayer);
     }
 

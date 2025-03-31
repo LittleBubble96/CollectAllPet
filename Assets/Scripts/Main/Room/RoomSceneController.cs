@@ -3,16 +3,15 @@ using UnityEngine;
 
 public class RoomSceneController
 {
-    private CinemachineFreeLook m_FreeLook;
+    private ThirdPersonCamera m_FreeLook;
     public void Init()
     {
         //初始化房间场景
-        m_FreeLook = GameObject.FindObjectOfType<CinemachineFreeLook>();
+        m_FreeLook = GameObject.FindObjectOfType<ThirdPersonCamera>();
     }
     
     public void SetCameraLookAt(Actor target)
     {
-        m_FreeLook.LookAt = target.GetLookAtTarget();
-        m_FreeLook.Follow = target.GetLookAtTarget();
+        m_FreeLook.target = target.GetLookAtTarget();
     }
 }

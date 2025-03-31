@@ -141,6 +141,8 @@ public class RoomWorld
                 RefActorId = actor.Value.ActorId , 
                 ActorName = actor.Value.ActorName,
                 ActorRoleType = (int)actor.Value.Role,
+                SpawnPos = actor.Value.Pos,
+                SpawnRot = actor.Value.Rot,
             });
         }
         return gameActorInfos;
@@ -171,6 +173,8 @@ public class RoomWorld
                 RefActorId = actor.ActorId , 
                 ActorName = actor.ActorName,
                 ActorRoleType = (int)actor.Role,
+                SpawnPos = actor.Pos,
+                SpawnRot = actor.Rot,
             };
         }
         return null;

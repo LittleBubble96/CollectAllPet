@@ -50,6 +50,7 @@ public class SimpleSampleCharacterControl : Actor
 
         public override void DoFixedUpdate()
         {
+            Debug.Log( $"SetServerPosition DoFixedUpdate {transform.position}");
             base.DoFixedUpdate();
             _animationController.DoFixedUpdate();
             m_jumpInput = false;
@@ -106,8 +107,12 @@ public class SimpleSampleCharacterControl : Actor
                 m_curJumpSpeed = m_jumpForce;
                 m_isJumping = true;
             }
-            // m_characterController.SimpleMove(m_currentDirection * m_moveSpeed + Vector3.up * m_curJumpSpeed);
+            Debug.Log( $"JumpingAndLanding: Move Direction: {m_currentDirection} curJumpSpeed: {m_curJumpSpeed}");
+            Debug.Log( $"JumpingAndLanding: Pre Transform Position: {transform.position}");
+
             m_characterController.Move((m_currentDirection * m_moveSpeed + Vector3.up * m_curJumpSpeed) * dt);
+            Debug.Log( $"JumpingAndLanding: Post Transform Position: {transform.position}");
+
             if (GetActorState() == EActorState.Syncing)
             {
                 _inputQueue.Enqueue(new PlayerInput
@@ -149,6 +154,7 @@ public class SimpleSampleCharacterControl : Actor
             if (IsHost())
             {
                 //做一个误差校正
+                Vector3 tfPos = transform.position;
                 // transform.position = position;
                 Vector3 serverPos = GetServerPosition();
                 m_characterController.Move(serverPos - transform.position);
@@ -158,7 +164,7 @@ public class SimpleSampleCharacterControl : Actor
                     PlayerInput input = _inputQueue.Dequeue();
                     m_characterController.Move(input.MoveDirection * input.deltaTime);
                 }
-                // Debug.Log( $"SetServerPosition: {tfPos} -> {serverPos} count: {count}");
+                Debug.Log( $"SetServerPosition: {tfPos} -> {serverPos} count: {count}");
             }
         }
 

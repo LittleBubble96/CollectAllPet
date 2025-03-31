@@ -72,6 +72,8 @@ namespace ShareProtobuf
         [ProtoMember(3)] public int RefActorId { get; set; }
         [ProtoMember(4)] public string ActorName { get; set; }
         [ProtoMember(5)] public int ActorRoleType { get; set; }
+        [ProtoMember(6)] public Vector3 SpawnPos { get; set; }
+        [ProtoMember(7)] public Vector3 SpawnRot { get; set; }
      }
 
     //详细房间信息

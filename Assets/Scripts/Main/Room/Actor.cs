@@ -67,7 +67,6 @@ public class Actor : MonoBehaviour
         clientRotation = transform.eulerAngles;
         clientSpeed = Vector3.zero;
         _lastSyncTime = Time.time;
-        
         // Init Animation
         //初始化动画信息
         _animationController = new ActorAnimationController();
@@ -104,6 +103,10 @@ public class Actor : MonoBehaviour
     //服务器更新
     protected virtual void UpdateServer()
     {
+        if (actorState == EActorState.WaitSync)
+        {
+            return;
+        }
         // 位置和旋转插值
         float t = (Time.time - _lastSyncTime) / 0.1f;
         transform.position = Vector3.Lerp(transform.position, serverPosition, t);

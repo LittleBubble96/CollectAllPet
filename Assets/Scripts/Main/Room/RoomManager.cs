@@ -204,9 +204,16 @@ public class RoomManager : Singleton<RoomManager>
                     ownerActorDict.TryAdd(actorInfo.RefActorId, actorCmpt);
                 }
             }
-
-            actor.transform.position = GameConst.DefaultActorPosition;
-            actor.transform.rotation = GameConst.DefaultActorRotation;
+            CharacterController characterController = actor.GetComponent<CharacterController>();
+            if (characterController)
+            {
+                characterController.Move( ConfigHelper.ConvertVector3ToUnityVector3(actorInfo.SpawnPos));
+            }
+            else
+            {
+                actor.transform.position = ConfigHelper.ConvertVector3ToUnityVector3(actorInfo.SpawnPos);
+            }
+            actor.transform.rotation = Quaternion.Euler( ConfigHelper.ConvertVector3ToUnityVector3(actorInfo.SpawnRot));
         }
     }
     
