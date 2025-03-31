@@ -8,6 +8,7 @@ public enum EActorRoleType
     NPC,
     Monster,
     Interactive,
+    BreakInteractive,
 }
 
 public class RoomActor

@@ -10,6 +10,19 @@ namespace ShareProtobuf
         [ProtoMember(1)] public float X { get; set; }
         [ProtoMember(2)] public float Y { get; set; }
         [ProtoMember(3)] public float Z { get; set; }
+        
+        public Vector3()
+        {
+            X = 0;
+            Y = 0;
+            Z = 0;
+        }
+        public Vector3(float x, float y, float z)
+        {
+            X = x;
+            Y = y;
+            Z = z;
+        }
     }
     //创建Actor请求
     [ProtoContract]

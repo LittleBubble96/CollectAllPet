@@ -238,6 +238,20 @@ public class RoomManager : Singleton<RoomManager>
                 tempInfo.Name = monsterConfigItem.Name;
             }
         }
+        else if (actorInfo.ActorRoleType == (int)EActorRoleType.BreakInteractive)
+        {
+            BreakInteractiveItem breakInteractiveItem = BreakInteractiveConfig.GetConfigItem(actorInfo.ActorConfigId);
+            if (breakInteractiveItem != null)
+            {
+                tempInfo.ResName = breakInteractiveItem.Prefab;
+                tempInfo.Name = breakInteractiveItem.Name;
+            }
+        }
+      
+        else
+        {
+            Debug.LogError("Actor Role Type Error");
+        }
       
         return tempInfo;
     }

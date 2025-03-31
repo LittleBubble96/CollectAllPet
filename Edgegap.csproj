@@ -82,8 +82,8 @@
      <Compile Include="Assets\Mirror\Hosting\Edgegap\Models\SDK\MatchmakerUpdate.cs" />
      <Compile Include="Assets\Mirror\Hosting\Edgegap\Models\SDK\MatchmakerListResponse.cs" />
      <Compile Include="Assets\Mirror\Hosting\Edgegap\Models\SDK\MatchmakerReleaseUpdate.cs" />
-     <Compile Include="Assets\Mirror\Hosting\Edgegap\Models\SDK\MatchmakerReleaseCreate.cs" />
      <Compile Include="Assets\Mirror\Hosting\Edgegap\Editor\Api\EdgegapApiBase.cs" />
+     <Compile Include="Assets\Mirror\Hosting\Edgegap\Models\SDK\MatchmakerReleaseCreate.cs" />
      <Compile Include="Assets\Mirror\Hosting\Edgegap\Models\SDK\SessionUserContext.cs" />
      <Compile Include="Assets\Mirror\Hosting\Edgegap\Models\SDK\MatchmakerManagedReleaseResponse.cs" />
      <Compile Include="Assets\Mirror\Hosting\Edgegap\Editor\Api\Models\Results\StopActiveDeploymentResult.cs" />

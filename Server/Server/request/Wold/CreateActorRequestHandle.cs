@@ -65,15 +65,8 @@ public class CreateActorRequestHandle : MessageRquestBase
             Actors = gameActorInfos,
         };
 
-        List<ClientHandle> clientHandles = gameRoom.GetClientHandles();
-        foreach (var clientHandle in clientHandles)
-        {
-            if (clientHandle == null)
-            {
-                continue;
-            }
-            await clientHandle.SendMessage(MessageRequestType.CreateActorRequestToClient, createRoomActorToClientRequest);
-        }
+        await gameRoom.SendMessageToAllClient(MessageRequestType.CreateActorRequestToClient, createRoomActorToClientRequest);
+
 
         CreatePlayerActorResponse createActorResponseSuc = new CreatePlayerActorResponse
         {

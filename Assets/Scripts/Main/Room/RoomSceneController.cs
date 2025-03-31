@@ -12,6 +12,9 @@ public class RoomSceneController
     
     public void SetCameraLookAt(Actor target)
     {
-        m_FreeLook.target = target.GetLookAtTarget();
+        if (target is SimpleSampleCharacterControl simpleSampleCharacterControl)
+        {
+            m_FreeLook.target = simpleSampleCharacterControl.GetLookAtTarget();
+        }
     }
 }

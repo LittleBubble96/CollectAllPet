@@ -21,6 +21,7 @@ public class CreatePlayerResponseHandle : ClientMessageRequestBase
             //创建刷新
             RoomManager.Instance.UpdateHostActorId(response.RefActorId);
         }
+        GameManager.GetUIManager().HideLockUI();
 
     }
 

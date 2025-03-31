@@ -11,12 +11,12 @@ public class GameRoomManager : Singleton<GameRoomManager>
     
     }
 
-    public void Update()
+    public void Update(double deltaTime)
     {
-        //foreach (var gameRoom in _gameRooms)
-        //{
-        //    gameRoom.Value.Update();
-        //}
+        foreach (var gameRoom in _gameRooms)
+        {
+            gameRoom.Value.Update(deltaTime);
+        }
     }
 
     public CreateRoomResultCallBack CreateRoom(string playerId ,string clientIPAndPort, string roomName , int maxPlayerCount)

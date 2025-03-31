@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using ShareProtobuf;
 using UnityEngine;
 
@@ -12,6 +13,7 @@ public class RoomGameState : GameStateBase
     
     private IEnumerator OnEnterAsync_Internal()
     {
+        
         //更新房间详细信息
         GameManager.GetUIManager().ShowLockUI();
         RoomManager.Instance.RoomState = ERoomState.Waiting;

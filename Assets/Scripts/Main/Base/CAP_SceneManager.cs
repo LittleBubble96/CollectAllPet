@@ -12,7 +12,7 @@ public class CAP_SceneManager : Singleton<CAP_SceneManager>
     
     private IEnumerator LoadSceneAsync(string sceneName, System.Action callback,System.Action<float> progressCallback)
     {
-        AsyncOperation asyncOperation = SceneManager.LoadSceneAsync(sceneName);
+        AsyncOperation asyncOperation = SceneManager.LoadSceneAsync(sceneName, LoadSceneMode.Additive);
         asyncOperation.allowSceneActivation = false;
         while (!asyncOperation.isDone)
         {

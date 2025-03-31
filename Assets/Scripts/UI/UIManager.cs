@@ -139,6 +139,7 @@ public class UIManager
         {
             if (queue.TryDequeue(out UIBase ui))
             {
+                ui.Recycle();
                 return ui;
             }
         }

@@ -29,15 +29,6 @@ public class SyncActorAnimationDeltaRequestHandle : MessageRquestBase
             Actors = deltaActorSync.Actors,
         };
 
-        // 广播给所有客户端
-        List<ClientHandle> clientHandles = gameRoom.GetClientHandles();
-        foreach (var clientHandle in clientHandles)
-        {
-            if (clientHandle == null)
-            {
-                continue;
-            }
-            await clientHandle.SendMessage(MessageRequestType.SyncActorAnimationDetailRequestToClient, deltaActorSyncResponseSuc);
-        }
+        await gameRoom.SendMessageToAllClient(MessageRequestType.SyncActorAnimationDetailRequestToClient, deltaActorSyncResponseSuc);
     }
 }

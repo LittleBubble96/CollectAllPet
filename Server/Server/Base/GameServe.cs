@@ -66,7 +66,7 @@ public class GameServe : Singleton<GameServe>
             lag += elapsedTime;
             while (lag >= GameConst.FrameInterval)
             {
-                GameRoomManager.Instance.Update();
+                GameRoomManager.Instance.Update(GameConst.FrameInterval);
                 lag -= GameConst.FrameInterval;
             }
             Thread.Sleep(1);

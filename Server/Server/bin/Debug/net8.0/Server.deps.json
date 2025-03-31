@@ -74,7 +74,10 @@
           "protobuf-net": "2.4.6"
         },
         "runtime": {
-          "ShareBase.dll": {}
+          "ShareBase.dll": {
+            "assemblyVersion": "1.0.0",
+            "fileVersion": "1.0.0.0"
+          }
         }
       }
     }

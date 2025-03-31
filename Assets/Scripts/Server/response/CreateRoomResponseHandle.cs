@@ -20,7 +20,7 @@ public class CreateRoomResponseHandle : ClientMessageRequestBase
             RoomManager.Instance.EnterRoom(response.RoomId);
             GameManager.GetGameStateMachine().ChangeGameState(GameStateEnum.RoomGame);
         }
-        // GameManager.GetAppEventDispatcher().BroadcastListener(EventName.Event_CreateRoomSuccess,response.IsSuccess, response.Message);
+        GameManager.GetAppEventDispatcher().BroadcastListener(EventName.Event_CreateRoomSuccess,response.IsSuccess, response.Message);
 
     }
 

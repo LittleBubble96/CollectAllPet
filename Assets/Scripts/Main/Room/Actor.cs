@@ -18,6 +18,7 @@ public enum EActorRoleType
     NPC,
     Monster,
     Interactive,
+    BreakInteractive,
 }
 
 public enum CAP_ControlMode
@@ -55,7 +56,6 @@ public class Actor : MonoBehaviour
     //动画参数
     protected ActorAnimationController _animationController;
     [SerializeField] protected Animator m_animator = null;
-    [SerializeField] protected Transform lookAtTarget = null;
 
     public void InitActor(GameActorInfo inActorInfo)
     {
@@ -75,10 +75,7 @@ public class Actor : MonoBehaviour
         _animationController.OnSetInt += OnAnimatorIntParamChanged;
         _animationController.OnSetBool += OnAnimatorBoolParamChanged;
     }
-    public Transform GetLookAtTarget()
-    {
-        return lookAtTarget;
-    }
+   
     public bool IsHost()
     {
         return actorInfo.RefActorId == RoomManager.Instance.GetRefActorId();

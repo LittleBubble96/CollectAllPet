@@ -12,6 +12,7 @@ public class GameRoom
     public Dictionary<string, RoomPlayer> Players = new Dictionary<string, RoomPlayer>();
     
     public RoomWorld RoomWorld {get; private set;}
+    public GameRoomSpawnController SpawnController { get; private set; }
 
     private object _lock = new object();
 
@@ -23,7 +24,17 @@ public class GameRoom
         MaxPlayerCount = maxPlayerCount;
         RoomWorld = new RoomWorld();
         RoomWorld.Init(roomId);
+        SpawnController = new GameRoomSpawnController();
+        SpawnController.Init(this);
         AddPlayer(playerId,clientIPAndPort);
+    }
+    
+    public void Update(double deltaTime)
+    {
+        if (SpawnController != null)
+        {
+            SpawnController.DoUpdate(deltaTime);
+        }
     }
 
     public ResultCallBack AddPlayer(string playerId,string clientIPAndPort)
@@ -70,6 +81,33 @@ public class GameRoom
         }
         return clientHandles;
     }
+    
+    public async Task SendMessageToAllClient(MessageRequestType type, object message)
+    {
+        List<ClientHandle> clientHandles = GetClientHandles();
+        foreach (var clientHandle in clientHandles)
+        {
+            if (clientHandle == null)
+            {
+                continue;
+            }
+            await clientHandle.SendMessage(type, message);
+        }
+    }
+    
+    public async void SendMessageToAllClientNoTask(MessageRequestType type, object message)
+    {
+        List<ClientHandle> clientHandles = GetClientHandles();
+        foreach (var clientHandle in clientHandles)
+        {
+            if (clientHandle == null)
+            {
+                continue;
+            }
+            await clientHandle.SendMessage(type, message);
+        }
+    }
+    
     
     //获取房间详细信息
     public RoomDetailInfo GetRoomDetailInfo()

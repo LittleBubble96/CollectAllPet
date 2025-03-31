@@ -63,4 +63,9 @@ public class UIBase : MonoBehaviour
     {
         bPendingDestroy = true;
     }
+
+    public void Recycle()
+    {
+        bPendingDestroy = false;
+    }
 }

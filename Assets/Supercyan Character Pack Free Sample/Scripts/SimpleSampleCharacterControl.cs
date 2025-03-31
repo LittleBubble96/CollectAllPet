@@ -5,7 +5,8 @@ using UnityEngine;
 
 public class SimpleSampleCharacterControl : Actor
     {
-       
+        [SerializeField] protected Transform lookAtTarget = null;
+
         [SerializeField] private float m_moveSpeed = 2;
         [SerializeField] private float m_turnSpeed = 200;
         [SerializeField] private float m_jumpForce = 4;
@@ -50,10 +51,15 @@ public class SimpleSampleCharacterControl : Actor
 
         public override void DoFixedUpdate()
         {
-            Debug.Log( $"SetServerPosition DoFixedUpdate {transform.position}");
+            // Debug.Log( $"SetServerPosition DoFixedUpdate {transform.position}");
             base.DoFixedUpdate();
             _animationController.DoFixedUpdate();
             m_jumpInput = false;
+        }
+        
+        public Transform GetLookAtTarget()
+        {
+            return lookAtTarget;
         }
         
 
@@ -107,11 +113,11 @@ public class SimpleSampleCharacterControl : Actor
                 m_curJumpSpeed = m_jumpForce;
                 m_isJumping = true;
             }
-            Debug.Log( $"JumpingAndLanding: Move Direction: {m_currentDirection} curJumpSpeed: {m_curJumpSpeed}");
-            Debug.Log( $"JumpingAndLanding: Pre Transform Position: {transform.position}");
+            // Debug.Log( $"JumpingAndLanding: Move Direction: {m_currentDirection} curJumpSpeed: {m_curJumpSpeed}");
+            // Debug.Log( $"JumpingAndLanding: Pre Transform Position: {transform.position}");
 
             m_characterController.Move((m_currentDirection * m_moveSpeed + Vector3.up * m_curJumpSpeed) * dt);
-            Debug.Log( $"JumpingAndLanding: Post Transform Position: {transform.position}");
+            // Debug.Log( $"JumpingAndLanding: Post Transform Position: {transform.position}");
 
             if (GetActorState() == EActorState.Syncing)
             {
