@@ -7,5 +7,6 @@ public partial class ClientFactoryRegisterHelper
         RegisterMessage();
         RegisterGameState();
         RegisterRequestMessage();
+        RegisterGameBhv();
     }
 }

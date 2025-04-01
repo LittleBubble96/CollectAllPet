@@ -67,6 +67,11 @@ public class RoomManager : Singleton<RoomManager>
             actor.Value.DoFixedUpdate();
         }
     }
+    
+    public void DoUpdate(float deltaTime)
+    {
+        // Do Update
+    }
 
     // Update Room Detail refActorId is Host
     public void UpdateDetailRoom(RoomDetailInfo roomDetail)

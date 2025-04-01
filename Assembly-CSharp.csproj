@@ -45,6 +45,8 @@
     <Analyzer Include="C:\Program Files\Unity 2022.3.15f1c1\Editor\Data\Tools\Unity.SourceGenerators\Unity.Properties.SourceGenerator.dll" />
   </ItemGroup>
   <ItemGroup>
+     <Compile Include="Assets\Scripts\Main\FactoryRegister\ClientFactoryRegisterHelper.Bhv.cs" />
+     <Compile Include="Assets\Scripts\Main\Behavior\Bhv_Cfg\BTCfgBase.cs" />
      <Compile Include="Assets\Scripts\Main\GameStateMachine\Ext\LoginGameState.cs" />
      <Compile Include="Assets\Scripts\Main\Sync\GameSyncActorManager.cs" />
      <Compile Include="Assets\Scripts\UI\Ext\Login_UI.cs" />
@@ -53,6 +55,7 @@
      <Compile Include="Assets\Scripts\UI\Base\Layer\UILayer_Pop.cs" />
      <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\VertexShakeA.cs" />
      <Compile Include="Assets\Scripts\Main\Behavior\BlackBoard.cs" />
+     <Compile Include="Assets\Scripts\Main\Behavior\BTDecoratorNode.cs" />
      <Compile Include="Assets\Scripts\Server\helper\ClientRequestFunc.cs" />
      <Compile Include="Assets\Scripts\Server\response\SyncActorAnimationDeltaResponseHandle.cs" />
      <Compile Include="Assets\Supercyan Character Pack Free Sample\Scripts\AccessoryLogic.cs" />
@@ -68,6 +71,7 @@
      <Compile Include="Assets\Scripts\Main\GameStateMachine\Ext\MainGameState.cs" />
      <Compile Include="Assets\Scripts\UI\UILayerManager.cs" />
      <Compile Include="Assets\Scripts\Server\helper\ConfigHelper.cs" />
+     <Compile Include="Assets\Scripts\Main\Behavior\Bhv_Ext\BTPetPreBhvTN.cs" />
      <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_TextSelector_A.cs" />
      <Compile Include="Assets\LoadResources\Suriyun\Scripts\AnimatorController.cs" />
      <Compile Include="Assets\Scripts\Main\Sync\GameSyncAnimationController.cs" />
@@ -81,14 +85,17 @@
      <Compile Include="Assets\Scripts\Main\Character\ClientPlayerInfo.cs" />
      <Compile Include="Assets\Scripts\Main\Character\CharacterManager.cs" />
      <Compile Include="Assets\Scripts\UI\Base\Layer\UILayer_Lock.cs" />
+     <Compile Include="Assets\Scripts\Main\Behavior\ConfBTCShape.cs" />
      <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\ChatController.cs" />
      <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\ObjectSpin.cs" />
      <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_PhoneNumberValidator.cs" />
+     <Compile Include="Assets\Scripts\Main\Behavior\Bhv_Cfg\BTConfigHelper.cs" />
      <Compile Include="Assets\Scripts\UI\Base\Layer\UILayerBase.cs" />
      <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\VertexJitter.cs" />
      <Compile Include="Assets\Supercyan Character Pack Free Sample\Scripts\DemoFree.cs" />
      <Compile Include="Assets\Scripts\Main\Room\RoomSceneController.cs" />
      <Compile Include="Assets\Scripts\Main\GameStateMachine\GameStateBase.cs" />
+     <Compile Include="Assets\Scripts\Main\Behavior\Bhv_Ext\BTPetAttackTN.cs" />
      <Compile Include="Assets\Scripts\Main\Room\Actor.cs" />
      <Compile Include="Assets\Scripts\Main\Base\Event\EventType.cs" />
      <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_DigitValidator.cs" />
@@ -97,12 +104,14 @@
      <Compile Include="Assets\Scripts\Main\Room\ActorExt\BreakInteractiveActor.cs" />
      <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TeleType.cs" />
      <Compile Include="Assets\Scripts\UI\Base\Layer\UILayer_Main.cs" />
+     <Compile Include="Assets\Scripts\Main\Behavior\Bhv_Cfg\BT_1001.cs" />
      <Compile Include="Assets\Scripts\Main\Behavior\BehaviorTree.cs" />
      <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_TextEventCheck.cs" />
      <Compile Include="Assets\Supercyan Character Pack Free Sample\Scripts\AccessoryWearLogic.cs" />
      <Compile Include="Assets\Scripts\UI\Ext\Loading_UI.cs" />
      <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_UiFrameRateCounter.cs" />
      <Compile Include="Assets\Scripts\Server\NetworkManager.cs" />
+     <Compile Include="Assets\Scripts\Main\Behavior\BTSelectorNode.cs" />
      <Compile Include="Assets\Scripts\Server\response\HeartbeatResponse.cs" />
      <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark01.cs" />
      <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TextMeshSpawner.cs" />
@@ -132,6 +141,7 @@
      <Compile Include="Assets\Scripts\Main\Base\MonoSingleton.cs" />
      <Compile Include="Assets\Scripts\Main\Base\Event\AppEventDispatcher.cs" />
      <Compile Include="Assets\Scripts\Server\response\CreatePlayerResponseHandle.cs" />
+     <Compile Include="Assets\Scripts\Main\Behavior\BTSequenceNode.cs" />
      <Compile Include="Assets\Scripts\Test\ProtobufTest.cs" />
      <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\ShaderPropAnimator.cs" />
      <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\CameraController.cs" />
@@ -143,6 +153,8 @@
      <Compile Include="Assets\Supercyan Character Pack Free Sample\Scripts\SimpleSampleCharacterControl.cs" />
      <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark03.cs" />
      <Compile Include="Assets\Scripts\UI\Ext\Room\RoomViewItem.cs" />
+     <Compile Include="Assets\Scripts\Main\Behavior\Bhv_Ext\BTPetAIBreakDN.cs" />
+     <Compile Include="Assets\Scripts\Main\Behavior\Bhv_Ext\BTPetHatedTN.cs" />
      <Compile Include="Assets\Scripts\Main\Behavior\BehaviorNode.cs" />
      <Compile Include="Assets\Scripts\Main\Base\StateMachine\StateMachineBase.cs" />
      <Compile Include="Assets\Scripts\UI\Base\Layer\UILayer_Tips.cs" />
@@ -192,8 +204,10 @@
      <None Include="Assets\TextMesh Pro\Examples &amp; Extras\Fonts\Oswald-Bold - OFL.txt" />
      <Folder Include="Assets\Supercyan Character Pack Free Sample\Materials" />
      <None Include="Assets\Supercyan Character Pack Free Sample\Shaders\Legacy\CelShader.shader" />
+     <Folder Include="Assets\Scripts\Main\Behavior\Bhv_Cfg" />
      <Folder Include="Assets\Scripts\Main\Base\Attribute" />
      <Folder Include="Assets\Scripts\Server\helper" />
+     <Folder Include="Assets\Scripts\Main\Behavior\Bhv_Ext" />
      <None Include="Assets\Mirror\version.txt" />
      <None Include="Assets\TextMesh Pro\Examples &amp; Extras\Fonts\Anton OFL.txt" />
      <Folder Include="Assets\TextMesh Pro\Resources\Fonts &amp; Materials" />

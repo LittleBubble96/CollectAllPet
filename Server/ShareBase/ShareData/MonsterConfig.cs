@@ -9,6 +9,7 @@ namespace ShareProtobuf.ShareData
         public string Icon;
         public string Prefab;
         public string Desc;
+        public int AiId;
     }
     public class MonsterConfig
     {
@@ -18,12 +19,12 @@ namespace ShareProtobuf.ShareData
                 {
                     1,
                     new MonsterConfigItem()
-                        { Id = 1, Name = "Player1", Icon = "Player1", Prefab = "Role/Pet/Pet1", Desc = "Player1" }
+                        { Id = 1, Name = "Player1", Icon = "Player1", Prefab = "Role/Pet/Pet1", Desc = "Player1" ,AiId = 1001}
                 },
                 {
                     2,
                     new MonsterConfigItem()
-                        { Id = 2, Name = "Player2", Icon = "Player2", Prefab = "Role/Pet/Pet2", Desc = "Player2" }
+                        { Id = 2, Name = "Player2", Icon = "Player2", Prefab = "Role/Pet/Pet2", Desc = "Player2" ,AiId = 1001}
                 }
             };
 

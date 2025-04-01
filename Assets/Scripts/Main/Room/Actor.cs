@@ -35,7 +35,7 @@ public enum CAP_ControlMode
 
 public class Actor : MonoBehaviour
 {
-    private GameActorInfo actorInfo;
+    protected GameActorInfo actorInfo;
     private EActorState actorState = EActorState.None;
 
     private Vector3 clientPosition;
@@ -74,6 +74,8 @@ public class Actor : MonoBehaviour
         _animationController.OnSetFloat += OnAnimatorFloatParamChanged;
         _animationController.OnSetInt += OnAnimatorIntParamChanged;
         _animationController.OnSetBool += OnAnimatorBoolParamChanged;
+        // Init Actor
+        OnInit();
     }
    
     public bool IsHost()
@@ -240,5 +242,9 @@ public class Actor : MonoBehaviour
         // Debug.Log($"[ParamChanged] OnAnimatorBoolParamChanged: {name} -> {value}");
         GameManager.GetGameSyncActorManager().SetAnimationBoolParams(this, name, value);
     }
-    
+
+    protected virtual void OnInit()
+    {
+        
+    }
 }

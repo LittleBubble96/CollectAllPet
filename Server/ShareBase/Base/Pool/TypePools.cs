@@ -115,4 +115,40 @@ public class MultiPools<T> where T : IRecycle, new()
     }
 }
 
+//多类型的池子
+
+public class MultiTypePools<T> where T : IRecycle, new()
+{ 
+    protected ConcurrentDictionary<Type, Pool<T>> _pools;
+    public MultiTypePools() {
+        _pools = new ConcurrentDictionary<Type, Pool<T>>();
+    }
+
+    public void Register<T1>(Type type) where T1 : T , new()
+    {
+        if (!_pools.TryGetValue(type, out var pool))
+        { 
+            pool = new Pool<T>(typeof(T1));
+            _pools.TryAdd(type, pool);
+        }
+    }
+
+    public T GetObject(Type type) {
+        Pool<T> pool;
+        if (_pools.TryGetValue(type, out pool))
+            return pool.GetObject();
+        if (pool == null)
+            pool = _pools.GetOrAdd(type, new Pool<T>());
+        return pool.GetObject();
+    }
+
+    public void PutObject(T item)
+    {
+        Pool<T> pool;
+        Type classType = item.GetType();
+        if (_pools.TryGetValue(classType, out pool))
+            pool.PutObject(item);
+    }
+}
+
 
