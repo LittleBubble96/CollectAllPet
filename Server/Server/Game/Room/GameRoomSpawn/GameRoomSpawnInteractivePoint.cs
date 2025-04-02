@@ -7,9 +7,10 @@ public enum SpawnInteractiveState
     None = 0,
     WaitSpawn = 1,
     Spawn = 2,
-    Playing = 3,
-    WaitDestroy = 4,
-    Destroy = 5,
+    WaitTarget = 3,
+    Targeting = 4,
+    WaitDestroy = 5,
+    Destroy = 6,
 }
 public class GameRoomSpawnInteractivePoint
 {
@@ -31,8 +32,10 @@ public class GameRoomSpawnInteractivePoint
                     OnWaitSpawn();
                     break;
                 case SpawnInteractiveState.Spawn:
+                    SpawnInteractiveState = SpawnInteractiveState.WaitTarget;
                     break;
-                case SpawnInteractiveState.Playing:
+                case SpawnInteractiveState.WaitTarget:
+                    OnWaitTarget();
                     break;
                 case SpawnInteractiveState.WaitDestroy:
                     break;
@@ -92,6 +95,21 @@ public class GameRoomSpawnInteractivePoint
     {
         this.spawnActorId = spawnActorId;
         SpawnInteractiveState = SpawnInteractiveState.Spawn;
+    }
+
+    #endregion
+
+    #region 目标
+    
+    protected void OnWaitTarget()
+    {
+        //进入等待 目标
+    }
+    
+    public void OnTargeting(int targetActorId)
+    {
+        //进入目标
+        spawnInteractiveState = SpawnInteractiveState.Targeting;
     }
 
     #endregion

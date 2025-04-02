@@ -127,6 +127,15 @@ public class RoomManager : Singleton<RoomManager>
         ClientRequestFunc.RefreshRoomListRequest();
     }
     
+    public Actor GetActor(int actorId)
+    {
+        if (actorDict.TryGetValue(actorId, out Actor actor))
+        {
+            return actor;
+        }
+        return null;
+    }
+    
     public ConcurrentDictionary<int,Actor> GetActorDict()
     {
         return actorDict;
@@ -285,6 +294,23 @@ public class RoomManager : Singleton<RoomManager>
             if (actorDict.TryGetValue(syncData.ActorId, out Actor actor))
             {
                 actor.SetServerAnimationParams(syncData);
+            }
+        }
+    }
+
+    #endregion
+
+    #region 宠物逻辑
+
+    public void SetActorTarget(int petActorId, int targetActorId)
+    {
+        if (actorDict.TryGetValue(petActorId, out Actor petActor))
+        {
+            TargetComponent target = petActor.GetActorComponent<TargetComponent>();
+            if (target != null)
+            {
+                target.SetTargetActorId(targetActorId);
+                target.SetTargeting(false);
             }
         }
     }

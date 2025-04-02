@@ -31,6 +31,10 @@ namespace ShareProtobuf
         SyncActorAnimationDeltaRequest,
         SyncActorAnimationDeltaResponse,
         
+        //查找宠物目标
+        FindPetTargetRequest,
+        FindPetTargetResponse,
+        
         //Server to Client
         CreateActorRequestToClient,
         SyncActorAnimationDetailRequestToClient,

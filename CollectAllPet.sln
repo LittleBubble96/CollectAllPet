@@ -3,13 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mirror.Examples", "Mirror.Examples.csproj", "{d055f269-b2b9-57fc-1230-33d3b358cd27}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Assembly-CSharp", "Assembly-CSharp.csproj", "{3f22773d-6e45-ef39-f275-3afdae72e527}"
+EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mirror", "Mirror.csproj", "{c7be2302-db03-7b4d-4f8e-ffde5663a91c}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Edgegap", "Edgegap.csproj", "{a31d17e4-b14c-e813-2a30-a366dd62bce4}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mirror.Transports", "Mirror.Transports.csproj", "{0877e84a-0000-8737-33fb-ae177a42d405}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Assembly-CSharp", "Assembly-CSharp.csproj", "{3f22773d-6e45-ef39-f275-3afdae72e527}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mirror.Components", "Mirror.Components.csproj", "{14faeb9f-eeac-cf19-0a88-cb1e580c846c}"
 EndProject
@@ -40,14 +40,14 @@ Global
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{d055f269-b2b9-57fc-1230-33d3b358cd27}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{d055f269-b2b9-57fc-1230-33d3b358cd27}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3f22773d-6e45-ef39-f275-3afdae72e527}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3f22773d-6e45-ef39-f275-3afdae72e527}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{c7be2302-db03-7b4d-4f8e-ffde5663a91c}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{c7be2302-db03-7b4d-4f8e-ffde5663a91c}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{a31d17e4-b14c-e813-2a30-a366dd62bce4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{a31d17e4-b14c-e813-2a30-a366dd62bce4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0877e84a-0000-8737-33fb-ae177a42d405}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{0877e84a-0000-8737-33fb-ae177a42d405}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{3f22773d-6e45-ef39-f275-3afdae72e527}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{3f22773d-6e45-ef39-f275-3afdae72e527}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{14faeb9f-eeac-cf19-0a88-cb1e580c846c}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{14faeb9f-eeac-cf19-0a88-cb1e580c846c}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{de2f54d0-aff1-ac73-9ab2-f06ad2278f12}.Debug|Any CPU.ActiveCfg = Debug|Any CPU

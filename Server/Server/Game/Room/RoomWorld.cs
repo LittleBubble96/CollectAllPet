@@ -82,6 +82,16 @@ public class RoomActor
     {
         SyncTime = DateTime.UtcNow.Ticks;
     }
+    
+    public float GetDistance(RoomActor actor)
+    {
+        return Vector3.Distance(Pos, actor.Pos);
+    }
+
+    public virtual void OnInit()
+    {
+        
+    }
 }
 public class RoomWorld
 {
@@ -95,10 +105,55 @@ public class RoomWorld
     {
         RoomId = roomId;
     }
+    
+    public RoomActor GetActor(int actorId)
+    {
+        if (Actors.TryGetValue(actorId, out RoomActor actor))
+        {
+            return actor;
+        }
+        return null;
+    }
+    
+    public PetActor GetPet(int actorId)
+    {
+        if (Actors.TryGetValue(actorId, out RoomActor actor))
+        {
+            if (actor is PetActor petActor)
+            {
+                return petActor;
+            }
+        }
+        return null;
+    }
+    
+    public BreakInteractiveActor GetBreakInteractive(int actorId)
+    {
+        if (Actors.TryGetValue(actorId, out RoomActor actor))
+        {
+            if (actor is BreakInteractiveActor breakInteractiveActor)
+            {
+                return breakInteractiveActor;
+            }
+        }
+        return null;
+    }
 
     public CreateActorResultCallBack AddActor(string playerId ,EActorRoleType roleType, int actorCfgId , Vector3 pos, Vector3 rot)
     {
-        RoomActor actor = new RoomActor();
+        RoomActor actor;
+        if (roleType == EActorRoleType.BreakInteractive)
+        {
+            actor = new BreakInteractiveActor();
+        }
+        else if (roleType == EActorRoleType.Monster)
+        {
+            actor = new PetActor();
+        }
+        else
+        {
+            actor = new RoomActor();
+        }
         CreateActorResultCallBack result = GenerateActorId();
         if (!result.IsSuccess)
         {

@@ -23,6 +23,11 @@ namespace ShareProtobuf
             Y = y;
             Z = z;
         }
+        
+        public static float Distance(Vector3 a, Vector3 b)
+        {
+            return (float)System.Math.Sqrt((a.X - b.X) * (a.X - b.X) + (a.Y - b.Y) * (a.Y - b.Y) + (a.Z - b.Z) * (a.Z - b.Z));
+        }
     }
     //创建Actor请求
     [ProtoContract]

@@ -75,4 +75,14 @@ public class ClientRequestFunc
         syncActorAnimation.Actors = anims;
         await GameManager.GetNetworkManager().SendRequest(MessageRequestType.SyncActorAnimationDeltaRequest, syncActorAnimation);
     }
+    
+    //发送获取宠物目标消息
+    public static async void SendFindPetTargetRequest(int petId, int lastTargetId)
+    {
+        FindPetTargetActorIdRequest findPetTarget = new FindPetTargetActorIdRequest();
+        findPetTarget.PetActorId = petId;
+        findPetTarget.LastTargetActorId = lastTargetId;
+        findPetTarget.RoomId = RoomManager.Instance.GetEnterRoomId();
+        await GameManager.GetNetworkManager().SendRequest(MessageRequestType.FindPetTargetRequest, findPetTarget);
+    }
 }

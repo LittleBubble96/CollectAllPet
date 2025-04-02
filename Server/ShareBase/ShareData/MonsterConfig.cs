@@ -10,6 +10,11 @@ namespace ShareProtobuf.ShareData
         public string Prefab;
         public string Desc;
         public int AiId;
+        public float AttackRange;
+        //取消攻击距离
+        public float CancelAttackRange;
+        //攻击间隔
+        public float AttackInterval;
     }
     public class MonsterConfig
     {
@@ -19,12 +24,14 @@ namespace ShareProtobuf.ShareData
                 {
                     1,
                     new MonsterConfigItem()
-                        { Id = 1, Name = "Player1", Icon = "Player1", Prefab = "Role/Pet/Pet1", Desc = "Player1" ,AiId = 1001}
+                        { Id = 1, Name = "Player1", Icon = "Player1", Prefab = "Role/Pet/Pet1", Desc = "Player1" ,AiId = 1001 , 
+                            AttackRange = 1f ,CancelAttackRange = 5f,AttackInterval = 2f,}
                 },
                 {
                     2,
                     new MonsterConfigItem()
-                        { Id = 2, Name = "Player2", Icon = "Player2", Prefab = "Role/Pet/Pet2", Desc = "Player2" ,AiId = 1001}
+                        { Id = 2, Name = "Player2", Icon = "Player2", Prefab = "Role/Pet/Pet2", Desc = "Player2" ,AiId = 1001 , 
+                            AttackRange = 1f ,CancelAttackRange = 5f,AttackInterval = 3f,}
                 }
             };
 

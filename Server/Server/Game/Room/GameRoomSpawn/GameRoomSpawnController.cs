@@ -82,5 +82,47 @@ public class GameRoomSpawnController
         }
        
     }
-    
+
+    public int FindWaitTargetScenePoint(int petActorId , int lastInteractiveId)
+    {
+        PetActor actor = room.RoomWorld.GetPet(petActorId);
+        if (actor == null)
+        {
+            return -1;
+        }
+        BreakInteractiveActor breakInteractiveActor = room.RoomWorld.GetBreakInteractive(petActorId);
+        if (breakInteractiveActor != null)
+        {
+            //检查与宠物的取消攻击距离 是否小于等于
+            //则返回
+            float distance = Vector3.Distance(actor.Pos, breakInteractiveActor.Pos);
+            if (distance <= actor.GetCancelAttackRange())
+            {
+                return lastInteractiveId;
+            }
+        }
+        //重新找一个最近的
+        float minDistance = float.MaxValue;
+        GameRoomSpawnInteractivePoint targetPoint = null;
+        foreach (var point in InteractivePoints)
+        {
+            if (point.SpawnInteractiveState == SpawnInteractiveState.WaitTarget)
+            {
+                float distance = Vector3.Distance(actor.Pos, point.GetSpawnInteractivePointPos());
+                if (distance < minDistance)
+                {
+                    minDistance = distance;
+                    targetPoint = point;
+                }
+            }
+        }
+        if (targetPoint != null)
+        {
+            targetPoint.OnTargeting(petActorId);
+            return targetPoint.GetSpawnInteractivePointId();
+        }
+        //没有找到
+        return -1;
+    }
+
 }

@@ -42,6 +42,10 @@ public class BehaviorNode : IRecycle
     protected List<BehaviorNode> Assemble(BehaviorTree bt, ConfBTCShape[] nodes)
     {
         List<BehaviorNode> nodeList = new List<BehaviorNode>();
+        if (nodes == null || nodes.Length == 0)
+        {
+            return nodeList;
+        }
         foreach (var node in nodes)
         {
             BehaviorNode behaviorNode = ClientFactory.Instance.GetBehaviorNodeFactory().GetObject(node.BTNodeType);

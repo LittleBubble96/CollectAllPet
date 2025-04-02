@@ -4,6 +4,7 @@
     private readonly MutilFactoryWithPool<MessageRequestBase> messageRquestFactory  = new MutilFactoryWithPool<MessageRequestBase>();
     private readonly MutilFactoryWithPool<GameStateBase> gameStateFactory = new MutilFactoryWithPool<GameStateBase>();
     private readonly MutilTypeFactoryWithPool<BehaviorNode> behaviorNodeFactory = new MutilTypeFactoryWithPool<BehaviorNode>();
+    private readonly MutilTypeFactoryWithPool<ActorComponent> actorComponentFactory = new MutilTypeFactoryWithPool<ActorComponent>();
     protected static ClientFactory _instance = new ClientFactory();
 
     public MutilFactoryWithPool<ClientMessageRequestBase> GetMessageResponseFactory()
@@ -24,6 +25,11 @@
     public MutilTypeFactoryWithPool<BehaviorNode> GetBehaviorNodeFactory()
     {
         return behaviorNodeFactory;
+    }
+
+    public MutilTypeFactoryWithPool<ActorComponent> GetActorComponentFactory()
+    {
+        return actorComponentFactory;
     }
 
     public static ClientFactory Instance

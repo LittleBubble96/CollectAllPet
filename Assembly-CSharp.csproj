@@ -45,6 +45,7 @@
     <Analyzer Include="C:\Program Files\Unity 2022.3.15f1c1\Editor\Data\Tools\Unity.SourceGenerators\Unity.Properties.SourceGenerator.dll" />
   </ItemGroup>
   <ItemGroup>
+     <Compile Include="Assets\Scripts\Main\Room\ActorExt\Cmpt\ActorComponent.cs" />
      <Compile Include="Assets\Scripts\Main\FactoryRegister\ClientFactoryRegisterHelper.Bhv.cs" />
      <Compile Include="Assets\Scripts\Main\Behavior\Bhv_Cfg\BTCfgBase.cs" />
      <Compile Include="Assets\Scripts\Main\GameStateMachine\Ext\LoginGameState.cs" />
@@ -64,6 +65,7 @@
      <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMPro_InstructionOverlay.cs" />
      <Compile Include="Assets\Scripts\Main\Behavior\BTGenInfo.cs" />
      <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\VertexShakeB.cs" />
+     <Compile Include="Assets\Scripts\Main\FactoryRegister\ClientFactoryRegisterHelper.ActorComponent.cs" />
      <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\DropdownSample.cs" />
      <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\VertexColorCycler.cs" />
      <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\EnvMapAnimator.cs" />
@@ -84,10 +86,11 @@
      <Compile Include="Assets\Scripts\Main\GameStateMachine\Ext\RoomGameState.cs" />
      <Compile Include="Assets\Scripts\Main\Character\ClientPlayerInfo.cs" />
      <Compile Include="Assets\Scripts\Main\Character\CharacterManager.cs" />
-     <Compile Include="Assets\Scripts\UI\Base\Layer\UILayer_Lock.cs" />
      <Compile Include="Assets\Scripts\Main\Behavior\ConfBTCShape.cs" />
+     <Compile Include="Assets\Scripts\UI\Base\Layer\UILayer_Lock.cs" />
      <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\ChatController.cs" />
      <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\ObjectSpin.cs" />
+     <Compile Include="Assets\Scripts\Main\Base\CAP_Extensions.cs" />
      <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_PhoneNumberValidator.cs" />
      <Compile Include="Assets\Scripts\Main\Behavior\Bhv_Cfg\BTConfigHelper.cs" />
      <Compile Include="Assets\Scripts\UI\Base\Layer\UILayerBase.cs" />
@@ -118,6 +121,7 @@
      <Compile Include="Assets\Scripts\Server\Client.cs" />
      <Compile Include="Assets\Scripts\Main\Base\Attribute\Bubble_NameAttribute.cs" />
      <Compile Include="Assets\Scripts\UI\Base\Layer\UILayer_Loading.cs" />
+     <Compile Include="Assets\Scripts\Main\Behavior\BTTaskNode.cs" />
      <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\VertexZoom.cs" />
      <Compile Include="Assets\Scripts\GameManager.cs" />
      <Compile Include="Assets\Scripts\UI\Base\RegisterUIHelper.cs" />
@@ -145,6 +149,7 @@
      <Compile Include="Assets\Scripts\Test\ProtobufTest.cs" />
      <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\ShaderPropAnimator.cs" />
      <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\CameraController.cs" />
+     <Compile Include="Assets\Scripts\Server\response\FindPetTargetResponseHandle.cs" />
      <Compile Include="Assets\Scripts\Main\Base\StateMachine\StateBase.cs" />
      <Compile Include="Assets\Scripts\Main\GameConst.cs" />
      <Compile Include="Assets\Scripts\Main\EventName.cs" />
@@ -164,6 +169,7 @@
      <Compile Include="Assets\LoadResources\Suriyun\Scripts\Camera Scripts\MouseOrbitImproved.cs" />
      <Compile Include="Assets\Scripts\Main\FactoryRegister\ClientFactoryRegisterHelper.GameState.cs" />
      <Compile Include="Assets\Scripts\Main\Room\ActorAnimationController.cs" />
+     <Compile Include="Assets\Scripts\Main\Room\ActorExt\Cmpt\CmptExt\TargetComponent.cs" />
      <Compile Include="Assets\Scripts\Server\response\JoinRoomResponseHandle.cs" />
      <Compile Include="Assets\Scripts\Server\request\CreateActorRequestHandle.cs" />
      <Compile Include="Assets\LoadResources\Suriyun\Scripts\Swapper.cs" />
@@ -284,6 +290,7 @@
      <None Include="Assets\TextMesh Pro\Resources\LineBreaking Leading Characters.txt" />
      <Folder Include="Assets\Scripts\Main\GameStateMachine" />
      <None Include="Assets\ScriptTemplates\52-Mirror__Network Behaviour-NewNetworkBehaviour.cs.txt" />
+     <Folder Include="Assets\Scripts\Main\Room\ActorExt\Cmpt\CmptExt" />
      <None Include="Assets\TextMesh Pro\Shaders\TMPro_Properties.cginc" />
      <Folder Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts" />
      <Folder Include="Assets\Mirror\Presets\Network Transform (Reliable)" />
@@ -356,6 +363,7 @@
      <Folder Include="Assets\LoadResources\Suriyun\Monster Pack Darkness\Materials\Cute_Spider" />
      <Folder Include="Assets\LoadResources\RPGPP_LT\Prefabs\Nature\Vegetation\Grass" />
      <Folder Include="Assets\TextMesh Pro\Documentation" />
+     <Folder Include="Assets\Scripts\Main\Room\ActorExt\Cmpt" />
      <Folder Include="Assets\Scripts\Server" />
      <Folder Include="Assets\TextMesh Pro\Examples &amp; Extras" />
      <Folder Include="Assets\Mirror\Plugins\Mono.Cecil" />
@@ -1042,6 +1050,9 @@
      <Reference Include="com.unity.cinemachine.editor">
      <HintPath>C:\Users\李\Documents\GitHub\CollectAllPet\Library\ScriptAssemblies\com.unity.cinemachine.editor.dll</HintPath>
      </Reference>
+     <Reference Include="Unity.AI.Navigation">
+     <HintPath>C:\Users\李\Documents\GitHub\CollectAllPet\Library\ScriptAssemblies\Unity.AI.Navigation.dll</HintPath>
+     </Reference>
      <Reference Include="Unity.PlasticSCM.Editor">
      <HintPath>C:\Users\李\Documents\GitHub\CollectAllPet\Library\ScriptAssemblies\Unity.PlasticSCM.Editor.dll</HintPath>
      </Reference>
@@ -1117,11 +1128,17 @@
      <Reference Include="Unity.Toonshader.Editor">
      <HintPath>C:\Users\李\Documents\GitHub\CollectAllPet\Library\ScriptAssemblies\Unity.Toonshader.Editor.dll</HintPath>
      </Reference>
+     <Reference Include="Unity.AI.Navigation.Updater">
+     <HintPath>C:\Users\李\Documents\GitHub\CollectAllPet\Library\ScriptAssemblies\Unity.AI.Navigation.Updater.dll</HintPath>
+     </Reference>
      <Reference Include="Unity.TextMeshPro">
      <HintPath>C:\Users\李\Documents\GitHub\CollectAllPet\Library\ScriptAssemblies\Unity.TextMeshPro.dll</HintPath>
      </Reference>
      <Reference Include="Unity.TextMeshPro.Editor">
      <HintPath>C:\Users\李\Documents\GitHub\CollectAllPet\Library\ScriptAssemblies\Unity.TextMeshPro.Editor.dll</HintPath>
+     </Reference>
+     <Reference Include="Unity.AI.Navigation.Editor">
+     <HintPath>C:\Users\李\Documents\GitHub\CollectAllPet\Library\ScriptAssemblies\Unity.AI.Navigation.Editor.dll</HintPath>
      </Reference>
      <Reference Include="Unity.VisualScripting.State">
      <HintPath>C:\Users\李\Documents\GitHub\CollectAllPet\Library\ScriptAssemblies\Unity.VisualScripting.State.dll</HintPath>
@@ -1131,6 +1148,9 @@
      </Reference>
      <Reference Include="Cinemachine">
      <HintPath>C:\Users\李\Documents\GitHub\CollectAllPet\Library\ScriptAssemblies\Cinemachine.dll</HintPath>
+     </Reference>
+     <Reference Include="Unity.AI.Navigation.Editor.ConversionSystem">
+     <HintPath>C:\Users\李\Documents\GitHub\CollectAllPet\Library\ScriptAssemblies\Unity.AI.Navigation.Editor.ConversionSystem.dll</HintPath>
      </Reference>
   </ItemGroup>
   <ItemGroup>

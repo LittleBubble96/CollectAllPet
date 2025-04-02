@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using ShareProtobuf;
 using UnityEngine;
 using Vector3 = UnityEngine.Vector3;
@@ -56,6 +57,7 @@ public class Actor : MonoBehaviour
     //动画参数
     protected ActorAnimationController _animationController;
     [SerializeField] protected Animator m_animator = null;
+    
 
     public void InitActor(GameActorInfo inActorInfo)
     {
@@ -80,7 +82,7 @@ public class Actor : MonoBehaviour
    
     public bool IsHost()
     {
-        return actorInfo.RefActorId == RoomManager.Instance.GetRefActorId();
+        return actorInfo.OwnerPlayerId == CharacterManager.Instance.PlayerInfo.PlayerId;
     }
     public virtual void DoFixedUpdate()
     {
@@ -154,6 +156,11 @@ public class Actor : MonoBehaviour
         return clientPosition;
     }
     
+    public Vector3 GetTfPosition()
+    {
+        return transform.position;
+    }
+    
     public void SetRotation(Vector3 rotation)
     {
         clientRotation = rotation;
@@ -222,6 +229,11 @@ public class Actor : MonoBehaviour
     
     //动画参数
     
+    public ActorAnimationController GetAnimationController()
+    {
+        return _animationController;
+    }
+    
     public void SetServerAnimationParams(DeltaActorAnimationSyncData syncData)
     {
         _animationController.SetServerAnimationParam(syncData.AnimationParamName, syncData.AnimationParamValue);
@@ -247,4 +259,65 @@ public class Actor : MonoBehaviour
     {
         
     }
+
+    #region 组件
+
+    //逻辑组件
+    protected Dictionary<Type,ActorComponent> m_actorComponents = new Dictionary<Type, ActorComponent>();
+    
+    public T GetActorComponent<T>() where T : ActorComponent
+    {
+        Type type = typeof(T);
+        if (m_actorComponents.ContainsKey(type))
+        {
+            return m_actorComponents[type] as T;
+        }
+        return null;
+    }
+    
+    public T TryOrAddActorComponent<T>() where T : ActorComponent, new()
+    {
+        Type type = typeof(T);
+        if (m_actorComponents.ContainsKey(type))
+        {
+            return m_actorComponents[type] as T;
+        }
+        else
+        {
+            ActorComponent component = ClientFactory.Instance.GetActorComponentFactory().GetObject(type);
+            if (component != null)
+            {
+                component.Init(this);
+                m_actorComponents.Add(type, component);
+                return component as T;
+            }
+        }
+
+        return null;
+    }
+
+    #endregion
+
+    #region 销毁
+    
+    public void DestroyActor()
+    {
+        //销毁组件
+        foreach (var component in m_actorComponents)
+        {
+            ClientFactory.Instance.GetActorComponentFactory().PutObject(component.Value);
+        }
+        m_actorComponents.Clear();
+        
+        //销毁动画
+        _animationController.OnSetFloat -= OnAnimatorFloatParamChanged;
+        _animationController.OnSetInt -= OnAnimatorIntParamChanged;
+        _animationController.OnSetBool -= OnAnimatorBoolParamChanged;
+        
+        //销毁Actor
+        Destroy(gameObject);
+    }
+    
+
+    #endregion
 }

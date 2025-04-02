@@ -10,9 +10,12 @@ public class BehaviorTree
     
     private BtNodeResult btRootRunRes;
     
-    public void Init(BTGenInfo info)
+    private AIController aiController;
+    
+    public void Init(BTGenInfo info , AIController ai)
     {
         this.btGenInfo = info;
+        this.aiController = ai;
         this.blackBoard = new BlackBoard();
         this.rootNode = InitTree();
     }
@@ -39,6 +42,11 @@ public class BehaviorTree
     public BTGenInfo GetBTGenInfo()
     {
         return this.btGenInfo;
+    }
+    
+    public AIController GetAIController()
+    {
+        return this.aiController;
     }
     
     private BehaviorNode InitTree()
