@@ -56,13 +56,14 @@ public class ClientRequestFunc
         await GameManager.GetNetworkManager().SendRequest(MessageRequestType.CreateActorRequest, createPlayer);
     }
 
-    public static async void SyncActorDeltaRequest(List<DeltaActorSyncData> actors, List<int> inViewActorIds)
+    public static async void SyncActorDeltaRequest(List<DeltaActorSyncData> actors, List<int> inViewActorIds, int[] actorStates)
     {
         DeltaActorSyncRequest syncActorDelta = new DeltaActorSyncRequest();
         syncActorDelta.PlayerId = CharacterManager.Instance.PlayerInfo.PlayerId;
         syncActorDelta.RoomId = RoomManager.Instance.GetEnterRoomId();
         syncActorDelta.Actors = actors;
         syncActorDelta.InViewActorIds = inViewActorIds;
+        syncActorDelta.ActorStates = actorStates;
         Debug.Log("SyncActorDeltaRequest: " + syncActorDelta.PlayerId + " " + syncActorDelta.RoomId + " " + syncActorDelta.Actors.Count + " " + syncActorDelta.InViewActorIds.Count);
         await GameManager.GetNetworkManager().SendRequest(MessageRequestType.SyncActorDetailRequest, syncActorDelta);
     }

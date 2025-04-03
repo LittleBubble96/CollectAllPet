@@ -65,6 +65,7 @@ namespace ShareProtobuf
         [ProtoMember(4)] public Vector3 Speed { get; set; }
         
         [ProtoMember(5)] public long SyncTime { get; set; }
+        [ProtoMember(6)] public string UpdateAttribute { get; set; } //需要更新的属性字符串
 
     }
 
@@ -75,6 +76,7 @@ namespace ShareProtobuf
         [ProtoMember(2)] public int RoomId { get; set; }
         [ProtoMember(3)] public List<DeltaActorSyncData> Actors { get; set; }
         [ProtoMember(4)] public List<int> InViewActorIds { get; set; }
+        [ProtoMember(5)] public int[] ActorStates { get; set; }
     }
     
     [ProtoContract]
@@ -114,5 +116,13 @@ namespace ShareProtobuf
     public class SyncActorAnimationToClientRequest
     {
         [ProtoMember(3)] public List<DeltaActorAnimationSyncData> Actors { get; set; }
+    }
+    
+    //同步actor 属性信息 s 2 all c
+    [ProtoContract]
+    public class SyncActorAttributeToClientRequest
+    {
+        [ProtoMember(1)] public List<int> ActorIds { get; set; }
+        [ProtoMember(2)] public List<string> UpdateAttributes { get; set; } //需要更新的属性字符串
     }
 }

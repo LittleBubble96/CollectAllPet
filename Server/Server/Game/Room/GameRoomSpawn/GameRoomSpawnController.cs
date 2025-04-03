@@ -90,7 +90,7 @@ public class GameRoomSpawnController
         {
             return -1;
         }
-        BreakInteractiveActor breakInteractiveActor = room.RoomWorld.GetBreakInteractive(petActorId);
+        BreakInteractiveActor breakInteractiveActor = room.RoomWorld.GetBreakInteractive(lastInteractiveId);
         if (breakInteractiveActor != null)
         {
             //检查与宠物的取消攻击距离 是否小于等于
@@ -119,7 +119,7 @@ public class GameRoomSpawnController
         if (targetPoint != null)
         {
             targetPoint.OnTargeting(petActorId);
-            return targetPoint.GetSpawnInteractivePointId();
+            return targetPoint.GetSpawnActorId();
         }
         //没有找到
         return -1;

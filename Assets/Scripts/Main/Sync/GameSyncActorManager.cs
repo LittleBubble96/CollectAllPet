@@ -172,14 +172,16 @@ public class GameSyncActorManager : MonoBehaviour
             actor.Value.ClearDirty();
         }
         List<int> inViewActorIds = new List<int>();
-        foreach (var actor in _syncActors)
+        int[] actorStates = new int[_syncActors.Count];
+        for (int i = 0; i < _syncActors.Count; i++)
         {
-            inViewActorIds.Add(actor.GetActorId());
-            actor.SetActorState(EActorState.Syncing);
+            actorStates[i] = (int)_syncActors[i].GetActorState();
+            inViewActorIds.Add(_syncActors[i].GetActorId());
+            _syncActors[i].SetActorState(EActorState.Syncing);
         }
 
         _isReceiveSyncActorDeltaResponse = false;
-        ClientRequestFunc.SyncActorDeltaRequest(deltaActorSyncDatas,inViewActorIds);
+        ClientRequestFunc.SyncActorDeltaRequest(deltaActorSyncDatas,inViewActorIds,actorStates);
         Debug.Log( $"SetServerPosition:  开始同步位置信息");
 
     }

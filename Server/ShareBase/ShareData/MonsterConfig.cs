@@ -25,13 +25,13 @@ namespace ShareProtobuf.ShareData
                     1,
                     new MonsterConfigItem()
                         { Id = 1, Name = "Player1", Icon = "Player1", Prefab = "Role/Pet/Pet1", Desc = "Player1" ,AiId = 1001 , 
-                            AttackRange = 1f ,CancelAttackRange = 5f,AttackInterval = 2f,}
+                            AttackRange = 2f ,CancelAttackRange = 5f,AttackInterval = 2f,}
                 },
                 {
                     2,
                     new MonsterConfigItem()
                         { Id = 2, Name = "Player2", Icon = "Player2", Prefab = "Role/Pet/Pet2", Desc = "Player2" ,AiId = 1001 , 
-                            AttackRange = 1f ,CancelAttackRange = 5f,AttackInterval = 3f,}
+                            AttackRange = 2f ,CancelAttackRange = 5f,AttackInterval = 3f,}
                 }
             };
 
@@ -44,5 +44,14 @@ namespace ShareProtobuf.ShareData
 
             return null;
         }
+    }
+    
+    public enum EMonsterAttribute
+    {
+        All = -1,
+        None = 0,
+        AttackRange = 1<<0,
+        AttackInterval = 1<<1,
+        CancelAttackRange = 1<<2,
     }
 }

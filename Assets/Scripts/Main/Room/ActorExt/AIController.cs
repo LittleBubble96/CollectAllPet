@@ -57,7 +57,11 @@ public class AIController : Actor
     
     public bool IsAgentStopped()
     {
-        return navMeshAgent != null && navMeshAgent.isStopped;
+        float velocity = navMeshAgent.velocity.magnitude;
+        Debug.Log($"[AI] IsAgentStopped: {velocity}");
+        return navMeshAgent != null  &&  
+               navMeshAgent.remainingDistance <= navMeshAgent.stoppingDistance &&
+               navMeshAgent.velocity.magnitude < 0.1f;
     }
 
     #region sync 同步
@@ -74,21 +78,21 @@ public class AIController : Actor
     public override void SetServerPosition(Vector3 position)
     {
         base.SetServerPosition(position);
-        if (IsHost())
-        {
-            //做一个误差校正
-            Vector3 tfPos = transform.position;
-            // transform.position = position;
-            Vector3 serverPos = GetServerPosition();
-            navMeshAgent.Move(serverPos - tfPos);
-            int count = _inputQueue.Count;
-            while (_inputQueue.Count > 0)
-            {
-                PlayerInput input = _inputQueue.Dequeue();
-                navMeshAgent.Move(input.MoveDirection * input.deltaTime);
-            }
-            Debug.Log( $"[AI]SetServerPosition: {tfPos} -> {serverPos} count: {count}");
-        }
+        // if (IsHost())
+        // {
+        //     //做一个误差校正
+        //     Vector3 tfPos = transform.position;
+        //     // transform.position = position;
+        //     Vector3 serverPos = GetServerPosition();
+        //     navMeshAgent.Move(serverPos - tfPos);
+        //     int count = _inputQueue.Count;
+        //     while (_inputQueue.Count > 0)
+        //     {
+        //         PlayerInput input = _inputQueue.Dequeue();
+        //         navMeshAgent.Move(input.MoveDirection * input.deltaTime);
+        //     }
+        //     Debug.Log( $"[AI]SetServerPosition: {tfPos} -> {serverPos} count: {count}");
+        // }
     }
 
     public override void SetServerRotation(Vector3 rotation)
@@ -143,17 +147,26 @@ public class AIController : Actor
         return attackAnimDuration;
     }
     
+    public void AgentStop()
+    {
+        if (navMeshAgent != null)
+        {
+            navMeshAgent.isStopped = true;
+        }
+    }
+    
+    public void AgentStart()
+    {
+        if (navMeshAgent != null)
+        {
+            navMeshAgent.isStopped = false;
+        }
+    }
+    
     
     //设置目标位置
     public void SetTargetPosition(Vector3 pos)
     {
-        float distance = Vector3.Distance(transform.position, pos);
-        //如果距离小于停止距离，则停止
-        if (distance < GetAttackDistance())
-        {
-            navMeshAgent.isStopped = true;
-            return;
-        }
         if (navMeshAgent != null)
         {
             navMeshAgent.SetDestination(pos);

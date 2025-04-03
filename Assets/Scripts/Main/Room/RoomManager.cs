@@ -281,6 +281,7 @@ public class RoomManager : Singleton<RoomManager>
                 actor.SetServerPosition(ConfigHelper.ConvertVector3ToUnityVector3(syncData.Pos));
                 actor.SetServerRotation(ConfigHelper.ConvertVector3ToUnityVector3(syncData.Rot));
                 actor.SetServerSpeed(ConfigHelper.ConvertVector3ToUnityVector3(syncData.Speed));
+                actor.SetServerProperties(syncData.UpdateAttribute);
                 actor.SetActorState(EActorState.Ready);
             }
         }
@@ -294,6 +295,18 @@ public class RoomManager : Singleton<RoomManager>
             if (actorDict.TryGetValue(syncData.ActorId, out Actor actor))
             {
                 actor.SetServerAnimationParams(syncData);
+            }
+        }
+    }
+    
+    //同步服务器 actor属性信息
+    public void SyncServerActorPropertiesInfo(List<int> actorIds, List<string> propJsons)
+    {
+        for (int i = 0; i < actorIds.Count; i++)
+        {
+            if (actorDict.TryGetValue(actorIds[i], out Actor actor))
+            {
+                actor.SetServerProperties(propJsons[i]);
             }
         }
     }

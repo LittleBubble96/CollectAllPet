@@ -64,7 +64,7 @@ public class ActorAnimationParamFloat : ActorAnimationParamBase
         // 10倍插值  和 character
         currentValue = Mathf.Lerp(currentValue, targetValue, Time.fixedDeltaTime * 10);
         animator.SetFloat(ParamName, currentValue);
-        Debug.Log($"DoFixedUpdate: {ParamName} -> {currentValue}");
+        // Debug.Log($"DoFixedUpdate: {ParamName} -> {currentValue}");
     }
 }
 

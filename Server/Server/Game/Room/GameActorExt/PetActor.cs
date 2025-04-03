@@ -11,7 +11,12 @@ public class PetActor : RoomActor
         if (petConfigItem == null)
         {
             Console.WriteLine($"[error]宠物配置不存在, ActorCfgId:{ActorCfgId}");
+            return;
         }
+        //添加属性
+        AddAttribute((int)EMonsterAttribute.AttackRange, petConfigItem.AttackRange);
+        AddAttribute((int)EMonsterAttribute.CancelAttackRange, petConfigItem.CancelAttackRange);
+        AddAttribute((int)EMonsterAttribute.AttackInterval, petConfigItem.AttackInterval);
     }
 
     public float GetAttackRange()

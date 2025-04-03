@@ -1,4 +1,5 @@
 ﻿using System.Collections.Concurrent;
+using Newtonsoft.Json;
 using ShareProtobuf;
 
 public enum EActorRoleType
@@ -29,6 +30,10 @@ public class RoomActor
     public int ActorCfgId { get; private set; }
     
     public string ActorName { get; private set; }
+    
+    protected ConcurrentDictionary<int,object> ActorAttributes = new ConcurrentDictionary<int, object>();
+    //脏属性类型
+    protected int dirtyAttributeType = -1;
 
     public void Init(string playerId , EActorRoleType roleType, int actorCfgId ,int actorId, Vector3 pos, Vector3 rot)
     {
@@ -39,6 +44,26 @@ public class RoomActor
         OwnerPlayerId = playerId;
         ActorCfgId = actorCfgId;
         ActorName = GetActorName();
+        OnInit();
+    }
+    
+    public void AddAttribute(int attributeId, object value)
+    {
+        //添加属性
+        ActorAttributes.TryAdd(attributeId, value);
+    }
+    
+    //更新属性 并标记为脏
+    public void UpdateAttribute(int attributeId, object value)
+    {
+        //更新属性
+        ActorAttributes[attributeId] = value;
+        dirtyAttributeType = dirtyAttributeType | attributeId;
+    }
+    
+    public bool RoomWorldAttIsDirty()
+    {
+        return dirtyAttributeType > 0;
     }
 
     private string GetActorName()
@@ -86,6 +111,25 @@ public class RoomActor
     public float GetDistance(RoomActor actor)
     {
         return Vector3.Distance(Pos, actor.Pos);
+    }
+
+    public string GetDirtyAttributeJson()
+    {
+        Dictionary<int,object> d = new Dictionary<int,object>();
+        foreach (var attribute in ActorAttributes)
+        {
+            if ((attribute.Key & dirtyAttributeType)  > 0)
+            {
+                //TODO 这里需要序列化成json
+                d [attribute.Key] = attribute.Value;
+            }
+        }
+        return JsonConvert.SerializeObject(d);
+    }
+    
+    public string GetAllDirtyAttributeJson()
+    {
+        return JsonConvert.SerializeObject(ActorAttributes);
     }
 
     public virtual void OnInit()
@@ -268,5 +312,17 @@ public class RoomWorld
         {
             action(actor.Value);
         }
+    }
+    
+    public bool RoomWorldAttIsDirty()
+    {
+        foreach (var actor in Actors)
+        {
+            if (actor.Value.RoomWorldAttIsDirty())
+            {
+                return true;
+            }
+        }
+        return false;
     }
 }

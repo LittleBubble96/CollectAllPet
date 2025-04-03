@@ -1,3 +1,5 @@
+using UnityEngine;
+
 public class BTPetPreBhvTN : BTTaskNode
 {
     private bool findSucc = false;
@@ -30,6 +32,8 @@ public class BTPetPreBhvTN : BTTaskNode
         findSucc = true;
         
         behaviorTree.GetAIController().SetTargetPosition(actor.GetTfPosition());
+        behaviorTree.GetAIController().AgentStart();
+        // Debug.Log("[AI] Set Target Position: " + actor.GetTfPosition());
     }
 
     protected override void OnEnd()
@@ -58,12 +62,15 @@ public class BTPetPreBhvTN : BTTaskNode
             return BtNodeResult.Failed;
         }
         //
-        if (behaviorTree.GetAIController().IsAgentStopped())
+        float distance = Vector3.Distance(behaviorTree.GetAIController().transform.position, actor.GetTfPosition());
+        // Debug.Log("[AI] Set Target ID: " + targetComponent.TargetActorId + " distance: " + distance);
+        //如果距离小于停止距离，则停止
+        if (distance < behaviorTree.GetAIController().GetAttackDistance())
         {
+            behaviorTree.GetAIController().AgentStop();
             return BtNodeResult.Succeeded;
         }
-
-        return BtNodeResult.Failed;
+        return BtNodeResult.InProgress;
     }
 
     protected override void OnParseParams(string[] args)

@@ -25,8 +25,8 @@ public class FindPetTargetRequestHandle : MessageRquestBase
         FindPetTargetActorIdResponse findPetTargetActorIdResponse = new FindPetTargetActorIdResponse
         {
             IsSuccess = true,
-            TargetActorId = request.PetActorId,
-            PetActorId = targetId,
+            TargetActorId = targetId,
+            PetActorId = request.PetActorId,
         };
         await GetClientHandle().SendMessage(MessageRequestType.FindPetTargetResponse, findPetTargetActorIdResponse);
     }

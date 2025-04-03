@@ -812,11 +812,14 @@
      <Reference Include="Unity.TestTools.CodeCoverage.Editor.OpenCover.Model">
      <HintPath>C:\Users\李\Documents\GitHub\CollectAllPet\Library\ScriptAssemblies\Unity.TestTools.CodeCoverage.Editor.OpenCover.Model.dll</HintPath>
      </Reference>
-     <Reference Include="Unity.TestTools.CodeCoverage.Editor">
-     <HintPath>C:\Users\李\Documents\GitHub\CollectAllPet\Library\ScriptAssemblies\Unity.TestTools.CodeCoverage.Editor.dll</HintPath>
+     <Reference Include="Unity.AI.Navigation.Updater">
+     <HintPath>C:\Users\李\Documents\GitHub\CollectAllPet\Library\ScriptAssemblies\Unity.AI.Navigation.Updater.dll</HintPath>
      </Reference>
      <Reference Include="Unity.VisualScripting.SettingsProvider.Editor">
      <HintPath>C:\Users\李\Documents\GitHub\CollectAllPet\Library\ScriptAssemblies\Unity.VisualScripting.SettingsProvider.Editor.dll</HintPath>
+     </Reference>
+     <Reference Include="Unity.TestTools.CodeCoverage.Editor">
+     <HintPath>C:\Users\李\Documents\GitHub\CollectAllPet\Library\ScriptAssemblies\Unity.TestTools.CodeCoverage.Editor.dll</HintPath>
      </Reference>
      <Reference Include="Unity.VisualScripting.State.Editor">
      <HintPath>C:\Users\李\Documents\GitHub\CollectAllPet\Library\ScriptAssemblies\Unity.VisualScripting.State.Editor.dll</HintPath>
@@ -826,9 +829,6 @@
      </Reference>
      <Reference Include="Unity.Toonshader.Editor">
      <HintPath>C:\Users\李\Documents\GitHub\CollectAllPet\Library\ScriptAssemblies\Unity.Toonshader.Editor.dll</HintPath>
-     </Reference>
-     <Reference Include="Unity.AI.Navigation.Updater">
-     <HintPath>C:\Users\李\Documents\GitHub\CollectAllPet\Library\ScriptAssemblies\Unity.AI.Navigation.Updater.dll</HintPath>
      </Reference>
      <Reference Include="Unity.TextMeshPro">
      <HintPath>C:\Users\李\Documents\GitHub\CollectAllPet\Library\ScriptAssemblies\Unity.TextMeshPro.dll</HintPath>
@@ -842,14 +842,14 @@
      <Reference Include="Unity.VisualScripting.State">
      <HintPath>C:\Users\李\Documents\GitHub\CollectAllPet\Library\ScriptAssemblies\Unity.VisualScripting.State.dll</HintPath>
      </Reference>
-     <Reference Include="Unity.VSCode.Editor">
-     <HintPath>C:\Users\李\Documents\GitHub\CollectAllPet\Library\ScriptAssemblies\Unity.VSCode.Editor.dll</HintPath>
+     <Reference Include="Unity.AI.Navigation.Editor.ConversionSystem">
+     <HintPath>C:\Users\李\Documents\GitHub\CollectAllPet\Library\ScriptAssemblies\Unity.AI.Navigation.Editor.ConversionSystem.dll</HintPath>
      </Reference>
      <Reference Include="Cinemachine">
      <HintPath>C:\Users\李\Documents\GitHub\CollectAllPet\Library\ScriptAssemblies\Cinemachine.dll</HintPath>
      </Reference>
-     <Reference Include="Unity.AI.Navigation.Editor.ConversionSystem">
-     <HintPath>C:\Users\李\Documents\GitHub\CollectAllPet\Library\ScriptAssemblies\Unity.AI.Navigation.Editor.ConversionSystem.dll</HintPath>
+     <Reference Include="Unity.VSCode.Editor">
+     <HintPath>C:\Users\李\Documents\GitHub\CollectAllPet\Library\ScriptAssemblies\Unity.VSCode.Editor.dll</HintPath>
      </Reference>
   </ItemGroup>
   <ItemGroup>

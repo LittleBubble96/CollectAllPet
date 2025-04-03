@@ -1,3 +1,5 @@
+using UnityEngine;
+
 public class TargetComponent : ActorComponent
 {
     public bool IsTargeting { get; private set; }
@@ -13,11 +15,13 @@ public class TargetComponent : ActorComponent
     {
         LastTargetActorId = TargetActorId;
         TargetActorId = actorId;
+        Debug.Log("[AI] Set Target ActorId: " + actorId);
+
     }
 
     public bool TargetIsValid()
     {
-        return TargetActorId <= 0;
+        return TargetActorId > 0;
     }
 
 }

@@ -96,6 +96,11 @@ public class GameRoomSpawnInteractivePoint
         this.spawnActorId = spawnActorId;
         SpawnInteractiveState = SpawnInteractiveState.Spawn;
     }
+    
+    public int GetSpawnActorId()
+    {
+        return spawnActorId;
+    }
 
     #endregion
 

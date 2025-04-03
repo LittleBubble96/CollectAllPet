@@ -13,5 +13,6 @@ public class BreakInteractiveActor : RoomActor
             Console.WriteLine("break interactive item is null");
             return;
         }
+        AddAttribute((int)EBreakInteractiveAttribute.Hp, breakInteractiveItem.HP);
     }
 }

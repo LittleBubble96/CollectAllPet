@@ -39,4 +39,11 @@ namespace ShareProtobuf.ShareData
 
 
     }
+    
+    public enum EBreakInteractiveAttribute
+    {
+        None = 0,
+        All = -1,
+        Hp = 1<<0,
+    }
 }

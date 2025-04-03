@@ -38,6 +38,7 @@ namespace ShareProtobuf
         //Server to Client
         CreateActorRequestToClient,
         SyncActorAnimationDetailRequestToClient,
+        SyncActorAttributeRequestToClient,
     }
 
 

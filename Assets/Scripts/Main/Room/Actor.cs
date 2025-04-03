@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
+using Newtonsoft.Json;
 using ShareProtobuf;
 using UnityEngine;
 using Vector3 = UnityEngine.Vector3;
@@ -58,6 +60,8 @@ public class Actor : MonoBehaviour
     protected ActorAnimationController _animationController;
     [SerializeField] protected Animator m_animator = null;
     
+    //属性字典
+    protected ConcurrentDictionary<int,object> m_propertyDict = new ConcurrentDictionary<int, object>();
 
     public void InitActor(GameActorInfo inActorInfo)
     {
@@ -104,10 +108,11 @@ public class Actor : MonoBehaviour
     //服务器更新
     protected virtual void UpdateServer()
     {
-        if (actorState == EActorState.WaitSync)
+        if (actorState != EActorState.Ready)
         {
             return;
         }
+
         // 位置和旋转插值
         float t = (Time.time - _lastSyncTime) / 0.1f;
         transform.position = Vector3.Lerp(transform.position, serverPosition, t);
@@ -211,6 +216,21 @@ public class Actor : MonoBehaviour
         serverSpeed = speed;
     }
     
+    public void SetServerProperties(string propDictJson)
+    {
+        Dictionary<int, object> properties = JsonConvert.DeserializeObject<Dictionary<int, object>>(propDictJson);
+        foreach (var property in properties)
+        {
+            if (m_propertyDict.ContainsKey(property.Key))
+            {
+                m_propertyDict[property.Key] = property.Value;
+            }
+            else
+            {
+                m_propertyDict.TryAdd(property.Key, property.Value);
+            }
+        }
+    }
     
     public void MakeDirty()
     {
@@ -263,7 +283,7 @@ public class Actor : MonoBehaviour
     #region 组件
 
     //逻辑组件
-    protected Dictionary<Type,ActorComponent> m_actorComponents = new Dictionary<Type, ActorComponent>();
+    protected ConcurrentDictionary<Type,ActorComponent> m_actorComponents = new ConcurrentDictionary<Type, ActorComponent>();
     
     public T GetActorComponent<T>() where T : ActorComponent
     {
@@ -288,7 +308,7 @@ public class Actor : MonoBehaviour
             if (component != null)
             {
                 component.Init(this);
-                m_actorComponents.Add(type, component);
+                m_actorComponents.TryAdd(type, component);
                 return component as T;
             }
         }

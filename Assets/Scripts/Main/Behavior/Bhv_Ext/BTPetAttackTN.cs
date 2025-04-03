@@ -1,3 +1,5 @@
+using UnityEngine;
+
 public class BTPetAttackTN : BTTaskNode
 {
     private float attackInterval = 0;
@@ -13,6 +15,8 @@ public class BTPetAttackTN : BTTaskNode
         attackInterval = behaviorTree.GetAIController().GetAttackInterval();
         //播放攻击动画
         attackAnimTime = behaviorTree.GetAIController().GetAttackAnimDuration();
+        behaviorTree.GetAIController().GetAnimationController().SetBool("Attack",true);
+        Debug.Log("[AI] Set Attack Animation: " + attackAnimTime + "attackInterval: " + attackInterval);
     }
 
     protected override void OnEnd()

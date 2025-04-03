@@ -1,4 +1,5 @@
-﻿using ShareProtobuf;
+﻿using System.Collections.Concurrent;
+using ShareProtobuf;
 
 public class GameRoom
 {
@@ -34,6 +35,11 @@ public class GameRoom
         if (SpawnController != null)
         {
             SpawnController.DoUpdate(deltaTime);
+        }
+        //各个客户端更新 修改后的属性
+        if (RoomWorld != null && RoomWorld.RoomWorldAttIsDirty())
+        {
+            UpdateActorAttrDict();
         }
     }
 
@@ -134,4 +140,25 @@ public class GameRoom
         }
         RoomWorld.SyncActors(playerId, actors);
     }
+
+    #region Actor属性更新
+
+    protected void UpdateActorAttrDict()
+    {
+        SyncActorAttributeToClientRequest syncActorAttributeToClientRequest = new SyncActorAttributeToClientRequest();
+        syncActorAttributeToClientRequest.ActorIds = new List<int>();
+        syncActorAttributeToClientRequest.UpdateAttributes = new List<string>();
+        RoomWorld.OptionRoomActor((actor) =>
+        {
+            if (actor.RoomWorldAttIsDirty())
+            {
+                syncActorAttributeToClientRequest.ActorIds.Add(actor.ActorId);
+                syncActorAttributeToClientRequest.UpdateAttributes.Add(actor.GetDirtyAttributeJson());
+            }
+        });
+        
+        SendMessageToAllClientNoTask(MessageRequestType.SyncActorAttributeRequestToClient,syncActorAttributeToClientRequest);
+    }
+
+    #endregion
 }

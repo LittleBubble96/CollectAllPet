@@ -12,6 +12,12 @@ public class GameManager : MonoBehaviour
     private GameStateMachine gameStateMachine;
     private GameSyncActorManager gameSyncActorManager;
 
+    struct TestInfo
+    {
+        public int hp ;
+        public int mp;
+    }
+
     private void Awake()
     {
         DontDestroyOnLoad(this.gameObject);
@@ -23,6 +29,13 @@ public class GameManager : MonoBehaviour
         {
             Destroy(this.gameObject);
         }
+        TestInfo testInfo = new TestInfo();
+        testInfo.hp = 100;
+        testInfo.mp = 100;
+        string json = JsonUtility.ToJson(testInfo);
+        Debug.Log("[Json] TestInfo: " + json);
+        TestInfo testInfo2 = JsonUtility.FromJson<TestInfo>(json);
+        Debug.Log("[Json] TestInfo2: " + testInfo2.hp + " " + testInfo2.mp);
     }
     
     public static GameManager Instance => _instance;
