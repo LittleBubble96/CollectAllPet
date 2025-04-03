@@ -35,10 +35,19 @@ namespace ShareProtobuf
         FindPetTargetRequest,
         FindPetTargetResponse,
         
-        //Server to Client
+        //宠物攻击目标
+        PetAttackTargetRequest,
+        PetAttackTargetResponse,
+
+        #region Server to Client
+        
         CreateActorRequestToClient,
         SyncActorAnimationDetailRequestToClient,
         SyncActorAttributeRequestToClient,
+        //Actor销毁逻辑
+        DestroyActorRequestToClient,
+        #endregion
+        
     }
 
 

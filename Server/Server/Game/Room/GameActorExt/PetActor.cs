@@ -17,6 +17,7 @@ public class PetActor : RoomActor
         AddAttribute((int)EMonsterAttribute.AttackRange, petConfigItem.AttackRange);
         AddAttribute((int)EMonsterAttribute.CancelAttackRange, petConfigItem.CancelAttackRange);
         AddAttribute((int)EMonsterAttribute.AttackInterval, petConfigItem.AttackInterval);
+        AddAttribute((int)EMonsterAttribute.AttackDamage, petConfigItem.AttackDamage);
     }
 
     public float GetAttackRange()

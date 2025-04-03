@@ -46,25 +46,7 @@ public class RoomActor
         ActorName = GetActorName();
         OnInit();
     }
-    
-    public void AddAttribute(int attributeId, object value)
-    {
-        //添加属性
-        ActorAttributes.TryAdd(attributeId, value);
-    }
-    
-    //更新属性 并标记为脏
-    public void UpdateAttribute(int attributeId, object value)
-    {
-        //更新属性
-        ActorAttributes[attributeId] = value;
-        dirtyAttributeType = dirtyAttributeType | attributeId;
-    }
-    
-    public bool RoomWorldAttIsDirty()
-    {
-        return dirtyAttributeType > 0;
-    }
+
 
     private string GetActorName()
     {
@@ -136,6 +118,49 @@ public class RoomActor
     {
         
     }
+    
+    
+    #region 属性
+    public void AddAttribute(int attributeId, object value)
+    {
+        //添加属性
+        ActorAttributes.TryAdd(attributeId, value);
+    }
+    
+    public int GetIntAttribute(int attributeId)
+    {
+        if (ActorAttributes.TryGetValue(attributeId, out object value))
+        {
+            return Convert.ToInt32(value);
+        }
+        return 0;
+    }
+    
+    public float GetFloatAttribute(int attributeId)
+    {
+        if (ActorAttributes.TryGetValue(attributeId, out object value))
+        {
+            return Convert.ToSingle(value);
+        }
+        return 0;
+    }
+    
+    //更新属性 并标记为脏
+    public void UpdateAttribute(int attributeId, object value)
+    {
+        //更新属性
+        ActorAttributes[attributeId] = value;
+        dirtyAttributeType = dirtyAttributeType | attributeId;
+    }
+    
+    public bool RoomWorldAttIsDirty()
+    {
+        return dirtyAttributeType > 0;
+    }
+    
+
+    #endregion
+
 }
 public class RoomWorld
 {
@@ -325,4 +350,6 @@ public class RoomWorld
         }
         return false;
     }
+    
+    
 }
