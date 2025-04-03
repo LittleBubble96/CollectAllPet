@@ -4,15 +4,15 @@ public class RequestMessageFactoryHelper
 {
     public static void Register()
     {
-        ServerFactory.Instance.GetMessageRquestFactory().RegisterType<PlayerLoginRequest>(MessageRequestType.PlayerLogin);
-        ServerFactory.Instance.GetMessageRquestFactory().RegisterType<HeartbeatRequest>(MessageRequestType.Heratbeat);
-        ServerFactory.Instance.GetMessageRquestFactory().RegisterType<RefreshRoomListRequestHandle>(MessageRequestType.RefreshRoomList);
-        ServerFactory.Instance.GetMessageRquestFactory().RegisterType<CreateRoomRequestHandle>(MessageRequestType.CreateRoomRequest);
-        ServerFactory.Instance.GetMessageRquestFactory().RegisterType<JoinRoomRequestHandle>(MessageRequestType.JoinRoomRequest);
-        ServerFactory.Instance.GetMessageRquestFactory().RegisterType<CreateActorRequestHandle>(MessageRequestType.CreateActorRequest);
-        ServerFactory.Instance.GetMessageRquestFactory().RegisterType<SyncActorDeltaRequestHandle>(MessageRequestType.SyncActorDetailRequest);
-        ServerFactory.Instance.GetMessageRquestFactory().RegisterType<GetRoomDetailRequestHandle>(MessageRequestType.GetRoomDetailRequest);
-        ServerFactory.Instance.GetMessageRquestFactory().RegisterType<SyncActorAnimationDeltaRequestHandle>(MessageRequestType.SyncActorAnimationDeltaRequest);
-        ServerFactory.Instance.GetMessageRquestFactory().RegisterType<FindPetTargetRequestHandle>(MessageRequestType.FindPetTargetRequest);
+        ServerFactory.Instance.GetMessageRequestFactory().RegisterType<PlayerLoginRequest>(MessageRequestType.PlayerLogin);
+        ServerFactory.Instance.GetMessageRequestFactory().RegisterType<HeartbeatRequest>(MessageRequestType.Heratbeat);
+        ServerFactory.Instance.GetMessageRequestFactory().RegisterType<RefreshRoomListRequestHandle>(MessageRequestType.RefreshRoomList);
+        ServerFactory.Instance.GetMessageRequestFactory().RegisterType<CreateRoomRequestHandle>(MessageRequestType.CreateRoomRequest);
+        ServerFactory.Instance.GetMessageRequestFactory().RegisterType<JoinRoomRequestHandle>(MessageRequestType.JoinRoomRequest);
+        ServerFactory.Instance.GetMessageRequestFactory().RegisterType<CreateActorRequestHandle>(MessageRequestType.CreateActorRequest);
+        ServerFactory.Instance.GetMessageRequestFactory().RegisterType<SyncActorDeltaRequestHandle>(MessageRequestType.SyncActorDetailRequest);
+        ServerFactory.Instance.GetMessageRequestFactory().RegisterType<GetRoomDetailRequestHandle>(MessageRequestType.GetRoomDetailRequest);
+        ServerFactory.Instance.GetMessageRequestFactory().RegisterType<SyncActorAnimationDeltaRequestHandle>(MessageRequestType.SyncActorAnimationDeltaRequest);
+        ServerFactory.Instance.GetMessageRequestFactory().RegisterType<FindPetTargetRequestHandle>(MessageRequestType.FindPetTargetRequest);
     }
 }

@@ -1,26 +1,26 @@
 ﻿
 using System;
 
-// public class FactoryWithPool<T> where T : IRecycle, new()
-// {
-//     protected TypePools<T> _pools;
-//
-//     public FactoryWithPool()
-//     { 
-//         _pools = new TypePools<T>();
-//     }
-//
-//     public T1 GetObject<T1>() where T1 : T, new()
-//     {
-//         T item = _pools.GetObject<T1>();
-//         return (T1)item;
-//     }
-//
-//     public void PutObject(T item)
-//     {
-//         _pools.PutObject(item);
-//     }
-// }
+public class FactoryWithPool<T> where T : IRecycle, new()
+{
+    protected TypePools<T> _pools;
+
+    public FactoryWithPool()
+    { 
+        _pools = new TypePools<T>();
+    }
+
+    public T GetObject()
+    {
+        T item = _pools.GetObject<T>();
+        return item;
+    }
+
+    public void PutObject(T item)
+    {
+        _pools.PutObject(item);
+    }
+}
 
 //多类型的池子
 public class MutilFactoryWithPool<T> where T : IRecycle, new()

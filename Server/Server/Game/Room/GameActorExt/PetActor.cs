@@ -22,19 +22,19 @@ public class PetActor : RoomActor
 
     public float GetAttackRange()
     {
-        if (petConfigItem == null)
-        {
-            return 0;
-        }
-        return petConfigItem.AttackRange;
+        return GetFloatAttribute((int)EMonsterAttribute.AttackRange);
     }
     
     public float GetCancelAttackRange()
     {
-        if (petConfigItem == null)
-        {
-            return 0;
-        }
-        return petConfigItem.CancelAttackRange;
+        return GetFloatAttribute((int)EMonsterAttribute.CancelAttackRange);
+    }
+    public float GetAttackInterval()
+    {
+        return GetFloatAttribute((int)EMonsterAttribute.AttackInterval);
+    }
+    public int GetAttackDamage()
+    {
+        return GetIntAttribute((int)EMonsterAttribute.AttackDamage);
     }
 }

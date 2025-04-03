@@ -46,6 +46,8 @@ namespace ShareProtobuf
         SyncActorAttributeRequestToClient,
         //Actor销毁逻辑
         DestroyActorRequestToClient,
+        //播放特效
+        PlayEffectRequestToClient,
         #endregion
         
     }

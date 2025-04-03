@@ -4,6 +4,7 @@ using ShareProtobuf.ShareData;
 public class BreakInteractiveActor : RoomActor
 {
     private BreakInteractiveItem breakInteractiveItem;
+    
     public override void OnInit()
     {
         base.OnInit();
@@ -14,5 +15,34 @@ public class BreakInteractiveActor : RoomActor
             return;
         }
         AddAttribute((int)EBreakInteractiveAttribute.Hp, breakInteractiveItem.HP);
+    }
+
+    public void Damage(int atkId , int ackValue)
+    {
+        Hp -= ackValue;
+        if (Hp < 0)
+        {
+            Destroy();
+        }
+    }
+
+    public int Hp
+    {
+        get 
+        {
+            return GetIntAttribute((int)EBreakInteractiveAttribute.Hp);
+        }
+        set 
+        {
+            UpdateAttribute((int)EBreakInteractiveAttribute.Hp, value);
+        }
+    }
+
+    public string DestroyEffectName
+    {
+        get 
+        {
+            return breakInteractiveItem.DestroyEffectName;
+        }
     }
 }

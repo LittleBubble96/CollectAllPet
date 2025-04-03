@@ -9,6 +9,7 @@ namespace ShareProtobuf.ShareData
         public string Name;
         public string Prefab;
         public float HP;
+        public string DestroyEffectName;
     }
     public class BreakInteractiveConfig
     {
@@ -18,12 +19,12 @@ namespace ShareProtobuf.ShareData
                 {
                     1,
                     new BreakInteractiveItem()
-                        { Id = 1, Name = "BreakInteractive1", Prefab = "Scene/BreakInteractive", HP = 100}
+                        { Id = 1, Name = "BreakInteractive1", Prefab = "Scene/BreakInteractive", HP = 100 ,DestroyEffectName =""}
                 },
                 {
                     2,
                     new BreakInteractiveItem()
-                        { Id = 2, Name = "BreakInteractive2", Prefab = "Scene/BreakInteractive1", HP = 100  }
+                        { Id = 2, Name = "BreakInteractive2", Prefab = "Scene/BreakInteractive1", HP = 100  ,DestroyEffectName =""}
                 }
             };
 

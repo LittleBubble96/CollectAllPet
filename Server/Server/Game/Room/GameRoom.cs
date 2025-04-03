@@ -14,8 +14,12 @@ public class GameRoom
     
     public RoomWorld RoomWorld {get; private set;}
     public GameRoomSpawnController SpawnController { get; private set; }
+    
+    public GameRoomEffectController EffectController { get; private set; }
 
     private object _lock = new object();
+    
+    private Task destroyActorTask = null;
 
     public void Init(string playerId,string clientIPAndPort , int roomId , string roomName , int maxPlayerCount)
     {
@@ -27,6 +31,7 @@ public class GameRoom
         RoomWorld.Init(roomId);
         SpawnController = new GameRoomSpawnController();
         SpawnController.Init(this);
+        EffectController = new GameRoomEffectController(this);
         AddPlayer(playerId,clientIPAndPort);
     }
     
@@ -41,6 +46,25 @@ public class GameRoom
         {
             UpdateActorAttrDict();
         }
+        //各个客户端更新 需要播放得特效
+        if (EffectController != null)
+        {
+            EffectController.DoFixedUpdate();
+        }
+        
+        //销毁Actor
+        if (RoomWorld != null && RoomWorld.WaitDestroyActors.Count > 0)
+        {
+            if (destroyActorTask == null || destroyActorTask.IsCompleted)
+            {
+                destroyActorTask = DestroyActorAttrDict();
+            }
+        }
+    }
+    
+    public GameRoomEffectController GetEffectController()
+    {
+        return EffectController;
     }
 
     public ResultCallBack AddPlayer(string playerId,string clientIPAndPort)
@@ -159,6 +183,21 @@ public class GameRoom
         
         SendMessageToAllClientNoTask(MessageRequestType.SyncActorAttributeRequestToClient,syncActorAttributeToClientRequest);
     }
-
+    
+    protected async Task DestroyActorAttrDict()
+    {
+        SyncDestroyActorToClientRequest syncDestroyActorToClientRequest = new SyncDestroyActorToClientRequest();
+        syncDestroyActorToClientRequest.Actors = new List<SyncDestroyActorToClientData>();
+        foreach (var actor in RoomWorld.WaitDestroyActors)
+        {
+            syncDestroyActorToClientRequest.Actors.Add(new SyncDestroyActorToClientData()
+            {
+                ActorId = actor.Value.ActorId,
+            });
+        }
+        
+        await SendMessageToAllClient(MessageRequestType.DestroyActorRequestToClient,syncDestroyActorToClientRequest);
+    }
+    
     #endregion
 }

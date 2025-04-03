@@ -125,4 +125,18 @@ namespace ShareProtobuf
         [ProtoMember(1)] public List<int> ActorIds { get; set; }
         [ProtoMember(2)] public List<string> UpdateAttributes { get; set; } //需要更新的属性字符串
     }
+    
+    //同步 销毁Actor s 2 all c
+    
+    [ProtoContract]
+    public class SyncDestroyActorToClientData
+    {
+        [ProtoMember(1)] public int ActorId { get; set; }
+    }
+   
+    [ProtoContract]
+    public class SyncDestroyActorToClientRequest
+    {
+        [ProtoMember(1)] public List<SyncDestroyActorToClientData> Actors { get; set; }
+    }
 }

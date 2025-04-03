@@ -66,13 +66,13 @@ public class ClientHandle:IDisposable
 
                 if (type > MessageRequestType.None)
                 { 
-                    var request = ServerFactory.Instance.GetMessageRquestFactory().GetObject(type);
+                    var request = ServerFactory.Instance.GetMessageRequestFactory().GetObject(type);
                     if (request != null)
                     {
                         request.SetClientHandle(this);
                         await request.ReadFromStream(messageBuffer);
                     }
-                    ServerFactory.Instance.GetMessageRquestFactory().PutObject(request);
+                    ServerFactory.Instance.GetMessageRequestFactory().PutObject(request);
                 }
             }
         }
