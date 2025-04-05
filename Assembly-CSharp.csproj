@@ -56,6 +56,7 @@
      <Compile Include="Assets\Scripts\UI\Base\Layer\UILayer_Pop.cs" />
      <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\VertexShakeA.cs" />
      <Compile Include="Assets\Scripts\Main\Behavior\BlackBoard.cs" />
+     <Compile Include="Assets\Scripts\Main\Base\Effect\CAP_Effect.cs" />
      <Compile Include="Assets\Scripts\Main\Behavior\BTDecoratorNode.cs" />
      <Compile Include="Assets\Scripts\Server\helper\ClientRequestFunc.cs" />
      <Compile Include="Assets\Scripts\Server\response\SyncActorAnimationDeltaResponseHandle.cs" />
@@ -68,6 +69,7 @@
      <Compile Include="Assets\Scripts\Main\FactoryRegister\ClientFactoryRegisterHelper.ActorComponent.cs" />
      <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\DropdownSample.cs" />
      <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\VertexColorCycler.cs" />
+     <Compile Include="Assets\Scripts\Main\Base\Pool\IGameObjectRecycle.cs" />
      <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\EnvMapAnimator.cs" />
      <Compile Include="Assets\Scripts\UI\Ext\RoomGame_UI.cs" />
      <Compile Include="Assets\LoadResources\Matthew Guz\Hits Effects FREE\Scene Demo\Script\Prefab Manager.cs" />
@@ -102,6 +104,7 @@
      <Compile Include="Assets\Scripts\Main\Room\RoomSceneController.cs" />
      <Compile Include="Assets\Scripts\Main\GameStateMachine\GameStateBase.cs" />
      <Compile Include="Assets\Scripts\Main\Behavior\Bhv_Ext\BTPetAttackTN.cs" />
+     <Compile Include="Assets\Scripts\Main\Base\Pool\GOtPoolManager.cs" />
      <Compile Include="Assets\Scripts\Main\Room\Actor.cs" />
      <Compile Include="Assets\Scripts\Main\Base\Event\EventType.cs" />
      <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_DigitValidator.cs" />
@@ -122,6 +125,7 @@
      <Compile Include="Assets\Scripts\Server\response\HeartbeatResponse.cs" />
      <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark01.cs" />
      <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TextMeshSpawner.cs" />
+     <Compile Include="Assets\Scripts\Main\Base\Effect\EffectManager.cs" />
      <Compile Include="Assets\Scripts\Server\Client.cs" />
      <Compile Include="Assets\Scripts\Main\Base\Attribute\Bubble_NameAttribute.cs" />
      <Compile Include="Assets\Scripts\UI\Base\Layer\UILayer_Loading.cs" />
@@ -325,6 +329,7 @@
      <Folder Include="Assets\TextMesh Pro\Resources\Style Sheets" />
      <Folder Include="Assets\LoadResources\RPGPP_LT" />
      <Folder Include="Assets\TextMesh Pro\Fonts" />
+     <Folder Include="Assets\Scripts\Main\Base\Effect" />
      <Folder Include="Assets\Scripts\Main\Base\Event" />
      <Folder Include="Assets\LoadResources\Suriyun\Monster Pack Darkness" />
      <Folder Include="Assets\Scripts" />
@@ -386,6 +391,7 @@
      <Folder Include="Assets\Scripts\Main\Room\ActorExt\Cmpt" />
      <Folder Include="Assets\Scripts\Server" />
      <Folder Include="Assets\TextMesh Pro\Examples &amp; Extras" />
+     <Folder Include="Assets\Scripts\Main\Base\Pool" />
      <Folder Include="Assets\Mirror\Plugins\Mono.Cecil" />
      <Folder Include="Assets\LoadResources\RPGPP_LT\Prefabs\Nature\Vegetation\Flowers" />
      <Folder Include="Assets\LoadResources\Suriyun\Monster Pack Darkness\Textures\Batty" />

@@ -60,6 +60,7 @@ public class GameManager : MonoBehaviour
         gameSyncActorManager.Init();
         
         RoomManager.Instance.Init();
+        GOtPoolManager.Instance.Init();
     }
     
     public static NetworkManager GetNetworkManager()
