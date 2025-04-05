@@ -41,14 +41,20 @@ public class GameRoomSpawnController
             CollectWaitSpawn();
             _lastUpdateTime = 0;
         }
+        for (int i = InteractivePoints.Count - 1; i >= 0; i--)
+        {
+            var point = InteractivePoints[i];
+            point.OnUpdate(deltaTime);
+        }
     }
     
     private void CollectWaitSpawn()
     {
         WaitSpawnPoints.Clear();
         // Collect all WaitSpawn
-        foreach (var point in InteractivePoints)
+        for (int i = InteractivePoints.Count -1; i >=0; i--)
         {
+            var point = InteractivePoints[i];
             if (point.SpawnInteractiveState == SpawnInteractiveState.WaitSpawn)
             {
                 // Do something with the wait spawn
@@ -66,7 +72,13 @@ public class GameRoomSpawnController
                 // Do something with the point
                 //发送创建事件
                 CreateActorResultCallBack callBack = room.RoomWorld.AddActor("SceneInstance", EActorRoleType.BreakInteractive, point.GetSpawnInteractivePointId(), point.GetSpawnInteractivePointPos(), point.ScenePointConfigItem.Rotation);
+                RoomActor roomActor = room.RoomWorld.GetActor(callBack.ActorId);
+                if (roomActor == null)
+                {
+                    continue;
+                }
                 point.OnSpawnEnd(callBack.ActorId);
+                roomActor.OnDestroyAction += point.OnDestroy;
                 actorIds.Add(callBack.ActorId);
             }
             //发送创建事件

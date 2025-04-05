@@ -30,6 +30,7 @@ public class RoomActor
     protected int dirtyAttributeType = -1;
     
     private bool isDestroy = false;
+    public Action<RoomActor> OnDestroyAction { get; set; }
     public bool IsDestroy
     {
         get { return isDestroy; }
@@ -125,6 +126,7 @@ public class RoomActor
     public void Destroy()
     {
         IsDestroy = true;
+        OnDestroyAction?.Invoke(this);
         Room.DestroyActor(this);
         OnDestroy();
     }

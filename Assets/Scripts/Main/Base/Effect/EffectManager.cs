@@ -38,6 +38,16 @@ public class EffectManager : Singleton<EffectManager>
         }
     }
     
+    public void StopAllEffects()
+    {
+        for (int i = _effectList.Count - 1; i >= 0; i--)
+        {
+            CAP_Effect effect = _effectList[i];
+            DestroyEffect(effect);
+            RemoveEffectID(i);
+        }
+    }
+    
     public void DoUpdate(float dt)
     {
         for (int i = _effectList.Count - 1; i >= 0; i--)

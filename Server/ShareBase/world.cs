@@ -28,6 +28,17 @@ namespace ShareProtobuf
         {
             return (float)System.Math.Sqrt((a.X - b.X) * (a.X - b.X) + (a.Y - b.Y) * (a.Y - b.Y) + (a.Z - b.Z) * (a.Z - b.Z));
         }
+
+        public static Vector3 Forward()
+        {
+            return new Vector3(0, 0, 1);
+        }
+        
+        //重写 -
+        public static Vector3 operator -(Vector3 a, Vector3 b)
+        {
+            return new Vector3(a.X - b.X, a.Y - b.Y, a.Z - b.Z);
+        }
     }
     //创建Actor请求
     [ProtoContract]

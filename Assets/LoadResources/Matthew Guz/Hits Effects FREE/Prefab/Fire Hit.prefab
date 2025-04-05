@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 1301697207402410478}
   - component: {fileID: 630240670755586313}
   m_Layer: 0
-  m_Name: 'Fire Hit '
+  m_Name: Fire Hit
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

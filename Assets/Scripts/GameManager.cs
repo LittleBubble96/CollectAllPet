@@ -61,6 +61,7 @@ public class GameManager : MonoBehaviour
         
         RoomManager.Instance.Init();
         GOtPoolManager.Instance.Init();
+        EffectManager.Instance.Init();
     }
     
     public static NetworkManager GetNetworkManager()
@@ -110,6 +111,10 @@ public class GameManager : MonoBehaviour
         if (gameStateMachine != null)
         {
             gameStateMachine.DoUpdate(Time.deltaTime);
+        }
+        if (EffectManager.Instance != null)
+        {
+            EffectManager.Instance.DoUpdate(Time.deltaTime);
         }
     }
 

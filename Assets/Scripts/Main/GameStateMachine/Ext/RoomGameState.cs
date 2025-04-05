@@ -33,5 +33,11 @@ public class RoomGameState : GameStateBase
         ClientRequestFunc.SendCreatePlayerActorRequest();
         RoomManager.Instance.RoomState = ERoomState.Playing;
     }
-    
+
+
+    public override IEnumerator OnExitAsync()
+    {
+        EffectManager.Instance.StopAllEffects();
+        return null;
+    }
 }

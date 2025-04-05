@@ -9,12 +9,13 @@ public enum SpawnInteractiveState
     Spawn = 2,
     WaitTarget = 3,
     Targeting = 4,
-    WaitDestroy = 5,
-    Destroy = 6,
+    Destroy = 5,
 }
 public class GameRoomSpawnInteractivePoint
 {
     public ScenePointConfigItem ScenePointConfigItem { get; set; }
+    
+    private float _stateTimeCount = 0;
 
     private SpawnInteractiveState spawnInteractiveState;
     public SpawnInteractiveState SpawnInteractiveState
@@ -37,9 +38,8 @@ public class GameRoomSpawnInteractivePoint
                 case SpawnInteractiveState.WaitTarget:
                     OnWaitTarget();
                     break;
-                case SpawnInteractiveState.WaitDestroy:
-                    break;
                 case SpawnInteractiveState.Destroy:
+                    _stateTimeCount = ScenePointConfigItem.ReSpawnTime;
                     break;
             }
         }
@@ -49,6 +49,19 @@ public class GameRoomSpawnInteractivePoint
     {
         ScenePointConfigItem = scenePointConfigItem;
         SpawnInteractiveState = SpawnInteractiveState.WaitSpawn;
+    }
+    
+    public void OnUpdate(double deltaTime)
+    {
+        //更新
+        if (SpawnInteractiveState == SpawnInteractiveState.Destroy)
+        {
+            _stateTimeCount -= (float)deltaTime;
+            if (_stateTimeCount <= 0)
+            {
+                SpawnInteractiveState = SpawnInteractiveState.WaitSpawn;
+            }
+        }
     }
 
     #region 等待生成
@@ -100,6 +113,16 @@ public class GameRoomSpawnInteractivePoint
     public int GetSpawnActorId()
     {
         return spawnActorId;
+    }
+
+    #endregion
+
+    #region 销毁
+
+    public void OnDestroy(RoomActor actor)
+    {
+        //销毁
+        spawnInteractiveState = SpawnInteractiveState.Destroy;
     }
 
     #endregion
