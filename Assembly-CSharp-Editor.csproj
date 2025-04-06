@@ -752,14 +752,14 @@
      <Reference Include="com.unity.cinemachine.editor">
      <HintPath>D:\Work\Project1\CollectAllPet\Library\ScriptAssemblies\com.unity.cinemachine.editor.dll</HintPath>
      </Reference>
-     <Reference Include="Unity.AI.Navigation">
-     <HintPath>D:\Work\Project1\CollectAllPet\Library\ScriptAssemblies\Unity.AI.Navigation.dll</HintPath>
+     <Reference Include="Unity.Postprocessing.Runtime">
+     <HintPath>D:\Work\Project1\CollectAllPet\Library\ScriptAssemblies\Unity.Postprocessing.Runtime.dll</HintPath>
      </Reference>
      <Reference Include="Unity.PlasticSCM.Editor">
      <HintPath>D:\Work\Project1\CollectAllPet\Library\ScriptAssemblies\Unity.PlasticSCM.Editor.dll</HintPath>
      </Reference>
-     <Reference Include="Unity.Postprocessing.Runtime">
-     <HintPath>D:\Work\Project1\CollectAllPet\Library\ScriptAssemblies\Unity.Postprocessing.Runtime.dll</HintPath>
+     <Reference Include="Unity.AI.Navigation">
+     <HintPath>D:\Work\Project1\CollectAllPet\Library\ScriptAssemblies\Unity.AI.Navigation.dll</HintPath>
      </Reference>
      <Reference Include="Unity.Toonshader">
      <HintPath>D:\Work\Project1\CollectAllPet\Library\ScriptAssemblies\Unity.Toonshader.dll</HintPath>
@@ -827,14 +827,14 @@
      <Reference Include="Unity.TestTools.CodeCoverage.Editor">
      <HintPath>D:\Work\Project1\CollectAllPet\Library\ScriptAssemblies\Unity.TestTools.CodeCoverage.Editor.dll</HintPath>
      </Reference>
+     <Reference Include="Unity.Postprocessing.Editor">
+     <HintPath>D:\Work\Project1\CollectAllPet\Library\ScriptAssemblies\Unity.Postprocessing.Editor.dll</HintPath>
+     </Reference>
      <Reference Include="Unity.VisualScripting.State.Editor">
      <HintPath>D:\Work\Project1\CollectAllPet\Library\ScriptAssemblies\Unity.VisualScripting.State.Editor.dll</HintPath>
      </Reference>
      <Reference Include="Unity.FilmInternalUtilities.Editor">
      <HintPath>D:\Work\Project1\CollectAllPet\Library\ScriptAssemblies\Unity.FilmInternalUtilities.Editor.dll</HintPath>
-     </Reference>
-     <Reference Include="Unity.Postprocessing.Editor">
-     <HintPath>D:\Work\Project1\CollectAllPet\Library\ScriptAssemblies\Unity.Postprocessing.Editor.dll</HintPath>
      </Reference>
      <Reference Include="Unity.Toonshader.Editor">
      <HintPath>D:\Work\Project1\CollectAllPet\Library\ScriptAssemblies\Unity.Toonshader.Editor.dll</HintPath>

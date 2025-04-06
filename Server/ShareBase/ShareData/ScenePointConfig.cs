@@ -35,6 +35,15 @@ namespace ShareProtobuf.ShareData
                         ReSpawnTime = 3f,
                     }
                 }
+                ,
+                {
+                    3,
+                    new ScenePointConfigItem()
+                    {
+                        Id = 3, Name = "Point3", BreakInteractiveIds =new []{1,2}, RandomRadius = 1f, Position = new Vector3(94.98f, 22f, 62.25f), Rotation = new Vector3() ,
+                        ReSpawnTime = 3f,
+                    }
+                }
             };
 
         public static ScenePointConfigItem GetConfigItem(int cfgId)

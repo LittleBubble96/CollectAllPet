@@ -86,4 +86,14 @@ public class ClientRequestFunc
         findPetTarget.RoomId = RoomManager.Instance.GetEnterRoomId();
         await GameManager.GetNetworkManager().SendRequest(MessageRequestType.FindPetTargetRequest, findPetTarget);
     }
+    
+    //发送宠物攻击消息
+    public static async void SendPetAttackRequest(int petId, int targetId)
+    {
+        PetAttackTargetActorRequest petAttack = new PetAttackTargetActorRequest();
+        petAttack.PetActorId = petId;
+        petAttack.TargetActorId = targetId;
+        petAttack.RoomId = RoomManager.Instance.GetEnterRoomId();
+        await GameManager.GetNetworkManager().SendRequest(MessageRequestType.PetAttackTargetRequest, petAttack);
+    }
 }

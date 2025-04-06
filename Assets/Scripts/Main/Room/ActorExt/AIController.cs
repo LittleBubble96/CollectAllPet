@@ -14,6 +14,7 @@ public class AIController : Actor
     private NavMeshAgent navMeshAgent;
 
     [SerializeField] private float attackAnimDuration = 0.875f;
+    [SerializeField] private float attackHitTime = 0.5f;
     protected override void OnInit()
     {
         base.OnInit();
@@ -145,6 +146,12 @@ public class AIController : Actor
     public float GetAttackAnimDuration()
     {
         return attackAnimDuration;
+    }
+    
+    //攻击命中时长
+    public float GetAttackHitTime()
+    {
+        return attackHitTime;
     }
     
     public void AgentStop()
