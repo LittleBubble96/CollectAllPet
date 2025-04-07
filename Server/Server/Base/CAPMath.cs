@@ -13,6 +13,22 @@ public class CAPMath
         return angle;
     }
     
+    //Dot
+    public static float Dot(Vector3 a, Vector3 b)
+    {
+        return a.X * b.X + a.Y * b.Y + a.Z * b.Z;
+    }
+    
+    //Cross
+    public static Vector3 Cross(Vector3 a, Vector3 b)
+    {
+        return new Vector3(
+            a.Y * b.Z - a.Z * b.Y,
+            a.Z * b.X - a.X * b.Z,
+            a.X * b.Y - a.Y * b.X
+        );
+    }
+    
     public static float GetDistance(Vector3 a, Vector3 b)
     {
         return Vector3.Distance(a, b);

@@ -22,7 +22,7 @@ public class BreakInteractiveActor : RoomActor
     {
         Vector3 forward = actor.Pos - Pos;
         forward.Y = 0;
-        float angle = CAPMath.GetAngle(Vector3.Forward(), forward);
+        float angle = CAPMath.GetAngle(forward,Vector3.Forward());
         Vector3 offset = CAPMath.RotateY(HitEffectOffset, angle);
         return offset;
     }
@@ -31,7 +31,7 @@ public class BreakInteractiveActor : RoomActor
     {
         Vector3 forward = actor.Pos - Pos;
         forward.Y = 0;
-        float angle = CAPMath.GetAngle(Vector3.Forward(), forward);
+        float angle = CAPMath.GetAngle(forward,Vector3.Forward() );
         return new Vector3(0, angle, 0);
     }
 

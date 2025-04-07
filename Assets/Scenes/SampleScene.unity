@@ -183,6 +183,7 @@ MonoBehaviour:
   _highPriorityInterval: 0.1
   _middlePriorityInterval: 0.2
   _lowPriorityInterval: 0.5
+  _syncAnimationInterval: 0.1
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

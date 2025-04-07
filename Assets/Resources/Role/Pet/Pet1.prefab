@@ -73,6 +73,7 @@ MonoBehaviour:
   m_animator: {fileID: 2596587729664726639}
   navMeshAgent: {fileID: 2532536027731232213}
   attackAnimDuration: 0.875
+  attackHitTime: 0.3
 --- !u!195 &2532536027731232213
 NavMeshAgent:
   m_ObjectHideFlags: 0

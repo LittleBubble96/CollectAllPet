@@ -44,7 +44,7 @@ public class PetAttackTargetRequestHandle : MessageRquestBase
         breakInteractiveActor.Damage(petActor.ActorId,petActor.GetAttackDamage());
         
         room.GetEffectController().PlayEffect(breakInteractiveActor.ActorId, breakInteractiveActor.HitEffectName, 
-            breakInteractiveActor.GetHitEffectOffset(petActor) + petActor.Pos, 
+            breakInteractiveActor.GetHitEffectOffset(petActor) + breakInteractiveActor.Pos, 
             breakInteractiveActor.GetHitEffectRotation(petActor), false);
         if (breakInteractiveActor.IsDestroy)
         {
