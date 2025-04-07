@@ -39,6 +39,12 @@ namespace ShareProtobuf
         {
             return new Vector3(a.X - b.X, a.Y - b.Y, a.Z - b.Z);
         }
+        
+        //重写 +
+        public static Vector3 operator +(Vector3 a, Vector3 b)
+        {
+            return new Vector3(a.X + b.X, a.Y + b.Y, a.Z + b.Z);
+        }
     }
     //创建Actor请求
     [ProtoContract]

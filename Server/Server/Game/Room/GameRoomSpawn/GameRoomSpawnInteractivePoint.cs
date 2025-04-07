@@ -122,7 +122,7 @@ public class GameRoomSpawnInteractivePoint
     public void OnDestroy(RoomActor actor)
     {
         //销毁
-        spawnInteractiveState = SpawnInteractiveState.Destroy;
+        SpawnInteractiveState = SpawnInteractiveState.Destroy;
     }
 
     #endregion

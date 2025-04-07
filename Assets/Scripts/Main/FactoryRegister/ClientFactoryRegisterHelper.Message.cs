@@ -14,7 +14,6 @@ public partial class ClientFactoryRegisterHelper
         ClientFactory.Instance.GetMessageResponseFactory().RegisterType<SyncActorDeltaResponseHandle>(MessageRequestType.SyncActorDetailRequest);
         ClientFactory.Instance.GetMessageResponseFactory().RegisterType<SyncActorAnimationDeltaResponseHandle>(MessageRequestType.SyncActorAnimationDeltaRequest);
         ClientFactory.Instance.GetMessageResponseFactory().RegisterType<FindPetTargetResponseHandle>(MessageRequestType.FindPetTargetRequest);
-        //宠物攻击
         ClientFactory.Instance.GetMessageResponseFactory().RegisterType<PetAttackTargetResponseHandle>(MessageRequestType.PetAttackTargetRequest);
     }
 }

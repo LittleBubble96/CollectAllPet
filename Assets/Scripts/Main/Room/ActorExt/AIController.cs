@@ -24,6 +24,15 @@ public class AIController : Actor
         navMeshAgent.stoppingDistance = GetAttackDistance();
     }
 
+    public override void DoFixedUpdate()
+    {
+        base.DoFixedUpdate();
+        if (_animationController != null)
+        {
+            _animationController.DoFixedUpdate();
+        }
+    }
+
     protected override void DirectUpdate()
     {
         base.DirectUpdate();
@@ -49,20 +58,11 @@ public class AIController : Actor
             transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, dt * 10f);
         }
         float speed = navMeshAgent.velocity.magnitude;
-        GetAnimationController().SetFloat("MoveSpeed",speed);
+        GetAnimationController().SetFloat("MoveSpeedPet",speed);
             
         SetSpeed(transform.position - GetPosition() / dt);
         SetPosition(transform.position);
         SetRotation(transform.eulerAngles);
-    }
-    
-    public bool IsAgentStopped()
-    {
-        float velocity = navMeshAgent.velocity.magnitude;
-        Debug.Log($"[AI] IsAgentStopped: {velocity}");
-        return navMeshAgent != null  &&  
-               navMeshAgent.remainingDistance <= navMeshAgent.stoppingDistance &&
-               navMeshAgent.velocity.magnitude < 0.1f;
     }
 
     #region sync 同步
@@ -79,21 +79,21 @@ public class AIController : Actor
     public override void SetServerPosition(Vector3 position)
     {
         base.SetServerPosition(position);
-        // if (IsHost())
-        // {
-        //     //做一个误差校正
-        //     Vector3 tfPos = transform.position;
-        //     // transform.position = position;
-        //     Vector3 serverPos = GetServerPosition();
-        //     navMeshAgent.Move(serverPos - tfPos);
-        //     int count = _inputQueue.Count;
-        //     while (_inputQueue.Count > 0)
-        //     {
-        //         PlayerInput input = _inputQueue.Dequeue();
-        //         navMeshAgent.Move(input.MoveDirection * input.deltaTime);
-        //     }
-        //     Debug.Log( $"[AI]SetServerPosition: {tfPos} -> {serverPos} count: {count}");
-        // }
+        if (IsHost())
+        {
+            //做一个误差校正
+            Vector3 tfPos = transform.position;
+            // transform.position = position;
+            Vector3 serverPos = GetServerPosition();
+            navMeshAgent.Move(serverPos - tfPos);
+            int count = _inputQueue.Count;
+            while (_inputQueue.Count > 0)
+            {
+                PlayerInput input = _inputQueue.Dequeue();
+                navMeshAgent.Move(input.MoveDirection * input.deltaTime);
+            }
+            Debug.Log( $"[AI]SetServerPosition: {tfPos} -> {serverPos} count: {count}");
+        }
     }
 
     public override void SetServerRotation(Vector3 rotation)

@@ -19,7 +19,7 @@ public class BTPetAttackTN : BTTaskNode
         attackAnimTime = behaviorTree.GetAIController().GetAttackAnimDuration();
         attackHitTime = behaviorTree.GetAIController().GetAttackHitTime();
         behaviorTree.GetAIController().GetAnimationController().SetBool("Attack",true);
-        Debug.Log("[AI] Set Attack Animation: " + attackAnimTime + "attackInterval: " + attackInterval);
+        Debug.Log("[Attack] Set Attack Animation: " + attackAnimTime + "attackInterval: " + attackInterval + " attackHitTime: " + attackHitTime);
     }
 
     protected override void OnEnd()
@@ -51,6 +51,7 @@ public class BTPetAttackTN : BTTaskNode
                     if (target != null)
                     {
                         ClientRequestFunc.SendPetAttackRequest(behaviorTree.GetAIController().GetActorId(),target.TargetActorId);
+                        Debug.Log("[Attack] Send Pet Attack Request: " + behaviorTree.GetAIController().GetActorId() + " Target: " + target.TargetActorId);
                     }
                 }
             }

@@ -20,6 +20,7 @@ public class GameRoom
     private object _lock = new object();
     
     private Task destroyActorTask = null;
+    private Task updateActorAttrTask = null;
 
     public void Init(string playerId,string clientIPAndPort , int roomId , string roomName , int maxPlayerCount)
     {
@@ -35,16 +36,20 @@ public class GameRoom
         AddPlayer(playerId,clientIPAndPort);
     }
     
-    public void Update(double deltaTime)
+    public void Update(double deltaMSTime)
     {
         if (SpawnController != null)
         {
-            SpawnController.DoUpdate(deltaTime);
+            SpawnController.DoUpdate(deltaMSTime);
         }
         //各个客户端更新 修改后的属性
         if (RoomWorld != null && RoomWorld.RoomWorldAttIsDirty())
         {
-            UpdateActorAttrDict();
+            if (updateActorAttrTask == null || updateActorAttrTask.IsCompleted)
+            {
+                UpdateActorAttrDict();
+
+            }
         }
         //各个客户端更新 需要播放得特效
         if (EffectController != null)
@@ -178,8 +183,10 @@ public class GameRoom
             {
                 syncActorAttributeToClientRequest.ActorIds.Add(actor.ActorId);
                 syncActorAttributeToClientRequest.UpdateAttributes.Add(actor.GetDirtyAttributeJson());
+                actor.ResetDirtyAttribute();
             }
         });
+        
         
         SendMessageToAllClientNoTask(MessageRequestType.SyncActorAttributeRequestToClient,syncActorAttributeToClientRequest);
     }
@@ -195,7 +202,7 @@ public class GameRoom
                 ActorId = actor.Value.ActorId,
             });
         }
-        
+        RoomWorld.ClearWaitDestroyActor();
         await SendMessageToAllClient(MessageRequestType.DestroyActorRequestToClient,syncDestroyActorToClientRequest);
     }
     

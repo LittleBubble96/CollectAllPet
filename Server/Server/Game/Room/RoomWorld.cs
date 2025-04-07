@@ -209,4 +209,9 @@ public class RoomWorld
         }
     }
     
+    public void ClearWaitDestroyActor()
+    {
+        WaitDestroyActors.Clear();
+    }
+    
 }

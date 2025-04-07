@@ -17,7 +17,6 @@ public class BTPetHatedTN : BTTaskNode
         
         //发送消息
         ClientRequestFunc.SendFindPetTargetRequest(behaviorTree.GetAIController().GetActorId(), targetComponent.TargetActorId);
-        // Debug.Log("[AI] Find Target: " + targetComponent.TargetActorId);
     }
 
     protected override void OnEnd()

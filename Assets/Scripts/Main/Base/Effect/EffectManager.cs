@@ -57,8 +57,8 @@ public class EffectManager : Singleton<EffectManager>
             {
                 continue;
             }
-            effect.LifeTime -= dt;
-            if (effect.LifeTime <= 0)
+            effect.LifeTimeCount -= dt;
+            if (effect.LifeTimeCount <= 0)
             {
                 DestroyEffect(effect);
                 RemoveEffectID(i);

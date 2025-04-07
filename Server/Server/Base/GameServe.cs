@@ -46,6 +46,8 @@ public class GameServe : Singleton<GameServe>
             GameRoomManager.Instance.Init();
             PlayerManager.Instance.Init();
             Task.Run(() => AcceptClientAsync());
+            //启动更新线程
+            updateThread.Start();
         }
         catch (Exception ex)
         {
@@ -69,7 +71,27 @@ public class GameServe : Singleton<GameServe>
                 GameRoomManager.Instance.Update(GameConst.FrameInterval);
                 lag -= GameConst.FrameInterval;
             }
-            Thread.Sleep(1);
+            Thread.Sleep(10);
+        }
+    }
+    
+    //Update
+    private async Task UpdateAsync()
+    {
+        double lag = 0;
+        long startTime = TimeHelper.GetTimeStamp();
+        while (isRunning)
+        {
+            long currentTime = TimeHelper.GetTimeStamp();
+            long elapsedTime = currentTime - startTime;
+            startTime = currentTime;
+            lag += elapsedTime;
+            while (lag >= GameConst.FrameInterval)
+            {
+                GameRoomManager.Instance.Update(GameConst.FrameInterval);
+                lag -= GameConst.FrameInterval;
+            }
+            await Task.Delay(1);
         }
     }
 

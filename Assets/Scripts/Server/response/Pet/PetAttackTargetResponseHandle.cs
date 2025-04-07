@@ -14,7 +14,7 @@ public class PetAttackTargetResponseHandle : ClientMessageRequestBase
     public override async Task HandleResponse(MessageRequestType msgResponseType, byte[] messageBuffer)
     {
         PetAttackTargetActorResponse response = await GameManager.GetNetworkManager().ReceiveMessage<PetAttackTargetActorResponse>(messageBuffer);
-        Debug.Log("PetAttackTargetActorResponse HandleResponse: " + response.IsSuccess);
+        Debug.Log("[Attack]PetAttackTargetActorResponse HandleResponse: " + response.IsSuccess);
         if (response.IsSuccess)
         {
             Debug.Log("PetAttackTargetActorResponse  find success");

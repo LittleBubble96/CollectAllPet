@@ -203,32 +203,28 @@ public class RoomManager : Singleton<RoomManager>
         {
             return;
         }
-        GameObject go = Resources.Load<GameObject>(tempInfo.ResName);
-        if (go != null)
+        RecycleObject actor = GOtPoolManager.Instance.Get<RecycleObject>(tempInfo.ResName);
+        actor.name = actorInfo.ActorName;
+        Actor actorCmpt = actor.GetComponent<Actor>();
+        if (actorCmpt != null)
         {
-            GameObject actor = GameObject.Instantiate(go);
-            actor.name = actorInfo.ActorName;
-            Actor actorCmpt = actor.GetComponent<Actor>();
-            if (actorCmpt != null)
+            actorCmpt.InitActor(actorInfo);
+            actorDict.TryAdd(actorInfo.RefActorId, actorCmpt);
+            if (actorCmpt.IsOwnerPlayer())
             {
-                actorCmpt.InitActor(actorInfo);
-                actorDict.TryAdd(actorInfo.RefActorId, actorCmpt);
-                if (actorCmpt.IsOwnerPlayer())
-                {
-                    ownerActorDict.TryAdd(actorInfo.RefActorId, actorCmpt);
-                }
+                ownerActorDict.TryAdd(actorInfo.RefActorId, actorCmpt);
             }
-            CharacterController characterController = actor.GetComponent<CharacterController>();
-            if (characterController)
-            {
-                characterController.Move( ConfigHelper.ConvertVector3ToUnityVector3(actorInfo.SpawnPos));
-            }
-            else
-            {
-                actor.transform.position = ConfigHelper.ConvertVector3ToUnityVector3(actorInfo.SpawnPos);
-            }
-            actor.transform.rotation = Quaternion.Euler( ConfigHelper.ConvertVector3ToUnityVector3(actorInfo.SpawnRot));
         }
+        CharacterController characterController = actor.GetComponent<CharacterController>();
+        if (characterController)
+        {
+            characterController.Move( ConfigHelper.ConvertVector3ToUnityVector3(actorInfo.SpawnPos));
+        }
+        else
+        {
+            actor.transform.position = ConfigHelper.ConvertVector3ToUnityVector3(actorInfo.SpawnPos);
+        }
+        actor.transform.rotation = Quaternion.Euler( ConfigHelper.ConvertVector3ToUnityVector3(actorInfo.SpawnRot));
     }
     
     private RoomActorTempInfo GetRoomActorTempInfo(GameActorInfo actorInfo)
@@ -269,11 +265,25 @@ public class RoomManager : Singleton<RoomManager>
       
         return tempInfo;
     }
+    
+    //销毁Actor
+    public void DestroyActor(int actorId)
+    {
+        if (actorDict.TryRemove(actorId, out Actor actor))
+        {
+            GOtPoolManager.Instance.Return(actor);
+        }
+        ownerActorDict.TryRemove(actorId, out Actor ownerActor);
+    }
  
 
     //同步服务器Actor信息
     public void SyncServerActorInfo(List<DeltaActorSyncData> deltaActorSyncData)
     {
+        if (deltaActorSyncData == null)
+        {
+            return;
+        }
         foreach (var syncData in deltaActorSyncData)
         {
             if (actorDict.TryGetValue(syncData.ActorId, out Actor actor))

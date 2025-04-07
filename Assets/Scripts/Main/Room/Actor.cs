@@ -18,7 +18,6 @@ public enum EActorRoleType
 {
     None,
     Player,
-    NPC,
     Monster,
     Interactive,
     BreakInteractive,
@@ -36,7 +35,7 @@ public enum CAP_ControlMode
     Server
 }
 
-public class Actor : MonoBehaviour
+public class Actor : RecycleObject
 {
     protected GameActorInfo actorInfo;
     private EActorState actorState = EActorState.None;
@@ -219,6 +218,10 @@ public class Actor : MonoBehaviour
     public void SetServerProperties(string propDictJson)
     {
         Dictionary<int, object> properties = JsonConvert.DeserializeObject<Dictionary<int, object>>(propDictJson);
+        if (properties == null)
+        {
+            return;
+        }
         foreach (var property in properties)
         {
             if (m_propertyDict.ContainsKey(property.Key))

@@ -24,7 +24,7 @@ namespace ShareProtobuf.ShareData
                     new ScenePointConfigItem()
                         { Id = 1, Name = "Point1", BreakInteractiveIds =new []{1,2}, 
                             RandomRadius = 1f,Position = new Vector3(70, 21.947f, 31.09f), Rotation = new Vector3() ,
-                            ReSpawnTime = 3f,
+                            ReSpawnTime = 3000f,
                         }
                 },
                 {
@@ -32,7 +32,7 @@ namespace ShareProtobuf.ShareData
                     new ScenePointConfigItem()
                     {
                         Id = 2, Name = "Point2", BreakInteractiveIds =new []{1,2}, RandomRadius = 1f, Position = new Vector3(82.22f, 21.51f, 31.09f), Rotation = new Vector3() ,
-                        ReSpawnTime = 3f,
+                        ReSpawnTime = 3000f,
                     }
                 }
                 ,
@@ -41,7 +41,7 @@ namespace ShareProtobuf.ShareData
                     new ScenePointConfigItem()
                     {
                         Id = 3, Name = "Point3", BreakInteractiveIds =new []{1,2}, RandomRadius = 1f, Position = new Vector3(94.98f, 22f, 62.25f), Rotation = new Vector3() ,
-                        ReSpawnTime = 3f,
+                        ReSpawnTime = 3000f,
                     }
                 }
             };

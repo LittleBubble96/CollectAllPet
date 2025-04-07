@@ -27,7 +27,7 @@ public class RoomActor
     
     protected ConcurrentDictionary<int,object> ActorAttributes = new ConcurrentDictionary<int, object>();
     //脏属性类型
-    protected int dirtyAttributeType = -1;
+    protected int dirtyAttributeType = 0;
     
     private bool isDestroy = false;
     public Action<RoomActor> OnDestroyAction { get; set; }
@@ -173,6 +173,11 @@ public class RoomActor
     public bool RoomWorldAttIsDirty()
     {
         return dirtyAttributeType > 0;
+    }
+    
+    public void ResetDirtyAttribute()
+    {
+        dirtyAttributeType = 0;
     }
     
 

@@ -33,7 +33,6 @@ public class BTPetPreBhvTN : BTTaskNode
         
         behaviorTree.GetAIController().SetTargetPosition(actor.GetTfPosition());
         behaviorTree.GetAIController().AgentStart();
-        // Debug.Log("[AI] Set Target Position: " + actor.GetTfPosition());
     }
 
     protected override void OnEnd()
@@ -63,7 +62,6 @@ public class BTPetPreBhvTN : BTTaskNode
         }
         //
         float distance = Vector3.Distance(behaviorTree.GetAIController().transform.position, actor.GetTfPosition());
-        // Debug.Log("[AI] Set Target ID: " + targetComponent.TargetActorId + " distance: " + distance);
         //如果距离小于停止距离，则停止
         if (distance < behaviorTree.GetAIController().GetAttackDistance())
         {

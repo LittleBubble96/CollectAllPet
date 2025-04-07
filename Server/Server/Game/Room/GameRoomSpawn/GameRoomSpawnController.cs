@@ -12,6 +12,9 @@ public class GameRoomSpawnController
     private double _lastUpdateTime = 0;
     private GameRoom room = null;
     
+    private Task spawnScenePointTask = null;
+
+    
     public void Init(GameRoom inRoom)
     {
         room = inRoom;
@@ -35,6 +38,10 @@ public class GameRoomSpawnController
     public void DoUpdate(double deltaTime)
     {
         _lastUpdateTime += deltaTime;
+        if (spawnScenePointTask != null && !spawnScenePointTask.IsCompleted)
+        {
+            return;
+        }
         if (_lastUpdateTime >= _updateInterval)
         {
             // 收集所有的WaitSpawn
@@ -89,7 +96,7 @@ public class GameRoomSpawnController
                 Actors = actorInfos,
             };
 
-            room.SendMessageToAllClientNoTask(MessageRequestType.CreateActorRequestToClient, createRoomActorToClientRequest);
+            spawnScenePointTask = room.SendMessageToAllClient(MessageRequestType.CreateActorRequestToClient, createRoomActorToClientRequest);
 
         }
        

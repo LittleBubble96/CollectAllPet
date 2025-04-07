@@ -28,7 +28,7 @@ public class SyncActorDeltaRequestHandle : MessageRquestBase
         {
             int actorId = deltaActorSync.InViewActorIds[i];
             RoomActor actor = gameRoom.RoomWorld.GetActor(actorId);
-            if (actor == null)
+            if (actor != null)
             {
                 DeltaActorSyncData deltaActorSyncData = new DeltaActorSyncData
                 {
