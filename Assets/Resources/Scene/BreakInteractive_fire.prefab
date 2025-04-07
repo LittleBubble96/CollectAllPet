@@ -12,9 +12,9 @@ GameObject:
   - component: {fileID: 2781613125936592086}
   - component: {fileID: 5829857137250172724}
   - component: {fileID: 2716691455701234294}
-  m_Layer: 0
-  m_Name: BreakInteractive1
-  m_TagString: Untagged
+  m_Layer: 7
+  m_Name: BreakInteractive_fire
+  m_TagString: Break
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

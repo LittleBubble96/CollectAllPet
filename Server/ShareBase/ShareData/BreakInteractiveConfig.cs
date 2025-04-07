@@ -22,17 +22,17 @@ namespace ShareProtobuf.ShareData
                 {
                     1,
                     new BreakInteractiveItem()
-                        { Id = 1, Name = "BreakInteractive1", Prefab = "Scene/BreakInteractive", HP = 10 ,
-                            DestroyEffectName ="Effect/BasicHit2",DestroyEffectOffset = new Vector3(0,0,0),
-                            HitEffectName = "Effect/LightningHitBlue",HitEffectOffset = new Vector3(0,0.5f,0.5f)
+                        { Id = 1, Name = "BreakInteractive1", Prefab = "Scene/BreakInteractive_fire", HP = 10 ,
+                            DestroyEffectName ="Effect/BreakSmoke",DestroyEffectOffset = new Vector3(0,0,0),
+                            HitEffectName = "Effect/FireHit",HitEffectOffset = new Vector3(0,0.5f,0.5f)
                         }
                 },
                 {
                     2,
                     new BreakInteractiveItem()
-                        { Id = 2, Name = "BreakInteractive2", Prefab = "Scene/BreakInteractive1", HP = 10  ,
-                            DestroyEffectName ="Effect/BasicHit2",DestroyEffectOffset = new Vector3(0,0,0),
-                            HitEffectName = "Effect/LightningHitBlue",HitEffectOffset = new Vector3(0,0.5f,0.5f)
+                        { Id = 2, Name = "BreakInteractive2", Prefab = "Scene/BreakInteractive_Ice", HP = 10  ,
+                            DestroyEffectName ="Effect/BreakSmoke1",DestroyEffectOffset = new Vector3(0,0,0),
+                            HitEffectName = "Effect/IceHit",HitEffectOffset = new Vector3(0,0.5f,0.5f)
                         }
                 }
             };

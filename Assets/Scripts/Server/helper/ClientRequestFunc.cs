@@ -88,12 +88,13 @@ public class ClientRequestFunc
     }
     
     //发送宠物攻击消息
-    public static async void SendPetAttackRequest(int petId, int targetId)
+    public static async void SendPetAttackRequest(int petId, int targetId, Vector3 attackHitPos)
     {
         PetAttackTargetActorRequest petAttack = new PetAttackTargetActorRequest();
         petAttack.PetActorId = petId;
         petAttack.TargetActorId = targetId;
         petAttack.RoomId = RoomManager.Instance.GetEnterRoomId();
+        petAttack.AttackHitPos = attackHitPos;
         await GameManager.GetNetworkManager().SendRequest(MessageRequestType.PetAttackTargetRequest, petAttack);
     }
 }

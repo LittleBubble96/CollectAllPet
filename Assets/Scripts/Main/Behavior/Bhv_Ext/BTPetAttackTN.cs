@@ -50,7 +50,10 @@ public class BTPetAttackTN : BTTaskNode
                     TargetComponent target = behaviorTree.GetAIController().GetActorComponent<TargetComponent>();
                     if (target != null)
                     {
-                        ClientRequestFunc.SendPetAttackRequest(behaviorTree.GetAIController().GetActorId(),target.TargetActorId);
+                        Actor targetActor = RoomManager.Instance.GetActor(target.TargetActorId);
+                        Vector3 hitPos = GetAttackHitPosition(behaviorTree.GetAIController(),targetActor);
+                        ClientRequestFunc.SendPetAttackRequest(behaviorTree.GetAIController().GetActorId(),
+                            target.TargetActorId,ConfigHelper.ConvertUnityVector3ToVector3(hitPos));
                         Debug.Log("[Attack] Send Pet Attack Request: " + behaviorTree.GetAIController().GetActorId() + " Target: " + target.TargetActorId);
                     }
                 }
@@ -65,4 +68,21 @@ public class BTPetAttackTN : BTTaskNode
     {
         
     }
+    
+    protected Vector3 GetAttackHitPosition(Actor petActor, Actor targetActor)
+    {
+        //从宠物位置打出射线 只检测“Break”Tag
+        Vector3 petPos = petActor.transform.position;
+        Vector3 targetPos = targetActor.transform.position;
+        Vector3 dir = targetPos - petPos;
+        Ray ray = new Ray(petPos, dir);
+        RaycastHit hit;
+        if (Physics.Raycast(ray, out hit, dir.magnitude + 1, LayerMaskMgr.BreakInteractiveLayerMask))
+        {
+            //Debug.Log("[Attack] Hit: " + hit.collider.name);
+            return hit.point;
+        }
+        return targetPos;
+    }
+    
 }

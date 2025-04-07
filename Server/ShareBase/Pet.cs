@@ -25,6 +25,7 @@ namespace ShareProtobuf
         [ProtoMember(1)] public int RoomId { get; set; }
         [ProtoMember(2)] public int PetActorId { get; set; }
         [ProtoMember(3)] public int TargetActorId { get; set; }
+        [ProtoMember(4)] public Vector3 AttackHitPos { get; set; } //攻击位置
         //TODo 攻击类型  技能啊
     }
     
