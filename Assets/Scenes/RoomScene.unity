@@ -1313,6 +1313,40 @@ MonoBehaviour:
   target: {fileID: 0}
   offset: {x: 0, y: 0, z: -5}
   followSpeed: 5
+  followCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 0.8386484
+      value: 0.42839938
+      inSlope: 1.4451283
+      outSlope: 1.4451283
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.36042866
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 4.088048
+      outSlope: 4.088048
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.23241182
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  followCurveScale: 1
   minDistance: 2
   maxDistance: 10
   zoomSpeed: 5

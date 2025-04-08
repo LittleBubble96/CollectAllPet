@@ -7,6 +7,8 @@ public class ThirdPersonCamera : MonoBehaviour
     public Transform target;           // 跟随目标
     public Vector3 offset = new Vector3(0, 2f, -5f); // 基础偏移
     public float followSpeed = 5f;     // 跟随速度
+    public AnimationCurve followCurve; // 跟随曲线（可选）
+    public float followCurveScale = 1f; // 跟随曲线缩放（可选）
 
     [Header("距离控制")]
     public float minDistance = 2f;    // 最小相机距离
@@ -123,11 +125,17 @@ public class ThirdPersonCamera : MonoBehaviour
     {
         Vector3 desiredPosition = target.position + cameraDirection * currentDistance;
         
+        float curveDistance = currentDistance / followCurveScale;
+        float lerp = 1;
+        if (curveDistance > 0 && curveDistance < 1)
+        {
+            // 使用曲线进行平滑移动
+            lerp = followCurve.Evaluate(curveDistance);
+        }
         // 平滑移动
         transform.position = Vector3.Lerp(
             transform.position, 
-            desiredPosition, 
-            Time.deltaTime * followSpeed
+            desiredPosition, lerp
         );
         
         // 保持注视目标（带垂直偏移）
