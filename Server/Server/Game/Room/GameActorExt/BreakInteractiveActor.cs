@@ -18,23 +18,6 @@ public class BreakInteractiveActor : RoomActor
         AddAttribute((int)EBreakInteractiveAttribute.Hp, breakInteractiveItem.HP);
     }
 
-    public Vector3 GetHitEffectOffset(RoomActor actor)
-    {
-        Vector3 forward = actor.Pos - Pos;
-        forward.Y = 0;
-        float angle = CAPMath.GetAngle(forward,Vector3.Forward());
-        Vector3 offset = CAPMath.RotateY(HitEffectOffset, angle);
-        return offset;
-    }
-    
-    public Vector3 GetHitEffectRotation(RoomActor actor)
-    {
-        Vector3 forward = actor.Pos - Pos;
-        forward.Y = 0;
-        float angle = CAPMath.GetAngle(forward,Vector3.Forward() );
-        return new Vector3(0, angle, 0);
-    }
-
     public void Damage(int atkId , int ackValue)
     {
         Hp -= ackValue;
