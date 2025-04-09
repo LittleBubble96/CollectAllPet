@@ -112,6 +112,7 @@
      <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_FrameRateCounter.cs" />
      <Compile Include="Assets\Scripts\Server\request\SyncActorAttributeRequestHandle.cs" />
      <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TextConsoleSimulator.cs" />
+     <Compile Include="Assets\Scripts\Main\Room\ClientActor\ClientActor.cs" />
      <Compile Include="Assets\Scripts\Main\Room\ActorExt\BreakInteractiveActor.cs" />
      <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TeleType.cs" />
      <Compile Include="Assets\Scripts\UI\Base\Layer\UILayer_Main.cs" />
@@ -330,6 +331,7 @@
      <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Mobile SSD.shader" />
      <None Include="Assets\TextMesh Pro\Resources\LineBreaking Leading Characters.txt" />
      <Folder Include="Assets\Scripts\Main\GameStateMachine" />
+     <Folder Include="Assets\Scripts\Main\Room\ClientActor" />
      <Folder Include="Assets\SineVFX\TranslucentCrystals\_SRP" />
      <None Include="Assets\ScriptTemplates\52-Mirror__Network Behaviour-NewNetworkBehaviour.cs.txt" />
      <Folder Include="Assets\Scripts\Main\Room\ActorExt\Cmpt\CmptExt" />
