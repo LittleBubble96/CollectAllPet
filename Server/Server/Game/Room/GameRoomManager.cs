@@ -19,7 +19,7 @@ public class GameRoomManager : Singleton<GameRoomManager>
         }
     }
 
-    public CreateRoomResultCallBack CreateRoom(string playerId ,string clientIPAndPort, string roomName , int maxPlayerCount)
+    public CreateRoomResultCallBack CreateRoom(int playerId ,string clientIPAndPort, string roomName , int maxPlayerCount)
     { 
         GameRoom gameRoom = new GameRoom();
         int roomId = GenerateRoomId();
@@ -41,7 +41,7 @@ public class GameRoomManager : Singleton<GameRoomManager>
         return null;
     }
 
-    public ResultCallBack JoinRoom(string playerId ,string clientIPAndPort, int roomId)
+    public ResultCallBack JoinRoom(int playerId ,string clientIPAndPort, int roomId)
     {
         if (!_gameRooms.TryGetValue(roomId, out GameRoom gameRoom))
         {

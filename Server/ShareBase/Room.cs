@@ -9,7 +9,7 @@ namespace ShareProtobuf
     [ProtoContract]
     public class JoinRoomRequest
     {
-        [ProtoMember(1)] public string PlayerId { get; set; }
+        [ProtoMember(1)] public int PlayerId { get; set; }
         [ProtoMember(2)] public int RoomId { get; set; }
     }
 
@@ -25,7 +25,7 @@ namespace ShareProtobuf
     [ProtoContract]
     public class CreateRoomRequest
     {
-        [ProtoMember(1)] public string PlayerId { get; set; }
+        [ProtoMember(1)] public int PlayerId { get; set; }
         [ProtoMember(2)] public string RoomName { get; set; }
 
         [ProtoMember(3)] public int MaxPlayerCount { get; set; }
@@ -67,7 +67,7 @@ namespace ShareProtobuf
     [ProtoContract]
      public class  GameActorInfo
      {
-        [ProtoMember(1)] public string OwnerPlayerId { get; set; }
+        [ProtoMember(1)] public int OwnerPlayerId { get; set; }
         [ProtoMember(2)] public int ActorConfigId { get; set; }
         [ProtoMember(3)] public int RefActorId { get; set; }
         [ProtoMember(4)] public string ActorName { get; set; }
@@ -92,7 +92,7 @@ namespace ShareProtobuf
     [ProtoContract]
     public class  GetRoomDetailRequest
     {
-        [ProtoMember(1)] public string PlayerId { get; set; }
+        [ProtoMember(1)] public int PlayerId { get; set; }
         [ProtoMember(2)] public int RoomId { get; set; }
     }
     

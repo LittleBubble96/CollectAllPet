@@ -78,7 +78,7 @@ public class GameRoomSpawnController
                 var point = WaitSpawnPoints.Dequeue();
                 // Do something with the point
                 //发送创建事件
-                CreateActorResultCallBack callBack = room.RoomWorld.AddActor("SceneInstance", EActorRoleType.BreakInteractive, point.GetSpawnInteractivePointId(), point.GetSpawnInteractivePointPos(), point.ScenePointConfigItem.Rotation);
+                CreateActorResultCallBack callBack = room.RoomWorld.AddActor(-1, EActorRoleType.BreakInteractive, point.GetSpawnInteractivePointId(), point.GetSpawnInteractivePointPos(), point.ScenePointConfigItem.Rotation);
                 RoomActor roomActor = room.RoomWorld.GetActor(callBack.ActorId);
                 if (roomActor == null)
                 {

@@ -112,7 +112,7 @@ public class MySqlDataManager : IDisposable
         }
     }
     
-    // 执行查询命令并返回结果集
+    // 执行查询命令并返回 第一行第一列的值
     public object ExecuteScalar(string commandText, params MySqlParameter[] parameters)
     {
         try
@@ -143,8 +143,74 @@ public class MySqlDataManager : IDisposable
         }
     }
     
+    public async Task<object> ExecuteScalarAsync(string commandText, params MySqlParameter[] parameters)
+    {
+        try
+        {
+            OpenConnection();
+            using (var command = new MySqlCommand(commandText, _connection, _transaction))
+            {
+                if (parameters != null)
+                {
+                    command.Parameters.AddRange(parameters);
+                }
+
+                return await command.ExecuteScalarAsync();
+            }
+        }
+        catch (Exception ex)
+        {
+            // Handle exception (log it, rethrow it, etc.)
+            throw new Exception("Error executing scalar command: " + ex.Message);
+        }
+        finally
+        {
+            // Close the connection if it was opened in this method
+            if (_transaction == null)
+            {
+                CloseConnection();
+            }
+        }
+    }
+    
     /// 执行查询命令并返回结果集
     public DataTable ExecuteQuery(string commandText, params MySqlParameter[] parameters)
+    {
+        Console.WriteLine("ExecuteQuery:" + commandText);
+        var dataTable = new DataTable();
+        try
+        {
+            OpenConnection();
+            using (var command = new MySqlCommand(commandText, _connection, _transaction))
+            {
+                if (parameters != null)
+                {
+                    command.Parameters.AddRange(parameters);
+                }
+
+                using (var reader = command.ExecuteReader())
+                {
+                    dataTable.Load(reader);
+                }
+            }
+            return dataTable;
+        }
+        catch (Exception ex)
+        {
+            // Handle exception (log it, rethrow it, etc.)
+            throw new Exception("Error executing query command: " + ex.Message);
+        }
+        finally
+        {
+            // Close the connection if it was opened in this method
+            if (_transaction == null)
+            {
+                CloseConnection();
+            }
+        }
+    }
+    
+    public async Task<DataTable> ExecuteQueryAsync(string commandText, params MySqlParameter[] parameters)
     {
         try
         {
@@ -159,7 +225,7 @@ public class MySqlDataManager : IDisposable
                 using (var adapter = new MySqlDataAdapter(command))
                 {
                     var dataTable = new DataTable();
-                    adapter.Fill(dataTable);
+                    await Task.Run(() => adapter.Fill(dataTable));
                     return dataTable;
                 }
             }

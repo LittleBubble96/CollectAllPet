@@ -3,14 +3,14 @@ using ShareProtobuf;
 
 public class GameRoom
 {
-    public string HostPlayerId { get; private set; }
+    public int HostPlayerId { get; private set; }
     public int RoomId { get; private set; }
 
     public string RoomName { get; private set; }
 
     public int MaxPlayerCount { get; private set; }
 
-    public Dictionary<string, RoomPlayer> Players = new Dictionary<string, RoomPlayer>();
+    public Dictionary<int, RoomPlayer> Players = new Dictionary<int, RoomPlayer>();
     
     public RoomWorld RoomWorld {get; private set;}
     public GameRoomSpawnController SpawnController { get; private set; }
@@ -22,7 +22,7 @@ public class GameRoom
     private Task destroyActorTask = null;
     private Task updateActorAttrTask = null;
 
-    public void Init(string playerId,string clientIPAndPort , int roomId , string roomName , int maxPlayerCount)
+    public void Init(int playerId,string clientIPAndPort , int roomId , string roomName , int maxPlayerCount)
     {
         HostPlayerId = playerId;
         RoomId = roomId;
@@ -72,7 +72,7 @@ public class GameRoom
         return EffectController;
     }
 
-    public ResultCallBack AddPlayer(string playerId,string clientIPAndPort)
+    public ResultCallBack AddPlayer(int playerId,string clientIPAndPort)
     {
         lock (_lock)
         {
@@ -156,12 +156,12 @@ public class GameRoom
         return roomDetailInfo;
     }
     
-    public RoomActor GetRoomActorByPlayerId(string playerId)
+    public RoomActor GetRoomActorByPlayerId(int playerId)
     {
         return RoomWorld.GetRoomActorByPlayerId(playerId);
     }
 
-    public void SyncActors(string playerId, List<DeltaActorSyncData> actors)
+    public void SyncActors(int playerId, List<DeltaActorSyncData> actors)
     {
         if (actors == null)
         {
@@ -206,5 +206,11 @@ public class GameRoom
         await SendMessageToAllClient(MessageRequestType.DestroyActorRequestToClient,syncDestroyActorToClientRequest);
     }
     
+    #endregion
+
+    #region 宠物逻辑
+
+    
+
     #endregion
 }

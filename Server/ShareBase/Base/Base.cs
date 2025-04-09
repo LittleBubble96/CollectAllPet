@@ -38,6 +38,10 @@ namespace ShareProtobuf
         //宠物攻击目标
         PetAttackTargetRequest,
         PetAttackTargetResponse,
+        
+        //添加宠物
+        AddPetRequest,
+        AddPetResponse,
 
         #region Server to Client
         

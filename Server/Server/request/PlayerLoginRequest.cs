@@ -12,28 +12,22 @@ public class PlayerLoginRequest : MessageRquestBase
         // 处理数据
         Console.WriteLine("PlayerLoginRequest Account: {0}, Password: {1}", playerLogin.Account, playerLogin.Password);
         // 返回数据
-        //从数据库里读取
-        PlayerData playerData = new PlayerData
+        LoginUIdResultCallBack result = await DBModule.Instance.GetDbModule<CharacterDBService>().Login(playerLogin.Account, playerLogin.Password);
+        if (!result.IsSuccess)
         {
-            userId = playerLogin.Account,
-            userName = playerLogin.Account,
-            playerConfigId = 1,
-            playerPetDatas = new PlayerPetData[2]
+            PlayerLoginResponse response = new PlayerLoginResponse
             {
-                new PlayerPetData
-                {
-                    petId = "1",
-                    petName = "11",
-                    petConfigId = 1,
-                },
-                new PlayerPetData
-                {
-                    petId = "2",
-                    petName = "22",
-                    petConfigId = 2,
-                }
-            }
-        };
+                IsSuccess = false,
+                Message = result.Message,
+            };
+            await GetClientHandle().SendMessage(MessageRequestType.PlayerLoginResponse, response);
+            Console.WriteLine("PlayerLoginRequest PlayerLoginResponse");
+            return;
+        }
+        //登录成功
+        PlayerDB playerDb = await DBModule.Instance.GetDbModule<CharacterDBService>().GetCharacterInfo(result.UId);
+        //从数据库里读取
+        PlayerData playerData = PlayerDBConvertPlayerData(playerDb);
 
         PlayerLoginResponse playerLoginResponse = new PlayerLoginResponse
         {
@@ -44,5 +38,33 @@ public class PlayerLoginRequest : MessageRquestBase
         PlayerManager.Instance.AddPlayer(GetClientHandle().ClientRemoteEndPoint, playerData);
         await GetClientHandle().SendMessage(MessageRequestType.PlayerLoginResponse, playerLoginResponse);
         Console.WriteLine("PlayerLoginRequest PlayerLoginResponse");
+    }
+
+    public PlayerData PlayerDBConvertPlayerData(PlayerDB playerDB)
+    {
+        PlayerData playerData = new PlayerData
+        {
+            userId = playerDB.PlayerId,
+            userName = playerDB.Name,
+            playerConfigId = 1,
+            playerPetDatas = new List<PlayerPetData>()
+        };
+        for (int i = 0; i < playerDB.Pets.Count; i++)
+        {
+            playerData.playerPetDatas.Add(PetDBConvertPlayerPetData(playerDB.Pets[i]));
+        }
+        return playerData;
+    }
+    
+    public PlayerPetData PetDBConvertPlayerPetData(PetDB pet)
+    {
+        PlayerPetData playerPetData = new PlayerPetData
+        {
+            petId = pet.Id,
+            petName ="Pet",
+            petConfigId = pet.PetConfigId,
+            bBattle = pet.IsBattle,
+        };
+        return playerPetData;
     }
 }

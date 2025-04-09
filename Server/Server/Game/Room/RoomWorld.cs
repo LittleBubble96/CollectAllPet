@@ -57,7 +57,7 @@ public class RoomWorld
         return null;
     }
 
-    public CreateActorResultCallBack AddActor(string playerId ,EActorRoleType roleType, int actorCfgId , Vector3 pos, Vector3 rot)
+    public CreateActorResultCallBack AddActor(int playerId ,EActorRoleType roleType, int actorCfgId , Vector3 pos, Vector3 rot)
     {
         RoomActor actor;
         if (roleType == EActorRoleType.BreakInteractive)
@@ -154,11 +154,11 @@ public class RoomWorld
         return null;
     }
     
-    public RoomActor GetRoomActorByPlayerId(string playerId)
+    public RoomActor GetRoomActorByPlayerId(int playerId)
     {
         foreach (var actor in Actors)
         {
-            if (actor.Value.OwnerPlayerId == playerId)
+            if (actor.Value.OwnerPlayerId == playerId && actor.Value.Role == EActorRoleType.Player)
             {
                 return actor.Value;
             }
@@ -166,7 +166,7 @@ public class RoomWorld
         return null;
     }
     
-    public void SyncActors(string playerId, List<DeltaActorSyncData> actors)
+    public void SyncActors(int playerId, List<DeltaActorSyncData> actors)
     {
         foreach (var actor in actors)
         {

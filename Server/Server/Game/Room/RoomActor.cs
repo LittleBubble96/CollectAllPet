@@ -19,7 +19,7 @@ public class RoomActor
     public long SyncTime { get; set; }
 
     
-    public string OwnerPlayerId { get; private set; }
+    public int OwnerPlayerId { get; private set; }
     
     public int ActorCfgId { get; private set; }
     
@@ -38,7 +38,7 @@ public class RoomActor
     }
 
 
-    public void Init(string playerId ,RoomWorld room , EActorRoleType roleType, int actorCfgId ,int actorId, Vector3 pos, Vector3 rot)
+    public void Init(int playerId ,RoomWorld room , EActorRoleType roleType, int actorCfgId ,int actorId, Vector3 pos, Vector3 rot)
     {
         ActorId = actorId;
         Room = room;

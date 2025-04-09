@@ -15,5 +15,7 @@ public class RequestMessageFactoryHelper
         ServerFactory.Instance.GetMessageRequestFactory().RegisterType<SyncActorAnimationDeltaRequestHandle>(MessageRequestType.SyncActorAnimationDeltaRequest);
         ServerFactory.Instance.GetMessageRequestFactory().RegisterType<FindPetTargetRequestHandle>(MessageRequestType.FindPetTargetRequest);
         ServerFactory.Instance.GetMessageRequestFactory().RegisterType<PetAttackTargetRequestHandle>(MessageRequestType.PetAttackTargetRequest);
+        //添加宠物
+        ServerFactory.Instance.GetMessageRequestFactory().RegisterType<AddPetRequestHandle>(MessageRequestType.AddPetRequest);
     }
 }

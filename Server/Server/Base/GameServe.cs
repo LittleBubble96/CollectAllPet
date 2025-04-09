@@ -45,6 +45,7 @@ public class GameServe : Singleton<GameServe>
             RequestMessageFactoryHelper.Register();
             GameRoomManager.Instance.Init();
             PlayerManager.Instance.Init();
+            DBModule.Instance.Init();
             Task.Run(() => AcceptClientAsync());
             //启动更新线程
             updateThread.Start();

@@ -50,7 +50,7 @@ namespace ShareProtobuf
     [ProtoContract]
     public class CreatePlayerActorRequest
     {
-        [ProtoMember(1)] public string PlayerId { get; set; }
+        [ProtoMember(1)] public int PlayerId { get; set; }
         [ProtoMember(2)] public int RoomId { get; set; }
         [ProtoMember(3)] public Vector3 SpawnPos { get; set; }
         [ProtoMember(4)] public Vector3 SpawnRot { get; set; }
@@ -89,7 +89,7 @@ namespace ShareProtobuf
     [ProtoContract]
     public class DeltaActorSyncRequest
     {
-        [ProtoMember(1)] public string PlayerId { get; set; }
+        [ProtoMember(1)] public int PlayerId { get; set; }
         [ProtoMember(2)] public int RoomId { get; set; }
         [ProtoMember(3)] public List<DeltaActorSyncData> Actors { get; set; }
         [ProtoMember(4)] public List<int> InViewActorIds { get; set; }

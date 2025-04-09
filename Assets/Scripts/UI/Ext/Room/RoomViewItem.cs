@@ -29,7 +29,7 @@ public class RoomViewItem : MonoBehaviour
     {
         SetSelect(false);
         _roomInfo = roomInfo;
-        string playerId = CharacterManager.Instance.PlayerInfo.PlayerId;
+        int playerId = CharacterManager.Instance.PlayerInfo.PlayerId;
         foreach (var roomUserItem in _roomUserItems)
         {
             roomUserItem.gameObject.SetActive(false);

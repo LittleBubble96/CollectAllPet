@@ -1,7 +1,7 @@
 
 public class PetDB
 {
-    public int PetId { get; set; }
+    public int Id { get; set; }
     public int BelongTo { get; set; } // PlayerId
     public int PetConfigId { get; set; }
     public int Level { get; set; }

@@ -36,6 +36,20 @@ namespace ShareProtobuf
         [ProtoMember(4)] public string Message { get; set; }
     }
     
-    //
+    //添加一个宠物
+    [ProtoContract]
+    public class AddPetActorRequest
+    {
+        [ProtoMember(1)] public int RoomId { get; set; }
+        [ProtoMember(2)] public int PlayerId { get; set; }
+        [ProtoMember(3)] public int PetConfigId { get; set; }
+    }
+    [ProtoContract]
+    public class AddPetActorResponse
+    {
+        [ProtoMember(1)] public bool IsSuccess { get; set; }
+        [ProtoMember(3)] public string Message { get; set; }
+        [ProtoMember(2)] public PlayerData UpdatePlayerData { get; set; }
+    }
     
 }

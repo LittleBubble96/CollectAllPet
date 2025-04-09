@@ -38,7 +38,7 @@ public class ClientRequestFunc
         await GameManager.GetNetworkManager().SendRequest(MessageRequestType.JoinRoomRequest, joinRoom);
     }
     
-    public static async void GetRoomDetailRequest(int roomId, string playerId)
+    public static async void GetRoomDetailRequest(int roomId, int playerId)
     {
         GetRoomDetailRequest getRoomDetail = new GetRoomDetailRequest();
         getRoomDetail.RoomId = roomId;
