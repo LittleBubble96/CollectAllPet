@@ -743,6 +743,9 @@
      <Reference Include="UnityEngine.TestRunner">
      <HintPath>D:\Work\Project1\CollectAllPet\Library\ScriptAssemblies\UnityEngine.TestRunner.dll</HintPath>
      </Reference>
+     <Reference Include="Unity.Cursor.Editor">
+     <HintPath>D:\Work\Project1\CollectAllPet\Library\ScriptAssemblies\Unity.Cursor.Editor.dll</HintPath>
+     </Reference>
      <Reference Include="Unity.EditorCoroutines.Editor">
      <HintPath>D:\Work\Project1\CollectAllPet\Library\ScriptAssemblies\Unity.EditorCoroutines.Editor.dll</HintPath>
      </Reference>

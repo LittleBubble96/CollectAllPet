@@ -205,10 +205,10 @@
      <Folder Include="Assets\LoadResources\RPGPP_LT\Textures" />
      <Folder Include="Assets\LoadResources\Suriyun\Monster Pack Darkness\Prefab\Batty" />
      <None Include="Assets\SineVFX\TranslucentCrystals\Resources\Shaders\SkyboxProceduralDesaturated.shader" />
-     <Folder Include="Assets\msVFX_Free Smoke Effects Pack\Textures" />
+     <Folder Include="Assets\LoadResources\msVFX_Free Smoke Effects Pack\Textures" />
      <Folder Include="Assets\LoadResources\RPGPP_LT\Prefabs\Props\Wall_decor\Banners" />
      <Folder Include="Assets\LoadResources" />
-     <Folder Include="Assets\msVFX_Free Smoke Effects Pack\Prefabs" />
+     <Folder Include="Assets\LoadResources\msVFX_Free Smoke Effects Pack\Prefabs" />
      <Folder Include="Assets\Supercyan Character Pack Free Sample\Shaders" />
      <Folder Include="Assets\TextMesh Pro\Resources\Sprite Assets" />
      <Folder Include="Assets\Resources\Role" />
@@ -254,6 +254,7 @@
      <Folder Include="Assets\TextMesh Pro\Resources" />
      <Folder Include="Assets\Supercyan Character Pack Free Sample\Scenes" />
      <Folder Include="Assets\Scripts\Main\Layer" />
+     <Folder Include="Assets\LoadResources\2D Casual UI\Original Artwork" />
      <Folder Include="Assets\Supercyan Character Pack Free Sample\Scenes\DemoScene" />
      <Folder Include="Assets\LoadResources\RPGPP_LT\Prefabs\Props\Furniture\Chairs" />
      <Folder Include="Assets\LoadResources\Suriyun\Monster Pack Darkness\Textures\Lusif" />
@@ -296,10 +297,10 @@
      <None Include="Assets\LoadResources\Suriyun\README.txt" />
      <Folder Include="Assets\Supercyan Character Pack Free Sample\Prefabs\Simple Movement\Mobile" />
      <Folder Include="Assets\TextMesh Pro\Examples &amp; Extras\Resources" />
-     <Folder Include="Assets\msVFX_Free Smoke Effects Pack\Materials" />
+     <Folder Include="Assets\LoadResources\msVFX_Free Smoke Effects Pack\Materials" />
      <None Include="Assets\Mirror\Readme.txt" />
      <Folder Include="Assets\SineVFX\TranslucentCrystals\Resources\Materials" />
-     <Folder Include="Assets\msVFX_Free Smoke Effects Pack" />
+     <Folder Include="Assets\LoadResources\msVFX_Free Smoke Effects Pack" />
      <Folder Include="Assets\Supercyan Character Pack Free Sample\Prefabs\WithAccessoryLogic\Mobile" />
      <Folder Include="Assets\SineVFX\TranslucentCrystals\Prefabs" />
      <Folder Include="Assets\Scripts\UI\Ext" />
@@ -308,6 +309,7 @@
      <Folder Include="Assets\Scripts\Main\FactoryRegister" />
      <Folder Include="Assets\Supercyan Character Pack Free Sample\Prefabs\Base\High Quality" />
      <Folder Include="Assets\Scenes" />
+     <Folder Include="Assets\LoadResources\2D Casual UI\Sprite" />
      <Folder Include="Assets\Scripts\UI" />
      <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Surface.shader" />
      <Folder Include="Assets\LoadResources\Suriyun\Scripts" />
@@ -394,7 +396,7 @@
      <None Include="Assets\ScriptTemplates\54-Mirror__Custom Interest Management-CustomInterestManagement.cs.txt" />
      <Folder Include="Assets\Supercyan Character Pack Free Sample\Prefabs\WithAccessoryLogic" />
      <Folder Include="Assets\LoadResources\RPGPP_LT\Prefabs\Props\Containers" />
-     <Folder Include="Assets\msVFX_Free Smoke Effects Pack\Demo" />
+     <Folder Include="Assets\LoadResources\msVFX_Free Smoke Effects Pack\Demo" />
      <Folder Include="Assets\Scripts\UI\Base\Layer" />
      <Folder Include="Assets\LoadResources\Suriyun\Scripts\Camera Scripts" />
      <Folder Include="Assets\Supercyan Character Pack Free Sample\Scripts" />
@@ -427,6 +429,7 @@
      <Folder Include="Assets\Scripts\Main\Base\Pool" />
      <Folder Include="Assets\Mirror\Plugins\Mono.Cecil" />
      <Folder Include="Assets\LoadResources\RPGPP_LT\Prefabs\Nature\Vegetation\Flowers" />
+     <Folder Include="Assets\LoadResources\2D Casual UI" />
      <Folder Include="Assets\LoadResources\Suriyun\Monster Pack Darkness\Textures\Batty" />
      <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Mobile.shader" />
      <Folder Include="Assets\LoadResources\Suriyun\Monster Pack Darkness\Textures\Whispa" />
@@ -1103,6 +1106,9 @@
      </Reference>
      <Reference Include="System.Xml.XPath.XDocument">
      <HintPath>C:\Program Files\Unity\Hub\Editor\2022.3.15f1c1\Editor\Data\UnityReferenceAssemblies\unity-4.8-api\Facades\System.Xml.XPath.XDocument.dll</HintPath>
+     </Reference>
+     <Reference Include="Unity.Cursor.Editor">
+     <HintPath>D:\Work\Project1\CollectAllPet\Library\ScriptAssemblies\Unity.Cursor.Editor.dll</HintPath>
      </Reference>
      <Reference Include="Unity.EditorCoroutines.Editor">
      <HintPath>D:\Work\Project1\CollectAllPet\Library\ScriptAssemblies\Unity.EditorCoroutines.Editor.dll</HintPath>
