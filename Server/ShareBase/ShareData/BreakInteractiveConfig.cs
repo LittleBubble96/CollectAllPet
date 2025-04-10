@@ -10,9 +10,12 @@ namespace ShareProtobuf.ShareData
         public string Prefab;
         public float HP;
         public string DestroyEffectName;
-        public Vector3 DestroyEffectOffset;
         public string HitEffectName;
-        public Vector3 HitEffectOffset;
+        public int[] GenGoldRandoms;
+        //收获钻石概率 0.0-1.0
+        public float GenDiamondProbability;
+        //获取钻石随机数
+        public int[] GenDiamondRandoms;
     }
     public class BreakInteractiveConfig
     {
@@ -23,16 +26,16 @@ namespace ShareProtobuf.ShareData
                     1,
                     new BreakInteractiveItem()
                         { Id = 1, Name = "BreakInteractive1", Prefab = "Scene/BreakInteractive_fire", HP = 10 ,
-                            DestroyEffectName ="Effect/BreakSmoke",DestroyEffectOffset = new Vector3(0,0,0),
-                            HitEffectName = "Effect/FireHit",HitEffectOffset = new Vector3(0,0.5f,0.5f)
+                            DestroyEffectName ="Effect/BreakSmoke", HitEffectName = "Effect/FireHit",
+                            GenGoldRandoms = new []{300,400}, GenDiamondProbability = 0.5f, GenDiamondRandoms = new []{2,8},
                         }
                 },
                 {
                     2,
                     new BreakInteractiveItem()
                         { Id = 2, Name = "BreakInteractive2", Prefab = "Scene/BreakInteractive_Ice", HP = 10  ,
-                            DestroyEffectName ="Effect/BreakSmoke1",DestroyEffectOffset = new Vector3(0,0,0),
-                            HitEffectName = "Effect/IceHit",HitEffectOffset = new Vector3(0,0.5f,0.5f)
+                            DestroyEffectName ="Effect/BreakSmoke1", HitEffectName = "Effect/IceHit",
+                            GenGoldRandoms = new []{300,400}, GenDiamondProbability = 0.5f, GenDiamondRandoms = new []{2,8},
                         }
                 }
             };

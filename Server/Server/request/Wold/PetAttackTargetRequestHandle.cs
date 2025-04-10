@@ -48,6 +48,14 @@ public class PetAttackTargetRequestHandle : MessageRquestBase
             new Vector3(), false);
         if (breakInteractiveActor.IsDestroy)
         {
+            int getGold = breakInteractiveActor.GetRandomCoin();
+            int getDiamond = breakInteractiveActor.GetRandomDiamond();
+            PlayerActor playerActor = room.RoomWorld.GetPlayer(petActor.OwnerPlayerId);
+            if (playerActor != null)
+            {
+                playerActor.AddGold(getGold);
+                playerActor.AddDiamond(getDiamond);
+            }
             room.GetEffectController().PlayEffect(breakInteractiveActor.ActorId, breakInteractiveActor.DestroyEffectName, breakInteractiveActor.Pos, breakInteractiveActor.Rot, false);
         }
     }

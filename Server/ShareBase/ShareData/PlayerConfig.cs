@@ -38,5 +38,15 @@ namespace ShareProtobuf.ShareData
         }
 
 
+       
+    }
+    
+    public enum EPlayerAttribute
+    {
+        None = 0,
+        All = -1,
+        Gold = 1<<0,
+        Diamond = 1<<1,
+        DeltaGold = 1<<2,
     }
 }

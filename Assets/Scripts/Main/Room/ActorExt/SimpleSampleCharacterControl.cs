@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using ShareProtobuf.ShareData;
 using UnityEngine;
 
 
@@ -114,7 +115,7 @@ public class SimpleSampleCharacterControl : Actor
                 m_isJumping = true;
             }
             // Debug.Log( $"JumpingAndLanding: Move Direction: {m_currentDirection} curJumpSpeed: {m_curJumpSpeed}");
-            // Debug.Log( $"JumpingAndLanding: Pre Transform Position: {transform.position}");
+            Debug.Log( $"JumpingAndLanding: Pre Transform Position: {transform.position}");
 
             m_characterController.Move((m_currentDirection * m_moveSpeed + Vector3.up * m_curJumpSpeed) * dt);
             // Debug.Log( $"JumpingAndLanding: Post Transform Position: {transform.position}");
@@ -187,7 +188,45 @@ public class SimpleSampleCharacterControl : Actor
         }
 
         #endregion
+
+        #region 属性更新
+
+        protected override void OnChangeProperty(int propId, object value)
+        {
+            base.OnChangeProperty(propId, value);
+            if ((int)EPlayerAttribute.Gold == propId)
+            {
+                OnChangeGold();
+            }
+            else if ((int)EPlayerAttribute.DeltaGold == propId)
+            {
+                OnChangeDeltaGold();
+            }
+            else if ((int)EPlayerAttribute.Diamond == propId)
+            {
+                OnChangeDiamond();
+            }
+        }
+
+        protected void OnChangeGold()
+        {
+            int gold = GetIntProperty((int)(EPlayerAttribute.Gold));
+            GameManager.GetAppEventDispatcher().BroadcastListener(EventName.Event_UpdateGold, gold);
+        }
         
+        protected void OnChangeDeltaGold()
+        {
+            int deltaGold = GetIntProperty((int)(EPlayerAttribute.DeltaGold));
+            GameManager.GetAppEventDispatcher().BroadcastListener(EventName.Event_UpdateGoldDelta, deltaGold);
+        }
+        
+        protected void OnChangeDiamond()
+        {
+            int diamond = GetIntProperty((int)(EPlayerAttribute.Diamond));
+            GameManager.GetAppEventDispatcher().BroadcastListener(EventName.Event_UpdateDiamond, diamond);
+        }
+
+        #endregion
        
     }
     

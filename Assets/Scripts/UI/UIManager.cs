@@ -23,6 +23,7 @@ public class UIManager
     private UIBase _lockUI;
     
     protected UILayerManager _layerManager;
+    private Camera _uiCamera;
     
     private string _canvasPath = "UI/Canvas";
 
@@ -115,6 +116,11 @@ public class UIManager
         ShowUI_Internal(ui);
     }
     
+    public Camera GetUICamera()
+    {
+        return _uiCamera;
+    }
+    
     protected void CreateCanvas()
     {
         GameObject res = Resources.Load<GameObject>(_canvasPath);
@@ -130,6 +136,7 @@ public class UIManager
         _layerManager.SetLayerRoot(UILayerType.Tip,tipLayer);
         _layerManager.SetLayerRoot(UILayerType.Loading,loadingLayer);
         _layerManager.SetLayerRoot(UILayerType.Lock,lockLayer);
+        _uiCamera = go.transform.Find("UICamera").GetComponent<Camera>();
     }
     
     protected UIBase ActiveUI<T>(UIInfo uiInfo)

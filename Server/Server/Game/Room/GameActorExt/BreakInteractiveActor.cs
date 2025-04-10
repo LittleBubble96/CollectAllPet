@@ -47,14 +47,6 @@ public class BreakInteractiveActor : RoomActor
         }
     }
     
-    public Vector3 DestroyEffectOffset
-    {
-        get 
-        {
-            return breakInteractiveItem.DestroyEffectOffset;
-        }
-    }
-    
     public string HitEffectName
     {
         get 
@@ -63,11 +55,24 @@ public class BreakInteractiveActor : RoomActor
         }
     }
     
-    public Vector3 HitEffectOffset
+    //获取破坏后随机金币
+    public int GetRandomCoin()
     {
-        get 
+        int random = RandomHelper.GetRandom(breakInteractiveItem.GenGoldRandoms[0],breakInteractiveItem.GenGoldRandoms[1]);
+        
+        return random;
+    }
+    
+    //获取破坏后随机钻石
+    public int GetRandomDiamond()
+    {
+        float randomRate = RandomHelper.GetRandom(0, 1f);
+        if (randomRate < breakInteractiveItem.GenDiamondProbability)
         {
-            return breakInteractiveItem.HitEffectOffset;
+            int random = RandomHelper.GetRandom(breakInteractiveItem.GenDiamondRandoms[0],breakInteractiveItem.GenDiamondRandoms[1]);
+            return random;
         }
+        
+        return 0;
     }
 }

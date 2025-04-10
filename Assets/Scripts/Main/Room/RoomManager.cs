@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using ShareProtobuf;
 using ShareProtobuf.ShareData;
 using UnityEngine;
+using Vector3 = UnityEngine.Vector3;
 
 
 public class RoomManager : Singleton<RoomManager>
@@ -96,6 +97,15 @@ public class RoomManager : Singleton<RoomManager>
     public int GetRefActorId()
     {
         return refActorId;
+    }
+    
+    public Actor GetRefActor()
+    {
+        if (actorDict.TryGetValue(refActorId, out Actor actor))
+        {
+            return actor;
+        }
+        return null;
     }
     
     public void EnterRoom(int roomId)
@@ -215,10 +225,18 @@ public class RoomManager : Singleton<RoomManager>
                 ownerActorDict.TryAdd(actorInfo.RefActorId, actorCmpt);
             }
         }
+
+        if (actorCmpt.GetActorRoleType() == EActorRoleType.Player)
+        {
+            Debug.Log(actorInfo.RefActorId);
+        }
         CharacterController characterController = actor.GetComponent<CharacterController>();
         if (characterController)
         {
-            characterController.Move( ConfigHelper.ConvertVector3ToUnityVector3(actorInfo.SpawnPos));
+            characterController.enabled = false;
+            Vector3 spawnPos = ConfigHelper.ConvertVector3ToUnityVector3(actorInfo.SpawnPos);
+            characterController.transform.position = spawnPos;
+            characterController.enabled = true;
         }
         else
         {
@@ -336,6 +354,34 @@ public class RoomManager : Singleton<RoomManager>
                 target.SetTargeting(false);
             }
         }
+    }
+
+    #endregion
+
+    #region 金币钻石
+
+    //获取角色金币
+    public int GetGold()
+    {
+        Actor actor = GetActor(GetRefActorId());
+        if (actor!=null)
+        {
+            return actor.GetIntProperty((int)EPlayerAttribute.Gold);
+        }
+
+        return -1;
+    }
+    
+    //获取角色钻石
+    public int GetDiamond()
+    {
+        Actor actor = GetActor(GetRefActorId());
+        if (actor!=null)
+        {
+            return actor.GetIntProperty((int)EPlayerAttribute.Diamond);
+        }
+
+        return -1;
     }
 
     #endregion

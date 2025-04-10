@@ -11,5 +11,6 @@ public class RegisterUIHelper
         {typeof(Loading_UI), new UIInfo {ResPath = "UI/Loading_UI", LayerType = UILayerType.Loading}},
         {typeof(Lock_UI ), new UIInfo {ResPath = "UI/Lock_UI", LayerType = UILayerType.Lock}},
         {typeof(CreateRoom_PopupUI), new UIInfo {ResPath = "UI/Room/CreateRoom_PopupUI", LayerType = UILayerType.Pop}},
+        {typeof(GameShop_PopupUI), new UIInfo {ResPath = "UI/Room/GameShop_PopupUI", LayerType = UILayerType.Pop}},
     };
 }

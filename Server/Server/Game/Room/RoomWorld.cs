@@ -14,6 +14,7 @@ public class RoomWorld
 {
     public int RoomId { get; private set; }
     public ConcurrentDictionary<int, RoomActor> Actors = new ConcurrentDictionary<int, RoomActor>();
+    public ConcurrentDictionary<int, int> PlayerIdToActorId = new ConcurrentDictionary<int, int>();
     public ConcurrentDictionary<int,RoomActor> WaitDestroyActors = new ConcurrentDictionary<int, RoomActor>();
 
     private int generateActorId = 0;
@@ -45,6 +46,21 @@ public class RoomWorld
         return null;
     }
     
+    public PlayerActor GetPlayer(int playerId)
+    {
+        if (PlayerIdToActorId.TryGetValue(playerId, out int actorId))
+        {
+            if (Actors.TryGetValue(actorId, out RoomActor actor))
+            {
+                if (actor is PlayerActor playerActor)
+                {
+                    return playerActor;
+                }
+            }
+        }
+        return null;
+    }
+   
     public BreakInteractiveActor GetBreakInteractive(int actorId)
     {
         if (Actors.TryGetValue(actorId, out RoomActor actor))
@@ -56,7 +72,7 @@ public class RoomWorld
         }
         return null;
     }
-
+    
     public CreateActorResultCallBack AddActor(int playerId ,EActorRoleType roleType, int actorCfgId , Vector3 pos, Vector3 rot)
     {
         RoomActor actor;
@@ -67,6 +83,10 @@ public class RoomWorld
         else if (roleType == EActorRoleType.Monster)
         {
             actor = new PetActor();
+        }
+        else if (roleType == EActorRoleType.Player)
+        {
+            actor = new PlayerActor();
         }
         else
         {
@@ -79,6 +99,10 @@ public class RoomWorld
         }
         actor.Init(playerId,this,roleType,actorCfgId,result.ActorId, pos, rot);
         Actors.TryAdd(result.ActorId, actor);
+        if (roleType == EActorRoleType.Player)
+        {
+            PlayerIdToActorId.TryAdd( playerId, result.ActorId);
+        }
         return result;
     }
 
@@ -206,6 +230,10 @@ public class RoomWorld
         if (Actors.TryRemove(actor.ActorId, out _))
         {
             WaitDestroyActors.TryAdd(actor.ActorId, actor);
+            if (actor.Role == EActorRoleType.Player)
+            {
+                PlayerIdToActorId.TryRemove(actor.OwnerPlayerId, out _);
+            }
         }
     }
     

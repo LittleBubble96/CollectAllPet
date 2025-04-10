@@ -232,7 +232,58 @@ public class Actor : RecycleObject
             {
                 m_propertyDict.TryAdd(property.Key, property.Value);
             }
+            OnChangeProperty(property.Key, property.Value);
         }
+    }
+    
+    public object GetProperty(int propId)
+    {
+        if (m_propertyDict.ContainsKey(propId))
+        {
+            return m_propertyDict[propId];
+        }
+        return null;
+    }
+    
+    public int GetIntProperty(int propId)
+    {
+        if (m_propertyDict.ContainsKey(propId))
+        {
+            return Convert.ToInt32(m_propertyDict[propId]);
+        }
+        return 0;
+    }
+    
+    public float GetFloatProperty(int propId)
+    {
+        if (m_propertyDict.ContainsKey(propId))
+        {
+            return Convert.ToSingle(m_propertyDict[propId]);
+        }
+        return 0;
+    }
+    
+    public string GetStringProperty(int propId)
+    {
+        if (m_propertyDict.ContainsKey(propId))
+        {
+            return m_propertyDict[propId].ToString();
+        }
+        return string.Empty;
+    }
+    
+    public bool GetBoolProperty(int propId)
+    {
+        if (m_propertyDict.ContainsKey(propId))
+        {
+            return Convert.ToBoolean(m_propertyDict[propId]);
+        }
+        return false;
+    }
+    
+    protected virtual void OnChangeProperty(int propId, object value)
+    {
+        // Handle property change
     }
     
     public void MakeDirty()

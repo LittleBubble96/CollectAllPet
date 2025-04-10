@@ -10,6 +10,8 @@ namespace ShareProtobuf.ShareData
         public string Prefab;
         public string Desc;
         public int AiId;
+        //质量
+        public EPetQuality Quality;
         //攻击伤害
         public int AttackDamage;
         //攻击距离
@@ -27,13 +29,15 @@ namespace ShareProtobuf.ShareData
                 {
                     1,
                     new MonsterConfigItem()
-                        { Id = 1, Name = "Player1", Icon = "Player1", Prefab = "Role/Pet/Pet1", Desc = "Player1" ,AiId = 1001 , 
+                        { Id = 1, Name = "Pet1", Icon = "Pet1", Prefab = "Role/Pet/Pet1", 
+                            Quality = EPetQuality.White, Desc = "Pet1" ,AiId = 1001 , 
                             AttackRange = 2f ,CancelAttackRange = 5f,AttackInterval = 2f,AttackDamage = 1}
                 },
                 {
                     2,
                     new MonsterConfigItem()
-                        { Id = 2, Name = "Player2", Icon = "Player2", Prefab = "Role/Pet/Pet2", Desc = "Player2" ,AiId = 1001 , 
+                        { Id = 2, Name = "Pet2", Icon = "Pet2", Prefab = "Role/Pet/Pet2", 
+                            Quality = EPetQuality.White,Desc = "Pet2" ,AiId = 1001 , 
                             AttackRange = 2f ,CancelAttackRange = 5f,AttackInterval = 3f,AttackDamage = 1}
                 }
             };
@@ -47,6 +51,31 @@ namespace ShareProtobuf.ShareData
 
             return null;
         }
+
+        #region 质量
+
+        private static Dictionary<EPetQuality, List<MonsterConfigItem>> qualityDict;
+
+        //获取质量 对应的怪物列表
+        public static Dictionary<EPetQuality,List<MonsterConfigItem>> GetQualityDict()
+        {
+            if (qualityDict == null)
+            {
+                qualityDict = new Dictionary<EPetQuality, List<MonsterConfigItem>>();
+                foreach (var item in ConfigDict.Values)
+                {
+                    if (!qualityDict.ContainsKey(item.Quality))
+                    {
+                        qualityDict[item.Quality] = new List<MonsterConfigItem>();
+                    }
+                    qualityDict[item.Quality].Add(item);
+                }
+            }
+
+            return qualityDict;
+        }
+
+        #endregion
     }
     
     public enum EMonsterAttribute
@@ -57,5 +86,19 @@ namespace ShareProtobuf.ShareData
         AttackInterval = 1<<1,
         CancelAttackRange = 1<<2,
         AttackDamage = 1<<3,
+    }
+    
+    public enum EPetQuality
+    {
+        None = 0,
+        White = 1,
+        Green = 2,
+        Blue = 3,
+        //紫色
+        Purple = 4,
+        //金色
+        Golden = 5,
+        //红色
+        Red = 6,
     }
 }
