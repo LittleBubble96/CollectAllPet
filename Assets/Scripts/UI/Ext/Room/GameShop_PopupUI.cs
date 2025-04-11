@@ -24,6 +24,12 @@ public class GameShop_PopupUI : UIBase
             thing.OnCountChange += OnCountChange;
         }
         m_closeButton.onClick.AddListener(Hide);
+        m_buyButton.onClick.AddListener(OnBuyButtonClick);
+    }
+
+    private void OnBuyButtonClick()
+    {
+        
     }
 
     private void OnCountChange(int count)
